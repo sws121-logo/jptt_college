@@ -3,962 +3,247 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Jehal Prasad Teachers Training College (JPTT)</title>
+    <title>JPTT - Jehal Prasad Teachers Training College</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         :root {
-            --primary: #2c3e50;
-            --secondary: #3498db;
-            --accent: #e74c3c;
-            --light: #ecf0f1;
-            --dark: #2c3e50;
-            --success: #27ae60;
-        }
-        
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            --primary-color: #1a5276;
+            --secondary-color: #f39c12;
+            --light-color: #f8f9fa;
+            --dark-color: #343a40;
         }
         
         body {
-            background-color: #f5f7fa;
-            color: #333;
-            line-height: 1.6;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f5f5f5;
         }
         
-        .container {
-            width: 90%;
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 0 15px;
+        .navbar {
+            background-color: var(--primary-color);
         }
         
-        /* Header Styles */
-        header {
-            background-color: var(--primary);
+        .navbar-brand, .nav-link {
+            color: white !important;
+        }
+        
+        .hero-section {
+            background: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)), url('https://images.unsplash.com/photo-1523050854058-8df90110c9f1?ixlib=rb-4.0.3&auto=format&fit=crop&w=1350&q=80');
+            background-size: cover;
+            background-position: center;
             color: white;
-            padding: 1rem 0;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
-        }
-        
-        .header-content {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-        
-        .logo {
-            display: flex;
-            align-items: center;
-        }
-        
-        .logo img {
-            height: 60px;
-            margin-right: 15px;
-        }
-        
-        .logo-text h1 {
-            font-size: 1.8rem;
-            margin-bottom: 5px;
-        }
-        
-        .logo-text p {
-            font-size: 0.9rem;
-            opacity: 0.8;
-        }
-        
-        nav ul {
-            display: flex;
-            list-style: none;
-        }
-        
-        nav ul li {
-            margin-left: 20px;
-        }
-        
-        nav ul li a {
-            color: white;
-            text-decoration: none;
-            font-weight: 500;
-            padding: 5px 10px;
-            border-radius: 4px;
-            transition: background-color 0.3s;
-        }
-        
-        nav ul li a:hover, nav ul li a.active {
-            background-color: var(--secondary);
-        }
-        
-        .mobile-menu {
-            display: none;
-            font-size: 1.5rem;
-            cursor: pointer;
-        }
-        
-        /* Hero Section */
-        .hero {
-            background: linear-gradient(rgba(44, 62, 80, 0.8), rgba(44, 62, 80, 0.9)), url('https://images.unsplash.com/photo-1523050854058-8df90110c9f1?ixlib=rb-4.0.3') no-repeat center center/cover;
-            color: white;
-            padding: 4rem 0;
+            padding: 100px 0;
             text-align: center;
-        }
-        
-        .hero h2 {
-            font-size: 2.5rem;
-            margin-bottom: 1rem;
-        }
-        
-        .hero p {
-            font-size: 1.2rem;
-            max-width: 800px;
-            margin: 0 auto 2rem;
-        }
-        
-        .btn {
-            display: inline-block;
-            background-color: var(--secondary);
-            color: white;
-            padding: 10px 25px;
-            border-radius: 5px;
-            text-decoration: none;
-            font-weight: 600;
-            transition: background-color 0.3s;
-        }
-        
-        .btn:hover {
-            background-color: #2980b9;
-        }
-        
-        /* Section Styles */
-        section {
-            padding: 4rem 0;
         }
         
         .section-title {
-            text-align: center;
-            margin-bottom: 3rem;
-        }
-        
-        .section-title h2 {
-            font-size: 2.2rem;
-            color: var(--primary);
-            position: relative;
-            display: inline-block;
+            color: var(--primary-color);
+            border-bottom: 2px solid var(--secondary-color);
             padding-bottom: 10px;
+            margin-bottom: 30px;
         }
         
-        .section-title h2:after {
-            content: '';
-            position: absolute;
-            width: 70px;
-            height: 3px;
-            background-color: var(--secondary);
-            bottom: 0;
-            left: 50%;
-            transform: translateX(-50%);
-        }
-        
-        /* About Section */
-        .about-content {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 30px;
-            align-items: center;
-        }
-        
-        .about-text h3 {
-            font-size: 1.8rem;
-            margin-bottom: 1rem;
-            color: var(--primary);
-        }
-        
-        .about-image img {
-            width: 100%;
-            border-radius: 10px;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
-        }
-        
-        /* News Section */
-        .news-container {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-            gap: 25px;
-        }
-        
-        .news-card {
-            background-color: white;
-            border-radius: 8px;
-            overflow: hidden;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+        .card {
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
             transition: transform 0.3s;
-        }
-        
-        .news-card:hover {
-            transform: translateY(-5px);
-        }
-        
-        .news-image {
-            height: 200px;
-            overflow: hidden;
-        }
-        
-        .news-image img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            transition: transform 0.5s;
-        }
-        
-        .news-card:hover .news-image img {
-            transform: scale(1.05);
-        }
-        
-        .news-content {
-            padding: 20px;
-        }
-        
-        .news-date {
-            color: var(--secondary);
-            font-size: 0.9rem;
-            margin-bottom: 10px;
-        }
-        
-        .news-content h3 {
-            margin-bottom: 10px;
-            color: var(--primary);
-        }
-        
-        /* Gallery Section */
-        .gallery-container {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
-            gap: 15px;
-        }
-        
-        .gallery-item {
-            position: relative;
-            overflow: hidden;
-            border-radius: 8px;
-            height: 200px;
-            cursor: pointer;
-        }
-        
-        .gallery-item img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            transition: transform 0.5s;
-        }
-        
-        .gallery-item:hover img {
-            transform: scale(1.1);
-        }
-        
-        .gallery-overlay {
-            position: absolute;
-            bottom: 0;
-            left: 0;
-            right: 0;
-            background: linear-gradient(transparent, rgba(0,0,0,0.7));
-            color: white;
-            padding: 15px;
-            transform: translateY(100%);
-            transition: transform 0.3s;
-        }
-        
-        .gallery-item:hover .gallery-overlay {
-            transform: translateY(0);
-        }
-        
-        /* Programs Section */
-        .programs-container {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-            gap: 25px;
-        }
-        
-        .program-card {
-            background-color: white;
-            border-radius: 8px;
-            padding: 25px;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
-            text-align: center;
-            transition: transform 0.3s;
-        }
-        
-        .program-card:hover {
-            transform: translateY(-5px);
-        }
-        
-        .program-icon {
-            font-size: 3rem;
-            color: var(--secondary);
-            margin-bottom: 15px;
-        }
-        
-        .program-card h3 {
-            margin-bottom: 15px;
-            color: var(--primary);
-        }
-        
-        /* Footer */
-        footer {
-            background-color: var(--dark);
-            color: white;
-            padding: 3rem 0 1rem;
-        }
-        
-        .footer-content {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 30px;
-            margin-bottom: 2rem;
-        }
-        
-        .footer-column h3 {
-            font-size: 1.3rem;
             margin-bottom: 20px;
-            position: relative;
-            padding-bottom: 10px;
         }
         
-        .footer-column h3:after {
-            content: '';
-            position: absolute;
-            width: 50px;
-            height: 2px;
-            background-color: var(--secondary);
-            bottom: 0;
-            left: 0;
+        .card:hover {
+            transform: translateY(-5px);
         }
         
-        .footer-column p, .footer-column a {
-            margin-bottom: 10px;
-            display: block;
-            color: #ccc;
-            text-decoration: none;
+        .gallery-img {
+            height: 200px;
+            object-fit: cover;
+            width: 100%;
         }
         
-        .footer-column a:hover {
-            color: var(--secondary);
-        }
-        
-        .social-links {
-            display: flex;
-            gap: 15px;
-            margin-top: 15px;
-        }
-        
-        .social-links a {
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            width: 40px;
-            height: 40px;
-            background-color: rgba(255,255,255,0.1);
-            border-radius: 50%;
-            transition: background-color 0.3s;
-        }
-        
-        .social-links a:hover {
-            background-color: var(--secondary);
-        }
-        
-        .copyright {
-            text-align: center;
-            padding-top: 20px;
-            border-top: 1px solid rgba(255,255,255,0.1);
-            font-size: 0.9rem;
-            color: #aaa;
-        }
-        
-        /* Admin Panel Styles */
         .admin-panel {
-            background-color: white;
-            border-radius: 10px;
-            box-shadow: 0 5px 25px rgba(0,0,0,0.1);
-            padding: 30px;
-            margin: 30px auto;
-            max-width: 1000px;
+            background-color: #f8f9fa;
+            min-height: 100vh;
         }
         
-        .admin-tabs {
-            display: flex;
-            border-bottom: 1px solid #eee;
-            margin-bottom: 20px;
+        .sidebar {
+            background-color: var(--dark-color);
+            color: white;
+            min-height: 100vh;
         }
         
-        .admin-tab {
-            padding: 12px 25px;
-            cursor: pointer;
-            border-bottom: 3px solid transparent;
-            transition: all 0.3s;
+        .sidebar a {
+            color: white;
+            text-decoration: none;
+            display: block;
+            padding: 10px 15px;
+            border-bottom: 1px solid #495057;
         }
         
-        .admin-tab.active {
-            border-bottom: 3px solid var(--secondary);
-            color: var(--secondary);
-            font-weight: 600;
+        .sidebar a:hover {
+            background-color: #495057;
         }
         
         .admin-content {
-            display: none;
+            padding: 20px;
         }
         
-        .admin-content.active {
-            display: block;
-        }
-        
-        .form-group {
-            margin-bottom: 20px;
-        }
-        
-        .form-group label {
-            display: block;
-            margin-bottom: 8px;
-            font-weight: 600;
-        }
-        
-        .form-control {
-            width: 100%;
-            padding: 10px 15px;
-            border: 1px solid #ddd;
-            border-radius: 5px;
-            font-size: 1rem;
-        }
-        
-        textarea.form-control {
-            min-height: 120px;
-            resize: vertical;
-        }
-        
-        .btn-admin {
-            background-color: var(--secondary);
+        footer {
+            background-color: var(--dark-color);
             color: white;
-            border: none;
-            padding: 10px 20px;
-            border-radius: 5px;
-            cursor: pointer;
-            font-weight: 600;
-            transition: background-color 0.3s;
+            padding: 30px 0;
+            margin-top: 50px;
         }
         
-        .btn-admin:hover {
-            background-color: #2980b9;
-        }
-        
-        .btn-danger {
-            background-color: var(--accent);
-        }
-        
-        .btn-danger:hover {
-            background-color: #c0392b;
-        }
-        
-        .admin-table {
-            width: 100%;
-            border-collapse: collapse;
-            margin-top: 20px;
-        }
-        
-        .admin-table th, .admin-table td {
-            padding: 12px 15px;
-            text-align: left;
-            border-bottom: 1px solid #eee;
-        }
-        
-        .admin-table th {
-            background-color: #f8f9fa;
-            font-weight: 600;
-        }
-        
-        .action-buttons {
-            display: flex;
-            gap: 10px;
-        }
-        
-        .action-btn {
-            padding: 5px 10px;
-            border: none;
-            border-radius: 4px;
-            cursor: pointer;
-            font-size: 0.85rem;
-        }
-        
-        .edit-btn {
-            background-color: #f39c12;
-            color: white;
-        }
-        
-        .delete-btn {
-            background-color: var(--accent);
-            color: white;
-        }
-        
-        /* Modal */
-        .modal {
-            display: none;
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background-color: rgba(0,0,0,0.5);
-            z-index: 1000;
-            justify-content: center;
-            align-items: center;
-        }
-        
-        .modal-content {
-            background-color: white;
-            border-radius: 10px;
-            width: 90%;
-            max-width: 500px;
-            padding: 30px;
-            position: relative;
-        }
-        
-        .close-modal {
-            position: absolute;
-            top: 15px;
-            right: 15px;
-            font-size: 1.5rem;
-            cursor: pointer;
-            color: #777;
-        }
-        
-        /* Login Page Styles */
         .login-container {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            min-height: 100vh;
-            background-color: #f5f7fa;
-        }
-        
-        .login-form {
-            background-color: white;
-            padding: 40px;
-            border-radius: 10px;
-            box-shadow: 0 5px 25px rgba(0,0,0,0.1);
-            width: 100%;
             max-width: 400px;
-        }
-        
-        .login-form h2 {
-            text-align: center;
-            margin-bottom: 30px;
-            color: var(--primary);
-        }
-        
-        /* File Upload Styles */
-        .file-upload {
-            position: relative;
-            display: inline-block;
-            width: 100%;
-        }
-        
-        .file-upload-input {
-            position: absolute;
-            left: 0;
-            top: 0;
-            opacity: 0;
-            width: 100%;
-            height: 100%;
-            cursor: pointer;
-        }
-        
-        .file-upload-label {
-            display: block;
-            padding: 10px 15px;
-            background-color: #f8f9fa;
-            border: 1px dashed #ddd;
+            margin: 100px auto;
+            padding: 20px;
+            background-color: white;
             border-radius: 5px;
-            text-align: center;
-            cursor: pointer;
-            transition: background-color 0.3s;
-        }
-        
-        .file-upload-label:hover {
-            background-color: #e9ecef;
-        }
-        
-        .file-name {
-            margin-top: 5px;
-            font-size: 0.9rem;
-            color: #666;
-        }
-        
-        /* Preview Image */
-        .image-preview {
-            max-width: 200px;
-            margin-top: 10px;
-            display: none;
-        }
-        
-        .image-preview img {
-            max-width: 100%;
-            border-radius: 5px;
-        }
-        
-        /* Responsive Styles */
-        @media (max-width: 992px) {
-            .about-content {
-                grid-template-columns: 1fr;
-            }
-            
-            .about-image {
-                order: -1;
-            }
-        }
-        
-        @media (max-width: 768px) {
-            nav ul {
-                display: none;
-                position: absolute;
-                top: 80px;
-                left: 0;
-                width: 100%;
-                background-color: var(--primary);
-                flex-direction: column;
-                padding: 20px;
-                box-shadow: 0 5px 10px rgba(0,0,0,0.1);
-            }
-            
-            nav ul.show {
-                display: flex;
-            }
-            
-            nav ul li {
-                margin: 10px 0;
-            }
-            
-            .mobile-menu {
-                display: block;
-            }
-            
-            .hero h2 {
-                font-size: 2rem;
-            }
-            
-            .hero p {
-                font-size: 1rem;
-            }
-            
-            .admin-tabs {
-                flex-wrap: wrap;
-            }
-            
-            .admin-tab {
-                flex: 1;
-                min-width: 120px;
-                text-align: center;
-            }
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
         }
     </style>
 </head>
 <body>
-    <!-- Login Page (Initially shown) -->
-    <div id="login-page" class="login-container">
-        <div class="login-form">
-            <h2>JPTT College Admin Login</h2>
-            <div class="form-group">
-                <label for="username">Username</label>
-                <input type="text" id="username" class="form-control" placeholder="Enter username">
-            </div>
-            <div class="form-group">
-                <label for="password">Password</label>
-                <input type="password" id="password" class="form-control" placeholder="Enter password">
-            </div>
-            <button id="login-btn" class="btn-admin" style="width: 100%;">Login</button>
-            <p id="login-error" style="color: red; margin-top: 10px; display: none;">Invalid credentials. Try admin/admin</p>
-        </div>
-    </div>
-
-    <!-- Main Website (Initially hidden) -->
-    <div id="main-website" style="display: none;">
-        <!-- Header -->
-        <header>
-            <div class="container header-content">
-                <div class="logo">
-                    <img src="https://via.placeholder.com/60x60/2c3e50/ffffff?text=JPTT" alt="JPTT Logo">
-                    <div class="logo-text">
-                        <h1>Jehal Prasad Teachers Training College</h1>
-                        <p>Pathra Englishodhanpur, Nawada, 805123</p>
-                    </div>
-                </div>
-                <div class="mobile-menu">
-                    <i class="fas fa-bars"></i>
-                </div>
-                <nav>
-                    <ul>
-                        <li><a href="#home" class="active">Home</a></li>
-                        <li><a href="#about">About</a></li>
-                        <li><a href="#news">News</a></li>
-                        <li><a href="#gallery">Gallery</a></li>
-                        <li><a href="#programs">Programs</a></li>
-                        <li><a href="#admin">Admin</a></li>
-                        <li><a href="#contact">Contact</a></li>
-                        <li><a href="#" id="logout-btn">Logout</a></li>
+    <!-- Main Website -->
+    <div id="main-website">
+        <!-- Navigation -->
+        <nav class="navbar navbar-expand-lg navbar-dark">
+            <div class="container">
+                <a class="navbar-brand" href="#">
+                    <i class="fas fa-graduation-cap"></i> JPTT
+                </a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarNav">
+                    <ul class="navbar-nav ms-auto">
+                        <li class="nav-item">
+                            <a class="nav-link" href="#home">Home</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#about">About</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#news">News</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#gallery">Gallery</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#programs">Programs</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#contact">Contact</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#" onclick="showAdminLogin()">Admin</a>
+                        </li>
                     </ul>
-                </nav>
+                </div>
             </div>
-        </header>
+        </nav>
 
         <!-- Hero Section -->
-        <section class="hero" id="home">
+        <section id="home" class="hero-section">
             <div class="container">
-                <h2>Welcome to Jehal Prasad Teachers Training College</h2>
-                <p>Established on 2nd May 2017, we are committed to providing quality teacher education and shaping the future of education in our community.</p>
-                <a href="#about" class="btn">Learn More</a>
+                <h1>Jehal Prasad Teachers Training College</h1>
+                <p class="lead">Established on 2 May 2017 | Session Started at 2018</p>
+                <p>Pathra Englishodhanpur, Nawada, 805123</p>
             </div>
         </section>
 
         <!-- About Section -->
-        <section id="about">
+        <section id="about" class="py-5">
             <div class="container">
-                <div class="section-title">
-                    <h2>About JPTT College</h2>
-                </div>
-                <div class="about-content">
-                    <div class="about-text">
-                        <h3>Our Journey Since 2017</h3>
-                        <p>Jehal Prasad Teachers Training College was established on 2nd May 2017 with the vision to provide quality teacher education in the Nawada region. Our first academic session commenced in 2018, and since then we have been dedicated to shaping competent and compassionate educators.</p>
-                        <p>Located in Pathra Englishodhanpur, Nawada (805123), our college offers state-of-the-art facilities including well-equipped laboratories, a comprehensive library, and experienced faculty members committed to student success.</p>
-                        <p>We believe in holistic development and provide various cultural and extracurricular activities to ensure our students grow not just academically but as well-rounded individuals.</p>
+                <h2 class="section-title">About JPTT</h2>
+                <div class="row">
+                    <div class="col-md-6">
+                        <p>Jehal Prasad Teachers Training College (JPTT) was established on 2nd May 2017 with a vision to provide quality teacher education. Our first academic session commenced in 2018, and since then we have been committed to nurturing future educators.</p>
+                        <p>Our college is located in Pathra Englishodhanpur, Nawada, Bihar, with postal code 805123. We offer a comprehensive curriculum designed to equip aspiring teachers with the knowledge and skills needed for modern educational environments.</p>
                     </div>
-                    <div class="about-image">
-                        <img src="https://images.unsplash.com/photo-1562774053-701939374585?ixlib=rb-4.0.3" alt="JPTT College Campus">
+                    <div class="col-md-6">
+                        <div class="card">
+                            <div class="card-body">
+                                <h5 class="card-title">College Highlights</h5>
+                                <ul class="list-group list-group-flush">
+                                    <li class="list-group-item">Established: 2 May 2017</li>
+                                    <li class="list-group-item">First Session: 2018</li>
+                                    <li class="list-group-item">Affiliated to Bihar State University</li>
+                                    <li class="list-group-item">Well-equipped laboratories</li>
+                                    <li class="list-group-item">Experienced faculty</li>
+                                </ul>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
         </section>
 
         <!-- News Section -->
-        <section id="news">
+        <section id="news" class="py-5 bg-light">
             <div class="container">
-                <div class="section-title">
-                    <h2>College News & Events</h2>
-                </div>
-                <div class="news-container" id="news-container">
-                    <!-- News items will be dynamically added here -->
+                <h2 class="section-title">College News & Events</h2>
+                <div class="row" id="news-container">
+                    <!-- News items will be dynamically loaded here -->
                 </div>
             </div>
         </section>
 
         <!-- Gallery Section -->
-        <section id="gallery">
+        <section id="gallery" class="py-5">
             <div class="container">
-                <div class="section-title">
-                    <h2>Photo Gallery</h2>
-                </div>
-                <div class="gallery-container" id="gallery-container">
-                    <!-- Gallery items will be dynamically added here -->
+                <h2 class="section-title">Photo Gallery</h2>
+                <div class="row" id="gallery-container">
+                    <!-- Gallery items will be dynamically loaded here -->
                 </div>
             </div>
         </section>
 
         <!-- Programs Section -->
-        <section id="programs">
+        <section id="programs" class="py-5 bg-light">
             <div class="container">
-                <div class="section-title">
-                    <h2>Our Programs</h2>
-                </div>
-                <div class="programs-container" id="programs-container">
-                    <!-- Program items will be dynamically added here -->
-                </div>
-            </div>
-        </section>
-
-        <!-- Admin Panel -->
-        <section id="admin">
-            <div class="container">
-                <div class="section-title">
-                    <h2>Admin Panel</h2>
-                </div>
-                <div class="admin-panel">
-                    <div class="admin-tabs">
-                        <div class="admin-tab active" data-tab="news">News Management</div>
-                        <div class="admin-tab" data-tab="gallery">Gallery Management</div>
-                        <div class="admin-tab" data-tab="programs">Programs Management</div>
-                        <div class="admin-tab" data-tab="fees">Fee Structure</div>
-                    </div>
-                    
-                    <!-- News Management -->
-                    <div class="admin-content active" id="news-content">
-                        <h3>Add New News</h3>
-                        <form id="news-form">
-                            <div class="form-group">
-                                <label for="news-title">News Title</label>
-                                <input type="text" id="news-title" class="form-control" required>
-                            </div>
-                            <div class="form-group">
-                                <label for="news-date">Date</label>
-                                <input type="date" id="news-date" class="form-control" required>
-                            </div>
-                            <div class="form-group">
-                                <label for="news-content">Content</label>
-                                <textarea id="news-content-text" class="form-control" required></textarea>
-                            </div>
-                            <div class="form-group">
-                                <label for="news-image">Image URL</label>
-                                <input type="text" id="news-image" class="form-control" required>
-                            </div>
-                            <button type="submit" class="btn-admin">Add News</button>
-                        </form>
-                        
-                        <h3>Existing News</h3>
-                        <table class="admin-table">
-                            <thead>
-                                <tr>
-                                    <th>Title</th>
-                                    <th>Date</th>
-                                    <th>Actions</th>
-                                </tr>
-                            </thead>
-                            <tbody id="news-table-body">
-                                <!-- News items will be dynamically added here -->
-                            </tbody>
-                        </table>
-                    </div>
-                    
-                    <!-- Gallery Management -->
-                    <div class="admin-content" id="gallery-content">
-                        <h3>Add New Gallery Item</h3>
-                        <form id="gallery-form">
-                            <div class="form-group">
-                                <label for="gallery-title">Image Title</label>
-                                <input type="text" id="gallery-title" class="form-control" required>
-                            </div>
-                            <div class="form-group">
-                                <label for="gallery-date">Date</label>
-                                <input type="date" id="gallery-date" class="form-control" required>
-                            </div>
-                            <div class="form-group">
-                                <label for="gallery-image">Upload Image</label>
-                                <div class="file-upload">
-                                    <input type="file" id="gallery-image-upload" class="file-upload-input" accept="image/*">
-                                    <label for="gallery-image-upload" class="file-upload-label">
-                                        <i class="fas fa-cloud-upload-alt"></i> Choose Image
-                                    </label>
-                                    <div id="gallery-file-name" class="file-name">No file chosen</div>
-                                </div>
-                                <div class="image-preview" id="gallery-preview">
-                                    <img src="" alt="Preview">
-                                </div>
-                            </div>
-                            <button type="submit" class="btn-admin">Add to Gallery</button>
-                        </form>
-                        
-                        <h3>Existing Gallery Items</h3>
-                        <table class="admin-table">
-                            <thead>
-                                <tr>
-                                    <th>Title</th>
-                                    <th>Date</th>
-                                    <th>Actions</th>
-                                </tr>
-                            </thead>
-                            <tbody id="gallery-table-body">
-                                <!-- Gallery items will be dynamically added here -->
-                            </tbody>
-                        </table>
-                    </div>
-                    
-                    <!-- Programs Management -->
-                    <div class="admin-content" id="programs-content">
-                        <h3>Add New Program</h3>
-                        <form id="programs-form">
-                            <div class="form-group">
-                                <label for="program-title">Program Title</label>
-                                <input type="text" id="program-title" class="form-control" required>
-                            </div>
-                            <div class="form-group">
-                                <label for="program-description">Description</label>
-                                <textarea id="program-description" class="form-control" required></textarea>
-                            </div>
-                            <div class="form-group">
-                                <label for="program-icon">Icon Class (Font Awesome)</label>
-                                <input type="text" id="program-icon" class="form-control" placeholder="fas fa-icon-name" required>
-                            </div>
-                            <button type="submit" class="btn-admin">Add Program</button>
-                        </form>
-                        
-                        <h3>Existing Programs</h3>
-                        <table class="admin-table">
-                            <thead>
-                                <tr>
-                                    <th>Title</th>
-                                    <th>Actions</th>
-                                </tr>
-                            </thead>
-                            <tbody id="programs-table-body">
-                                <!-- Programs will be dynamically added here -->
-                            </tbody>
-                        </table>
-                    </div>
-                    
-                    <!-- Fee Structure -->
-                    <div class="admin-content" id="fees-content">
-                        <h3>Update Fee Structure</h3>
-                        <form id="fees-form">
-                            <div class="form-group">
-                                <label for="fee-program">Program</label>
-                                <select id="fee-program" class="form-control" required>
-                                    <option value="">Select Program</option>
-                                    <option value="d-el-ed">Diploma in Elementary Education</option>
-                                    <option value="b-ed">Bachelor of Education (B.Ed)</option>
-                                    <option value="certificate">Certificate Courses</option>
-                                </select>
-                            </div>
-                            <div class="form-group">
-                                <label for="fee-amount">Fee Amount (₹)</label>
-                                <input type="number" id="fee-amount" class="form-control" required>
-                            </div>
-                            <div class="form-group">
-                                <label for="fee-details">Fee Details</label>
-                                <textarea id="fee-details" class="form-control" required></textarea>
-                            </div>
-                            <button type="submit" class="btn-admin">Update Fee</button>
-                        </form>
-                        
-                        <h3>Current Fee Structure</h3>
-                        <table class="admin-table">
-                            <thead>
-                                <tr>
-                                    <th>Program</th>
-                                    <th>Fee Amount</th>
-                                    <th>Details</th>
-                                    <th>Actions</th>
-                                </tr>
-                            </thead>
-                            <tbody id="fees-table-body">
-                                <!-- Fee items will be dynamically added here -->
-                            </tbody>
-                        </table>
-                    </div>
+                <h2 class="section-title">Programs Offered</h2>
+                <div class="row" id="programs-container">
+                    <!-- Programs will be dynamically loaded here -->
                 </div>
             </div>
         </section>
 
         <!-- Contact Section -->
-        <section id="contact">
+        <section id="contact" class="py-5">
             <div class="container">
-                <div class="section-title">
-                    <h2>Contact Us</h2>
-                </div>
-                <div class="about-content">
-                    <div class="about-text">
-                        <h3>Get in Touch</h3>
-                        <p><i class="fas fa-map-marker-alt"></i> <strong>Address:</strong> Pathra Englishodhanpur, Nawada, Bihar - 805123</p>
-                        <p><i class="fas fa-phone"></i> <strong>Phone:</strong> +91 XXXXX XXXXX</p>
-                        <p><i class="fas fa-envelope"></i> <strong>Email:</strong> info@jpttcollege.edu.in</p>
-                        <p><i class="fas fa-clock"></i> <strong>Office Hours:</strong> Monday to Saturday, 9:00 AM to 5:00 PM</p>
+                <h2 class="section-title">Contact Us</h2>
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="card">
+                            <div class="card-body">
+                                <h5 class="card-title">College Address</h5>
+                                <p>Jehal Prasad Teachers Training College<br>
+                                Pathra Englishodhanpur<br>
+                                Nawada, Bihar - 805123</p>
+                                <p><i class="fas fa-phone"></i> Phone: +91-XXXXX-XXXXX</p>
+                                <p><i class="fas fa-envelope"></i> Email: info@jpttcollege.edu.in</p>
+                            </div>
+                        </div>
                     </div>
-                    <div class="about-image">
-                        <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3630.536668331319!2d85.54120231498956!3d24.56118458422137!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x39f299f2b6f15f0d%3A0x5e3b9c9c9c9c9c9c!2sNawada%2C%20Bihar!5e0!3m2!1sen!2sin!4v1620000000000!5m2!1sen!2sin" width="100%" height="300" style="border:0; border-radius: 10px;" allowfullscreen="" loading="lazy"></iframe>
+                    <div class="col-md-6">
+                        <div class="card">
+                            <div class="card-body">
+                                <h5 class="card-title">Send us a Message</h5>
+                                <form>
+                                    <div class="mb-3">
+                                        <input type="text" class="form-control" placeholder="Your Name">
+                                    </div>
+                                    <div class="mb-3">
+                                        <input type="email" class="form-control" placeholder="Your Email">
+                                    </div>
+                                    <div class="mb-3">
+                                        <textarea class="form-control" rows="3" placeholder="Your Message"></textarea>
+                                    </div>
+                                    <button type="submit" class="btn btn-primary">Send Message</button>
+                                </form>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -966,551 +251,601 @@
 
         <!-- Footer -->
         <footer>
-            <div class="container">
-                <div class="footer-content">
-                    <div class="footer-column">
-                        <h3>JPTT College</h3>
-                        <p>Jehal Prasad Teachers Training College is committed to providing quality teacher education and shaping the future of education in our community.</p>
-                        <div class="social-links">
-                            <a href="#"><i class="fab fa-facebook-f"></i></a>
-                            <a href="#"><i class="fab fa-twitter"></i></a>
-                            <a href="#"><i class="fab fa-instagram"></i></a>
-                            <a href="#"><i class="fab fa-linkedin-in"></i></a>
-                        </div>
-                    </div>
-                    <div class="footer-column">
-                        <h3>Quick Links</h3>
-                        <a href="#home">Home</a>
-                        <a href="#about">About Us</a>
-                        <a href="#news">News & Events</a>
-                        <a href="#gallery">Gallery</a>
-                        <a href="#programs">Programs</a>
-                        <a href="#contact">Contact</a>
-                    </div>
-                    <div class="footer-column">
-                        <h3>Programs</h3>
-                        <a href="#">Diploma in Elementary Education</a>
-                        <a href="#">Bachelor of Education (B.Ed)</a>
-                        <a href="#">Certificate Courses</a>
-                    </div>
-                    <div class="footer-column">
-                        <h3>Contact Info</h3>
-                        <p><i class="fas fa-map-marker-alt"></i> Pathra Englishodhanpur, Nawada, Bihar - 805123</p>
-                        <p><i class="fas fa-phone"></i> +91 XXXXX XXXXX</p>
-                        <p><i class="fas fa-envelope"></i> info@jpttcollege.edu.in</p>
-                    </div>
-                </div>
-                <div class="copyright">
-                    <p>&copy; 2023 Jehal Prasad Teachers Training College. All Rights Reserved.</p>
-                </div>
+            <div class="container text-center">
+                <p>&copy; 2023 Jehal Prasad Teachers Training College. All rights reserved.</p>
+                <p>Established on 2 May 2017 | Session Started at 2018</p>
             </div>
         </footer>
+    </div>
 
-        <!-- Modal for Image View -->
-        <div class="modal" id="image-modal">
-            <div class="modal-content">
-                <span class="close-modal">&times;</span>
-                <img id="modal-image" src="" alt="" style="width: 100%; border-radius: 5px;">
-                <div id="modal-caption" style="margin-top: 15px; text-align: center;"></div>
+    <!-- Admin Login -->
+    <div id="admin-login" class="d-none">
+        <div class="login-container">
+            <h2 class="text-center mb-4">Admin Login</h2>
+            <form id="login-form">
+                <div class="mb-3">
+                    <label for="username" class="form-label">Username</label>
+                    <input type="text" class="form-control" id="username" required>
+                </div>
+                <div class="mb-3">
+                    <label for="password" class="form-label">Password</label>
+                    <input type="password" class="form-control" id="password" required>
+                </div>
+                <button type="submit" class="btn btn-primary w-100">Login</button>
+            </form>
+            <div class="text-center mt-3">
+                <a href="#" onclick="showMainWebsite()">Back to Website</a>
             </div>
         </div>
     </div>
 
+    <!-- Admin Panel -->
+    <div id="admin-panel" class="d-none">
+        <div class="container-fluid">
+            <div class="row">
+                <!-- Sidebar -->
+                <div class="col-md-3 col-lg-2 sidebar">
+                    <h4 class="p-3">JPTT Admin</h4>
+                    <a href="#" onclick="showAdminSection('dashboard')"><i class="fas fa-tachometer-alt"></i> Dashboard</a>
+                    <a href="#" onclick="showAdminSection('news')"><i class="fas fa-newspaper"></i> News Management</a>
+                    <a href="#" onclick="showAdminSection('gallery')"><i class="fas fa-images"></i> Gallery Management</a>
+                    <a href="#" onclick="showAdminSection('programs')"><i class="fas fa-book"></i> Programs Management</a>
+                    <a href="#" onclick="showAdminSection('fees')"><i class="fas fa-money-bill-wave"></i> Fee Management</a>
+                    <a href="#" onclick="logout()"><i class="fas fa-sign-out-alt"></i> Logout</a>
+                </div>
+                
+                <!-- Main Content -->
+                <div class="col-md-9 col-lg-10 admin-content">
+                    <!-- Dashboard -->
+                    <div id="admin-dashboard" class="admin-section">
+                        <h2>Admin Dashboard</h2>
+                        <div class="row">
+                            <div class="col-md-3">
+                                <div class="card text-white bg-primary">
+                                    <div class="card-body">
+                                        <h5 class="card-title">News Items</h5>
+                                        <p class="card-text" id="news-count">0</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="card text-white bg-success">
+                                    <div class="card-body">
+                                        <h5 class="card-title">Gallery Images</h5>
+                                        <p class="card-text" id="gallery-count">0</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="card text-white bg-warning">
+                                    <div class="card-body">
+                                        <h5 class="card-title">Programs</h5>
+                                        <p class="card-text" id="programs-count">0</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="card text-white bg-info">
+                                    <div class="card-body">
+                                        <h5 class="card-title">Fee Status</h5>
+                                        <p class="card-text">Updated</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- News Management -->
+                    <div id="admin-news" class="admin-section d-none">
+                        <h2>News Management</h2>
+                        <button class="btn btn-primary mb-3" onclick="showNewsForm()">Add New News</button>
+                        <div id="news-form" class="card mb-4 d-none">
+                            <div class="card-body">
+                                <h5 class="card-title">Add/Edit News</h5>
+                                <form id="news-item-form">
+                                    <input type="hidden" id="news-id">
+                                    <div class="mb-3">
+                                        <label for="news-title" class="form-label">Title</label>
+                                        <input type="text" class="form-control" id="news-title" required>
+                                    </div>
+                                    <div class="mb-3">
+                                        <label for="news-content" class="form-label">Content</label>
+                                        <textarea class="form-control" id="news-content" rows="4" required></textarea>
+                                    </div>
+                                    <div class="mb-3">
+                                        <label for="news-date" class="form-label">Date</label>
+                                        <input type="date" class="form-control" id="news-date" required>
+                                    </div>
+                                    <button type="submit" class="btn btn-success">Save News</button>
+                                    <button type="button" class="btn btn-secondary" onclick="hideNewsForm()">Cancel</button>
+                                </form>
+                            </div>
+                        </div>
+                        <div id="news-list">
+                            <!-- News items will be listed here -->
+                        </div>
+                    </div>
+                    
+                    <!-- Gallery Management -->
+                    <div id="admin-gallery" class="admin-section d-none">
+                        <h2>Gallery Management</h2>
+                        <button class="btn btn-primary mb-3" onclick="showGalleryForm()">Upload New Image</button>
+                        <div id="gallery-form" class="card mb-4 d-none">
+                            <div class="card-body">
+                                <h5 class="card-title">Upload Image</h5>
+                                <form id="gallery-item-form">
+                                    <input type="hidden" id="gallery-id">
+                                    <div class="mb-3">
+                                        <label for="gallery-image" class="form-label">Image</label>
+                                        <input type="file" class="form-control" id="gallery-image" accept="image/*" required>
+                                    </div>
+                                    <div class="mb-3">
+                                        <label for="gallery-description" class="form-label">Description</label>
+                                        <textarea class="form-control" id="gallery-description" rows="3" required></textarea>
+                                    </div>
+                                    <div class="mb-3">
+                                        <label for="gallery-event-date" class="form-label">Event Date</label>
+                                        <input type="date" class="form-control" id="gallery-event-date" required>
+                                    </div>
+                                    <button type="submit" class="btn btn-success">Upload Image</button>
+                                    <button type="button" class="btn btn-secondary" onclick="hideGalleryForm()">Cancel</button>
+                                </form>
+                            </div>
+                        </div>
+                        <div class="row" id="gallery-list">
+                            <!-- Gallery items will be listed here -->
+                        </div>
+                    </div>
+                    
+                    <!-- Programs Management -->
+                    <div id="admin-programs" class="admin-section d-none">
+                        <h2>Programs Management</h2>
+                        <button class="btn btn-primary mb-3" onclick="showProgramForm()">Add New Program</button>
+                        <div id="program-form" class="card mb-4 d-none">
+                            <div class="card-body">
+                                <h5 class="card-title">Add/Edit Program</h5>
+                                <form id="program-item-form">
+                                    <input type="hidden" id="program-id">
+                                    <div class="mb-3">
+                                        <label for="program-name" class="form-label">Program Name</label>
+                                        <input type="text" class="form-control" id="program-name" required>
+                                    </div>
+                                    <div class="mb-3">
+                                        <label for="program-duration" class="form-label">Duration</label>
+                                        <input type="text" class="form-control" id="program-duration" required>
+                                    </div>
+                                    <div class="mb-3">
+                                        <label for="program-description" class="form-label">Description</label>
+                                        <textarea class="form-control" id="program-description" rows="4" required></textarea>
+                                    </div>
+                                    <button type="submit" class="btn btn-success">Save Program</button>
+                                    <button type="button" class="btn btn-secondary" onclick="hideProgramForm()">Cancel</button>
+                                </form>
+                            </div>
+                        </div>
+                        <div id="programs-list">
+                            <!-- Programs will be listed here -->
+                        </div>
+                    </div>
+                    
+                    <!-- Fee Management -->
+                    <div id="admin-fees" class="admin-section d-none">
+                        <h2>Fee Management</h2>
+                        <div class="card">
+                            <div class="card-body">
+                                <h5 class="card-title">Update Fee Information</h5>
+                                <form id="fee-form">
+                                    <div class="mb-3">
+                                        <label for="fee-details" class="form-label">Fee Details</label>
+                                        <textarea class="form-control" id="fee-details" rows="6" required>Bachelor of Education (B.Ed) - ₹25,000 per year
+Diploma in Elementary Education (D.El.Ed) - ₹20,000 per year
+Admission Fee - ₹5,000 (one-time)
+Examination Fee - ₹2,000 per semester</textarea>
+                                    </div>
+                                    <button type="submit" class="btn btn-success">Update Fee Information</button>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
     <script>
-        // Data storage (in a real app, this would be a database)
-        let collegeData = {
-            news: [
-                {
-                    id: 1,
-                    title: "Annual Cultural Festival 2023",
-                    date: "2023-06-15",
-                    content: "Our college celebrated its annual cultural festival with great enthusiasm. Students participated in various events showcasing their talents.",
-                    image: "https://images.unsplash.com/photo-1523050854058-8df90110c9f1?ixlib=rb-4.0.3"
-                },
-                {
-                    id: 2,
-                    title: "New Science Laboratory Inaugurated",
-                    date: "2023-05-05",
-                    content: "The college has inaugurated a new state-of-the-art science laboratory to enhance practical learning for our students.",
-                    image: "https://images.unsplash.com/photo-1588072432836-e100327e50ab?ixlib=rb-4.0.3"
-                }
-            ],
-            gallery: [
-                {
-                    id: 1,
-                    title: "Annual Day Celebration",
-                    date: "2023-03-15",
-                    image: "https://images.unsplash.com/photo-1523050854058-8df90110c9f1?ixlib=rb-4.0.3"
-                },
-                {
-                    id: 2,
-                    title: "Interactive Classroom Session",
-                    date: "2023-02-10",
-                    image: "https://images.unsplash.com/photo-1498243691581-b145c3f54a5a?ixlib=rb-4.0.3"
-                }
-            ],
-            programs: [
-                {
-                    id: 1,
-                    title: "Diploma in Elementary Education",
-                    description: "A two-year diploma program designed to prepare teachers for elementary level education with comprehensive pedagogical training.",
-                    icon: "fas fa-chalkboard-teacher"
-                },
-                {
-                    id: 2,
-                    title: "Bachelor of Education (B.Ed)",
-                    description: "A professional undergraduate degree that prepares students for teaching at secondary and higher secondary levels.",
-                    icon: "fas fa-book-open"
-                }
-            ],
-            fees: [
-                {
-                    id: 1,
-                    program: "Diploma in Elementary Education",
-                    amount: "₹25,000",
-                    details: "Per year including all charges"
-                },
-                {
-                    id: 2,
-                    program: "Bachelor of Education (B.Ed)",
-                    amount: "₹40,000",
-                    details: "Per year including examination fees"
-                }
-            ]
-        };
-
-        // Login functionality
-        document.getElementById('login-btn').addEventListener('click', function() {
-            const username = document.getElementById('username').value;
-            const password = document.getElementById('password').value;
-            const errorElement = document.getElementById('login-error');
-            
-            // Simple authentication (in a real app, this would be server-side)
-            if (username === 'admin' && password === 'admin') {
-                document.getElementById('login-page').style.display = 'none';
-                document.getElementById('main-website').style.display = 'block';
-                renderWebsiteContent();
-                renderAdminTables();
-            } else {
-                errorElement.style.display = 'block';
-            }
-        });
-
-        // Logout functionality
-        document.getElementById('logout-btn').addEventListener('click', function(e) {
-            e.preventDefault();
-            document.getElementById('login-page').style.display = 'flex';
-            document.getElementById('main-website').style.display = 'none';
-            document.getElementById('username').value = '';
-            document.getElementById('password').value = '';
-            document.getElementById('login-error').style.display = 'none';
-        });
-
-        // Mobile Menu Toggle
-        document.querySelector('.mobile-menu').addEventListener('click', function() {
-            document.querySelector('nav ul').classList.toggle('show');
-        });
-
-        // Admin Tab Switching
-        document.querySelectorAll('.admin-tab').forEach(tab => {
-            tab.addEventListener('click', function() {
-                // Remove active class from all tabs and contents
-                document.querySelectorAll('.admin-tab').forEach(t => t.classList.remove('active'));
-                document.querySelectorAll('.admin-content').forEach(c => c.classList.remove('active'));
-                
-                // Add active class to clicked tab and corresponding content
-                this.classList.add('active');
-                const tabId = this.getAttribute('data-tab');
-                document.getElementById(`${tabId}-content`).classList.add('active');
+        // Data storage (in a real application, this would be a database)
+        let newsData = [
+            { id: 1, title: "Annual Cultural Festival", content: "The college celebrated its annual cultural festival with great enthusiasm. Students participated in various events including dance, music, and drama competitions.", date: "2023-10-15" },
+            { id: 2, title: "Science Lab Inauguration", content: "Newly equipped science laboratory was inaugurated by the principal. The lab features modern equipment for physics, chemistry, and biology experiments.", date: "2023-09-20" }
+        ];
+        
+        let galleryData = [
+            { id: 1, image: "https://images.unsplash.com/photo-1523050854058-8df90110c9f1?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=60", description: "College Building", eventDate: "2023-08-10" },
+            { id: 2, image: "https://images.unsplash.com/photo-1523580494863-6f3031224c94?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=60", description: "Students in Classroom", eventDate: "2023-09-15" },
+            { id: 3, image: "https://images.unsplash.com/photo-1541336032412-2048a678540d?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=60", description: "Library", eventDate: "2023-07-22" }
+        ];
+        
+        let programsData = [
+            { id: 1, name: "Bachelor of Education (B.Ed)", duration: "2 Years", description: "A comprehensive program designed to prepare students for teaching careers in secondary and higher secondary schools." },
+            { id: 2, name: "Diploma in Elementary Education (D.El.Ed)", duration: "2 Years", description: "Focused on preparing teachers for elementary level education with practical training and theoretical knowledge." }
+        ];
+        
+        let feeDetails = "Bachelor of Education (B.Ed) - ₹25,000 per year\nDiploma in Elementary Education (D.El.Ed) - ₹20,000 per year\nAdmission Fee - ₹5,000 (one-time)\nExamination Fee - ₹2,000 per semester";
+        
+        // Page navigation functions
+        function showMainWebsite() {
+            document.getElementById('main-website').classList.remove('d-none');
+            document.getElementById('admin-login').classList.add('d-none');
+            document.getElementById('admin-panel').classList.add('d-none');
+            loadWebsiteContent();
+        }
+        
+        function showAdminLogin() {
+            document.getElementById('main-website').classList.add('d-none');
+            document.getElementById('admin-login').classList.remove('d-none');
+            document.getElementById('admin-panel').classList.add('d-none');
+        }
+        
+        function showAdminPanel() {
+            document.getElementById('main-website').classList.add('d-none');
+            document.getElementById('admin-login').classList.add('d-none');
+            document.getElementById('admin-panel').classList.remove('d-none');
+            loadAdminContent();
+        }
+        
+        function logout() {
+            showMainWebsite();
+        }
+        
+        // Admin section navigation
+        function showAdminSection(section) {
+            // Hide all sections
+            document.querySelectorAll('.admin-section').forEach(el => {
+                el.classList.add('d-none');
             });
-        });
-
-        // Modal Functionality
-        const modal = document.getElementById('image-modal');
-        const modalImg = document.getElementById('modal-image');
-        const modalCaption = document.getElementById('modal-caption');
-        const closeModal = document.querySelector('.close-modal');
-
-        // Close modal
-        closeModal.addEventListener('click', function() {
-            modal.style.display = 'none';
-        });
-
-        // Close modal when clicking outside the content
-        window.addEventListener('click', function(event) {
-            if (event.target === modal) {
-                modal.style.display = 'none';
-            }
-        });
-
-        // Image upload preview
-        document.getElementById('gallery-image-upload').addEventListener('change', function(e) {
-            const file = e.target.files[0];
-            const fileNameElement = document.getElementById('gallery-file-name');
-            const previewElement = document.getElementById('gallery-preview');
             
-            if (file) {
-                fileNameElement.textContent = file.name;
-                
-                const reader = new FileReader();
-                reader.onload = function(e) {
-                    previewElement.style.display = 'block';
-                    previewElement.querySelector('img').src = e.target.result;
-                };
-                reader.readAsDataURL(file);
-            } else {
-                fileNameElement.textContent = 'No file chosen';
-                previewElement.style.display = 'none';
-            }
-        });
-
-        // Format date to display
-        function formatDate(dateString) {
-            const options = { year: 'numeric', month: 'long', day: 'numeric' };
-            return new Date(dateString).toLocaleDateString('en-US', options);
+            // Show selected section
+            document.getElementById('admin-' + section).classList.remove('d-none');
         }
-
-        // Render website content
-        function renderWebsiteContent() {
-            renderNews();
-            renderGallery();
-            renderPrograms();
-        }
-
-        // Render news on the website
-        function renderNews() {
+        
+        // Load content for main website
+        function loadWebsiteContent() {
+            // Load news
             const newsContainer = document.getElementById('news-container');
             newsContainer.innerHTML = '';
             
-            collegeData.news.forEach(news => {
-                const newsCard = document.createElement('div');
-                newsCard.className = 'news-card';
-                newsCard.innerHTML = `
-                    <div class="news-image">
-                        <img src="${news.image}" alt="${news.title}">
-                    </div>
-                    <div class="news-content">
-                        <div class="news-date">${formatDate(news.date)}</div>
-                        <h3>${news.title}</h3>
-                        <p>${news.content}</p>
+            newsData.forEach(news => {
+                const newsHTML = `
+                    <div class="col-md-6">
+                        <div class="card">
+                            <div class="card-body">
+                                <h5 class="card-title">${news.title}</h5>
+                                <p class="card-text">${news.content}</p>
+                                <p class="text-muted">Date: ${formatDate(news.date)}</p>
+                            </div>
+                        </div>
                     </div>
                 `;
-                newsContainer.appendChild(newsCard);
+                newsContainer.innerHTML += newsHTML;
             });
-        }
-
-        // Render gallery on the website
-        function renderGallery() {
+            
+            // Load gallery
             const galleryContainer = document.getElementById('gallery-container');
             galleryContainer.innerHTML = '';
             
-            collegeData.gallery.forEach(item => {
-                const galleryItem = document.createElement('div');
-                galleryItem.className = 'gallery-item';
-                galleryItem.innerHTML = `
-                    <img src="${item.image}" alt="${item.title}">
-                    <div class="gallery-overlay">
-                        <h3>${item.title}</h3>
-                        <p>${formatDate(item.date)}</p>
+            galleryData.forEach(item => {
+                const galleryHTML = `
+                    <div class="col-md-4 mb-4">
+                        <div class="card">
+                            <img src="${item.image}" class="gallery-img" alt="${item.description}">
+                            <div class="card-body">
+                                <p class="card-text">${item.description}</p>
+                                <p class="text-muted">Event Date: ${formatDate(item.eventDate)}</p>
+                            </div>
+                        </div>
                     </div>
                 `;
-                
-                // Add click event to open modal
-                galleryItem.addEventListener('click', function() {
-                    modalImg.src = item.image;
-                    modalCaption.innerHTML = `<h3>${item.title}</h3><p>${formatDate(item.date)}</p>`;
-                    modal.style.display = 'flex';
-                });
-                
-                galleryContainer.appendChild(galleryItem);
+                galleryContainer.innerHTML += galleryHTML;
             });
-        }
-
-        // Render programs on the website
-        function renderPrograms() {
+            
+            // Load programs
             const programsContainer = document.getElementById('programs-container');
             programsContainer.innerHTML = '';
             
-            collegeData.programs.forEach(program => {
-                const programCard = document.createElement('div');
-                programCard.className = 'program-card';
-                programCard.innerHTML = `
-                    <div class="program-icon">
-                        <i class="${program.icon}"></i>
+            programsData.forEach(program => {
+                const programHTML = `
+                    <div class="col-md-6">
+                        <div class="card">
+                            <div class="card-body">
+                                <h5 class="card-title">${program.name}</h5>
+                                <h6 class="card-subtitle mb-2 text-muted">Duration: ${program.duration}</h6>
+                                <p class="card-text">${program.description}</p>
+                            </div>
+                        </div>
                     </div>
-                    <h3>${program.title}</h3>
-                    <p>${program.description}</p>
                 `;
-                programsContainer.appendChild(programCard);
+                programsContainer.innerHTML += programHTML;
             });
         }
-
-        // Render admin tables
-        function renderAdminTables() {
-            renderNewsTable();
-            renderGalleryTable();
-            renderProgramsTable();
-            renderFeesTable();
-        }
-
-        // Render news table in admin panel
-        function renderNewsTable() {
-            const tableBody = document.getElementById('news-table-body');
-            tableBody.innerHTML = '';
+        
+        // Load content for admin panel
+        function loadAdminContent() {
+            // Update counts
+            document.getElementById('news-count').textContent = newsData.length;
+            document.getElementById('gallery-count').textContent = galleryData.length;
+            document.getElementById('programs-count').textContent = programsData.length;
             
-            collegeData.news.forEach((news, index) => {
-                const row = document.createElement('tr');
-                row.innerHTML = `
-                    <td>${news.title}</td>
-                    <td>${formatDate(news.date)}</td>
-                    <td class="action-buttons">
-                        <button class="action-btn edit-btn" data-index="${index}" data-type="news">Edit</button>
-                        <button class="action-btn delete-btn" data-index="${index}" data-type="news">Delete</button>
-                    </td>
+            // Load news list
+            const newsList = document.getElementById('news-list');
+            newsList.innerHTML = '';
+            
+            newsData.forEach(news => {
+                const newsHTML = `
+                    <div class="card mb-3">
+                        <div class="card-body">
+                            <h5 class="card-title">${news.title}</h5>
+                            <p class="card-text">${news.content}</p>
+                            <p class="text-muted">Date: ${formatDate(news.date)}</p>
+                            <button class="btn btn-warning btn-sm" onclick="editNews(${news.id})">Edit</button>
+                            <button class="btn btn-danger btn-sm" onclick="deleteNews(${news.id})">Delete</button>
+                        </div>
+                    </div>
                 `;
-                tableBody.appendChild(row);
+                newsList.innerHTML += newsHTML;
             });
             
-            // Add event listeners to action buttons
-            addTableActionListeners();
-        }
-
-        // Render gallery table in admin panel
-        function renderGalleryTable() {
-            const tableBody = document.getElementById('gallery-table-body');
-            tableBody.innerHTML = '';
+            // Load gallery list
+            const galleryList = document.getElementById('gallery-list');
+            galleryList.innerHTML = '';
             
-            collegeData.gallery.forEach((item, index) => {
-                const row = document.createElement('tr');
-                row.innerHTML = `
-                    <td>${item.title}</td>
-                    <td>${formatDate(item.date)}</td>
-                    <td class="action-buttons">
-                        <button class="action-btn edit-btn" data-index="${index}" data-type="gallery">Edit</button>
-                        <button class="action-btn delete-btn" data-index="${index}" data-type="gallery">Delete</button>
-                    </td>
+            galleryData.forEach(item => {
+                const galleryHTML = `
+                    <div class="col-md-4 mb-4">
+                        <div class="card">
+                            <img src="${item.image}" class="gallery-img" alt="${item.description}">
+                            <div class="card-body">
+                                <p class="card-text">${item.description}</p>
+                                <p class="text-muted">Event Date: ${formatDate(item.eventDate)}</p>
+                                <button class="btn btn-warning btn-sm" onclick="editGallery(${item.id})">Edit</button>
+                                <button class="btn btn-danger btn-sm" onclick="deleteGallery(${item.id})">Delete</button>
+                            </div>
+                        </div>
+                    </div>
                 `;
-                tableBody.appendChild(row);
+                galleryList.innerHTML += galleryHTML;
             });
             
-            // Add event listeners to action buttons
-            addTableActionListeners();
-        }
-
-        // Render programs table in admin panel
-        function renderProgramsTable() {
-            const tableBody = document.getElementById('programs-table-body');
-            tableBody.innerHTML = '';
+            // Load programs list
+            const programsList = document.getElementById('programs-list');
+            programsList.innerHTML = '';
             
-            collegeData.programs.forEach((program, index) => {
-                const row = document.createElement('tr');
-                row.innerHTML = `
-                    <td>${program.title}</td>
-                    <td class="action-buttons">
-                        <button class="action-btn edit-btn" data-index="${index}" data-type="programs">Edit</button>
-                        <button class="action-btn delete-btn" data-index="${index}" data-type="programs">Delete</button>
-                    </td>
+            programsData.forEach(program => {
+                const programHTML = `
+                    <div class="card mb-3">
+                        <div class="card-body">
+                            <h5 class="card-title">${program.name}</h5>
+                            <h6 class="card-subtitle mb-2 text-muted">Duration: ${program.duration}</h6>
+                            <p class="card-text">${program.description}</p>
+                            <button class="btn btn-warning btn-sm" onclick="editProgram(${program.id})">Edit</button>
+                            <button class="btn btn-danger btn-sm" onclick="deleteProgram(${program.id})">Delete</button>
+                        </div>
+                    </div>
                 `;
-                tableBody.appendChild(row);
+                programsList.innerHTML += programHTML;
             });
             
-            // Add event listeners to action buttons
-            addTableActionListeners();
+            // Load fee details
+            document.getElementById('fee-details').value = feeDetails;
         }
-
-        // Render fees table in admin panel
-        function renderFeesTable() {
-            const tableBody = document.getElementById('fees-table-body');
-            tableBody.innerHTML = '';
-            
-            collegeData.fees.forEach((fee, index) => {
-                const row = document.createElement('tr');
-                row.innerHTML = `
-                    <td>${fee.program}</td>
-                    <td>${fee.amount}</td>
-                    <td>${fee.details}</td>
-                    <td class="action-buttons">
-                        <button class="action-btn edit-btn" data-index="${index}" data-type="fees">Edit</button>
-                        <button class="action-btn delete-btn" data-index="${index}" data-type="fees">Delete</button>
-                    </td>
-                `;
-                tableBody.appendChild(row);
-            });
-            
-            // Add event listeners to action buttons
-            addTableActionListeners();
+        
+        // News management functions
+        function showNewsForm() {
+            document.getElementById('news-form').classList.remove('d-none');
+            document.getElementById('news-id').value = '';
+            document.getElementById('news-title').value = '';
+            document.getElementById('news-content').value = '';
+            document.getElementById('news-date').value = '';
         }
-
-        // Add event listeners to table action buttons
-        function addTableActionListeners() {
-            document.querySelectorAll('.edit-btn').forEach(btn => {
-                btn.addEventListener('click', function() {
-                    const index = this.getAttribute('data-index');
-                    const type = this.getAttribute('data-type');
-                    editItem(type, index);
-                });
-            });
-            
-            document.querySelectorAll('.delete-btn').forEach(btn => {
-                btn.addEventListener('click', function() {
-                    const index = this.getAttribute('data-index');
-                    const type = this.getAttribute('data-type');
-                    deleteItem(type, index);
-                });
-            });
+        
+        function hideNewsForm() {
+            document.getElementById('news-form').classList.add('d-none');
         }
-
-        // Edit item function
-        function editItem(type, index) {
-            const item = collegeData[type][index];
-            alert(`Edit functionality for ${type} item: ${item.title || item.program}\n\nIn a real application, this would open an edit form.`);
-            // In a real app, this would populate the form with existing data for editing
-        }
-
-        // Delete item function
-        function deleteItem(type, index) {
-            if (confirm('Are you sure you want to delete this item?')) {
-                collegeData[type].splice(index, 1);
-                renderAdminTables();
-                renderWebsiteContent();
-                alert('Item deleted successfully!');
+        
+        function editNews(id) {
+            const news = newsData.find(item => item.id === id);
+            if (news) {
+                document.getElementById('news-form').classList.remove('d-none');
+                document.getElementById('news-id').value = news.id;
+                document.getElementById('news-title').value = news.title;
+                document.getElementById('news-content').value = news.content;
+                document.getElementById('news-date').value = news.date;
             }
         }
-
+        
+        function deleteNews(id) {
+            if (confirm('Are you sure you want to delete this news item?')) {
+                newsData = newsData.filter(item => item.id !== id);
+                loadAdminContent();
+                loadWebsiteContent();
+            }
+        }
+        
+        // Gallery management functions
+        function showGalleryForm() {
+            document.getElementById('gallery-form').classList.remove('d-none');
+            document.getElementById('gallery-id').value = '';
+            document.getElementById('gallery-image').value = '';
+            document.getElementById('gallery-description').value = '';
+            document.getElementById('gallery-event-date').value = '';
+        }
+        
+        function hideGalleryForm() {
+            document.getElementById('gallery-form').classList.add('d-none');
+        }
+        
+        function editGallery(id) {
+            const item = galleryData.find(item => item.id === id);
+            if (item) {
+                document.getElementById('gallery-form').classList.remove('d-none');
+                document.getElementById('gallery-id').value = item.id;
+                document.getElementById('gallery-description').value = item.description;
+                document.getElementById('gallery-event-date').value = item.eventDate;
+                // Note: In a real application, we would handle image editing differently
+            }
+        }
+        
+        function deleteGallery(id) {
+            if (confirm('Are you sure you want to delete this gallery item?')) {
+                galleryData = galleryData.filter(item => item.id !== id);
+                loadAdminContent();
+                loadWebsiteContent();
+            }
+        }
+        
+        // Programs management functions
+        function showProgramForm() {
+            document.getElementById('program-form').classList.remove('d-none');
+            document.getElementById('program-id').value = '';
+            document.getElementById('program-name').value = '';
+            document.getElementById('program-duration').value = '';
+            document.getElementById('program-description').value = '';
+        }
+        
+        function hideProgramForm() {
+            document.getElementById('program-form').classList.add('d-none');
+        }
+        
+        function editProgram(id) {
+            const program = programsData.find(item => item.id === id);
+            if (program) {
+                document.getElementById('program-form').classList.remove('d-none');
+                document.getElementById('program-id').value = program.id;
+                document.getElementById('program-name').value = program.name;
+                document.getElementById('program-duration').value = program.duration;
+                document.getElementById('program-description').value = program.description;
+            }
+        }
+        
+        function deleteProgram(id) {
+            if (confirm('Are you sure you want to delete this program?')) {
+                programsData = programsData.filter(item => item.id !== id);
+                loadAdminContent();
+                loadWebsiteContent();
+            }
+        }
+        
         // Form submission handlers
-        document.getElementById('news-form').addEventListener('submit', function(e) {
+        document.getElementById('login-form').addEventListener('submit', function(e) {
             e.preventDefault();
+            const username = document.getElementById('username').value;
+            const password = document.getElementById('password').value;
             
-            const newNews = {
-                id: collegeData.news.length + 1,
-                title: document.getElementById('news-title').value,
-                date: document.getElementById('news-date').value,
-                content: document.getElementById('news-content-text').value,
-                image: document.getElementById('news-image').value
-            };
-            
-            collegeData.news.push(newNews);
-            renderAdminTables();
-            renderWebsiteContent();
-            this.reset();
-            alert('News added successfully!');
-        });
-
-        document.getElementById('gallery-form').addEventListener('submit', function(e) {
-            e.preventDefault();
-            
-            const fileInput = document.getElementById('gallery-image-upload');
-            let imageUrl = '';
-            
-            if (fileInput.files.length > 0) {
-                // In a real application, you would upload the file to a server
-                // For this demo, we'll create a blob URL
-                imageUrl = URL.createObjectURL(fileInput.files[0]);
+            // Simple authentication (in real app, this would be server-side)
+            if (username === 'admin' && password === 'admin123') {
+                showAdminPanel();
             } else {
-                alert('Please select an image to upload.');
-                return;
+                alert('Invalid credentials. Try admin/admin123');
+            }
+        });
+        
+        document.getElementById('news-item-form').addEventListener('submit', function(e) {
+            e.preventDefault();
+            const id = document.getElementById('news-id').value;
+            const title = document.getElementById('news-title').value;
+            const content = document.getElementById('news-content').value;
+            const date = document.getElementById('news-date').value;
+            
+            if (id) {
+                // Update existing news
+                const index = newsData.findIndex(item => item.id == id);
+                if (index !== -1) {
+                    newsData[index] = { id: parseInt(id), title, content, date };
+                }
+            } else {
+                // Add new news
+                const newId = newsData.length > 0 ? Math.max(...newsData.map(item => item.id)) + 1 : 1;
+                newsData.push({ id: newId, title, content, date });
             }
             
-            const newGalleryItem = {
-                id: collegeData.gallery.length + 1,
-                title: document.getElementById('gallery-title').value,
-                date: document.getElementById('gallery-date').value,
-                image: imageUrl
-            };
-            
-            collegeData.gallery.push(newGalleryItem);
-            renderAdminTables();
-            renderWebsiteContent();
-            this.reset();
-            document.getElementById('gallery-file-name').textContent = 'No file chosen';
-            document.getElementById('gallery-preview').style.display = 'none';
-            alert('Gallery item added successfully!');
+            hideNewsForm();
+            loadAdminContent();
+            loadWebsiteContent();
         });
-
-        document.getElementById('programs-form').addEventListener('submit', function(e) {
+        
+        document.getElementById('gallery-item-form').addEventListener('submit', function(e) {
             e.preventDefault();
+            const id = document.getElementById('gallery-id').value;
+            const description = document.getElementById('gallery-description').value;
+            const eventDate = document.getElementById('gallery-event-date').value;
+            const imageFile = document.getElementById('gallery-image').files[0];
             
-            const newProgram = {
-                id: collegeData.programs.length + 1,
-                title: document.getElementById('program-title').value,
-                description: document.getElementById('program-description').value,
-                icon: document.getElementById('program-icon').value
-            };
+            // In a real application, we would upload the image to a server
+            // For this demo, we'll use a placeholder
+            let imageUrl = "https://images.unsplash.com/photo-1562774053-701939374585?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=60";
             
-            collegeData.programs.push(newProgram);
-            renderAdminTables();
-            renderWebsiteContent();
-            this.reset();
-            alert('Program added successfully!');
-        });
-
-        document.getElementById('fees-form').addEventListener('submit', function(e) {
-            e.preventDefault();
-            
-            const newFee = {
-                id: collegeData.fees.length + 1,
-                program: document.getElementById('fee-program').options[document.getElementById('fee-program').selectedIndex].text,
-                amount: '₹' + document.getElementById('fee-amount').value,
-                details: document.getElementById('fee-details').value
-            };
-            
-            // Check if fee for this program already exists
-            const existingIndex = collegeData.fees.findIndex(fee => fee.program === newFee.program);
-            if (existingIndex !== -1) {
-                collegeData.fees[existingIndex] = newFee;
-            } else {
-                collegeData.fees.push(newFee);
+            if (imageFile) {
+                // Create a local URL for the uploaded image
+                imageUrl = URL.createObjectURL(imageFile);
             }
             
-            renderAdminTables();
-            this.reset();
-            alert('Fee structure updated successfully!');
+            if (id) {
+                // Update existing gallery item
+                const index = galleryData.findIndex(item => item.id == id);
+                if (index !== -1) {
+                    galleryData[index] = { id: parseInt(id), image: imageUrl, description, eventDate };
+                }
+            } else {
+                // Add new gallery item
+                const newId = galleryData.length > 0 ? Math.max(...galleryData.map(item => item.id)) + 1 : 1;
+                galleryData.push({ id: newId, image: imageUrl, description, eventDate });
+            }
+            
+            hideGalleryForm();
+            loadAdminContent();
+            loadWebsiteContent();
         });
-
-        // Initialize the page
+        
+        document.getElementById('program-item-form').addEventListener('submit', function(e) {
+            e.preventDefault();
+            const id = document.getElementById('program-id').value;
+            const name = document.getElementById('program-name').value;
+            const duration = document.getElementById('program-duration').value;
+            const description = document.getElementById('program-description').value;
+            
+            if (id) {
+                // Update existing program
+                const index = programsData.findIndex(item => item.id == id);
+                if (index !== -1) {
+                    programsData[index] = { id: parseInt(id), name, duration, description };
+                }
+            } else {
+                // Add new program
+                const newId = programsData.length > 0 ? Math.max(...programsData.map(item => item.id)) + 1 : 1;
+                programsData.push({ id: newId, name, duration, description });
+            }
+            
+            hideProgramForm();
+            loadAdminContent();
+            loadWebsiteContent();
+        });
+        
+        document.getElementById('fee-form').addEventListener('submit', function(e) {
+            e.preventDefault();
+            feeDetails = document.getElementById('fee-details').value;
+            alert('Fee information updated successfully!');
+        });
+        
+        // Utility function to format dates
+        function formatDate(dateString) {
+            const options = { year: 'numeric', month: 'long', day: 'numeric' };
+            return new Date(dateString).toLocaleDateString(undefined, options);
+        }
+        
+        // Initialize the website
         document.addEventListener('DOMContentLoaded', function() {
-            // Smooth scrolling for navigation links
-            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-                anchor.addEventListener('click', function (e) {
-                    e.preventDefault();
-                    
-                    const targetId = this.getAttribute('href');
-                    if (targetId === '#') return;
-                    
-                    const targetElement = document.querySelector(targetId);
-                    if (targetElement) {
-                        window.scrollTo({
-                            top: targetElement.offsetTop - 80,
-                            behavior: 'smooth'
-                        });
-                        
-                        // Close mobile menu if open
-                        document.querySelector('nav ul').classList.remove('show');
-                    }
-                });
-            });
-            
-            // Set active navigation link based on scroll position
-            window.addEventListener('scroll', function() {
-                const sections = document.querySelectorAll('section');
-                const navLinks = document.querySelectorAll('nav ul li a');
-                
-                let current = '';
-                sections.forEach(section => {
-                    const sectionTop = section.offsetTop;
-                    const sectionHeight = section.clientHeight;
-                    if (scrollY >= (sectionTop - 100)) {
-                        current = section.getAttribute('id');
-                    }
-                });
-                
-                navLinks.forEach(link => {
-                    link.classList.remove('active');
-                    if (link.getAttribute('href') === `#${current}`) {
-                        link.classList.add('active');
-                    }
-                });
-            });
+            loadWebsiteContent();
+            showMainWebsite();
         });
     </script>
 </body>
