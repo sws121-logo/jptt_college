@@ -22,7 +22,6 @@
             --success: #2ecc71;
             --transition: all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
             --sidebar-width: 250px;
-            --sidebar-collapsed-width: 70px;
         }
 
         body {
@@ -536,6 +535,108 @@
             box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
         }
 
+        /* Cultural Programs Section */
+        .cultural-programs-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+            gap: 30px;
+        }
+
+        .cultural-program-card {
+            background: white;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            transition: var(--transition);
+            position: relative;
+            transform-style: preserve-3d;
+        }
+
+        .cultural-program-card:hover {
+            transform: translateY(-10px) rotateY(5deg) rotateX(5deg);
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.15);
+        }
+
+        .cultural-program-image {
+            height: 200px;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .cultural-program-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: var(--transition);
+        }
+
+        .cultural-program-card:hover .cultural-program-image img {
+            transform: scale(1.1);
+        }
+
+        .cultural-program-date {
+            position: absolute;
+            top: 15px;
+            left: 15px;
+            background: var(--accent);
+            color: white;
+            padding: 5px 10px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            z-index: 2;
+        }
+
+        .cultural-program-content {
+            padding: 25px;
+        }
+
+        .cultural-program-content h3 {
+            margin-bottom: 15px;
+            color: var(--primary);
+            font-size: 1.3rem;
+        }
+
+        .cultural-program-content p {
+            color: #666;
+            margin-bottom: 15px;
+            line-height: 1.6;
+        }
+
+        .cultural-program-details {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 20px;
+            font-size: 0.9rem;
+        }
+
+        .cultural-program-details span {
+            display: flex;
+            align-items: center;
+            color: var(--secondary);
+        }
+
+        .cultural-program-details i {
+            margin-right: 5px;
+        }
+
+        .cultural-program-status {
+            display: inline-block;
+            padding: 5px 10px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 600;
+        }
+
+        .status-upcoming {
+            background: #e8f4fd;
+            color: var(--secondary);
+        }
+
+        .status-completed {
+            background: #e8f6ef;
+            color: var(--success);
+        }
+
         /* Footer */
         footer {
             background: var(--dark);
@@ -618,24 +719,21 @@
             display: none;
             background: #f5f5f5;
             min-height: 100vh;
+            padding: 20px 0;
         }
 
         .admin-header {
             background: var(--primary);
             color: white;
             padding: 20px 0;
+            margin-bottom: 30px;
             box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-            position: fixed;
-            width: 100%;
-            top: 0;
-            z-index: 1000;
         }
 
         .admin-nav {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            padding: 0 20px;
         }
 
         .admin-nav h2 {
@@ -643,122 +741,91 @@
             text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
         }
 
-        .admin-main {
+        .admin-container {
             display: flex;
-            margin-top: 80px;
+            gap: 30px;
         }
 
-        /* Admin Sidebar */
         .admin-sidebar {
             width: var(--sidebar-width);
-            background: var(--dark);
-            color: white;
-            height: calc(100vh - 80px);
-            position: fixed;
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
             transition: var(--transition);
-            z-index: 999;
-            box-shadow: 5px 0 15px rgba(0, 0, 0, 0.1);
             transform-style: preserve-3d;
         }
 
-        .admin-sidebar.collapsed {
-            width: var(--sidebar-collapsed-width);
+        .admin-sidebar:hover {
+            transform: translateY(-5px) rotateY(2deg);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
         }
 
-        .sidebar-toggle {
-            position: absolute;
-            top: 15px;
-            right: -15px;
+        .admin-sidebar-header {
             background: var(--secondary);
             color: white;
-            border: none;
-            width: 30px;
-            height: 30px;
-            border-radius: 50%;
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+            padding: 20px;
+            text-align: center;
+        }
+
+        .admin-sidebar-header h3 {
+            margin: 0;
+            font-size: 1.3rem;
+        }
+
+        .admin-sidebar-menu {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .admin-sidebar-menu li {
+            border-bottom: 1px solid #eee;
+        }
+
+        .admin-sidebar-menu li:last-child {
+            border-bottom: none;
+        }
+
+        .admin-sidebar-menu a {
+            display: block;
+            padding: 15px 20px;
+            color: var(--primary);
+            text-decoration: none;
             transition: var(--transition);
-            z-index: 1001;
-        }
-
-        .sidebar-toggle:hover {
-            transform: rotate(180deg) scale(1.1);
-        }
-
-        .sidebar-menu {
-            padding: 20px 0;
-            overflow-y: auto;
-            height: 100%;
-        }
-
-        .menu-item {
-            padding: 15px 25px;
-            cursor: pointer;
-            transition: var(--transition);
-            display: flex;
-            align-items: center;
-            border-left: 4px solid transparent;
             position: relative;
             overflow: hidden;
         }
 
-        .menu-item:hover {
-            background: rgba(255, 255, 255, 0.1);
-            border-left-color: var(--secondary);
+        .admin-sidebar-menu a:before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: rgba(52, 152, 219, 0.1);
+            transition: var(--transition);
+        }
+
+        .admin-sidebar-menu a:hover:before, .admin-sidebar-menu a.active:before {
+            left: 0;
+        }
+
+        .admin-sidebar-menu a:hover, .admin-sidebar-menu a.active {
+            background: #f8f9fa;
+            color: var(--secondary);
             transform: translateX(5px);
         }
 
-        .menu-item.active {
-            background: rgba(255, 255, 255, 0.15);
-            border-left-color: var(--accent);
-        }
-
-        .menu-item i {
-            font-size: 1.2rem;
-            margin-right: 15px;
+        .admin-sidebar-menu i {
+            margin-right: 10px;
             width: 20px;
             text-align: center;
-            transition: var(--transition);
         }
 
-        .menu-text {
-            transition: var(--transition);
-            white-space: nowrap;
-            overflow: hidden;
-        }
-
-        .admin-sidebar.collapsed .menu-text {
-            opacity: 0;
-            width: 0;
-        }
-
-        .admin-sidebar.collapsed .menu-item {
-            justify-content: center;
-            padding: 15px 0;
-        }
-
-        .admin-sidebar.collapsed .menu-item i {
-            margin-right: 0;
-        }
-
-        /* Admin Content Area */
-        .admin-content-area {
+        .admin-content {
             flex: 1;
-            margin-left: var(--sidebar-width);
-            padding: 30px;
-            transition: var(--transition);
-        }
-
-        .admin-sidebar.collapsed ~ .admin-content-area {
-            margin-left: var(--sidebar-collapsed-width);
-        }
-
-        .admin-section {
-            display: none;
-            animation: fadeIn 0.5s ease-out;
             background: white;
             border-radius: 15px;
             padding: 30px;
@@ -767,9 +834,14 @@
             transform-style: preserve-3d;
         }
 
-        .admin-section:hover {
-            transform: translateY(-5px) rotateX(1deg);
+        .admin-content:hover {
+            transform: translateY(-5px) rotateX(2deg);
             box-shadow: 0 15px 35px rgba(0, 0, 0, 0.15);
+        }
+
+        .admin-section {
+            display: none;
+            animation: fadeIn 0.5s ease-out;
         }
 
         .admin-section.active {
@@ -777,14 +849,12 @@
         }
 
         @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(20px) rotateX(-10deg); }
-            to { opacity: 1; transform: translateY(0) rotateX(0); }
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
         }
 
         .form-group {
             margin-bottom: 25px;
-            position: relative;
-            transform-style: preserve-3d;
         }
 
         .form-group label {
@@ -792,7 +862,6 @@
             margin-bottom: 10px;
             font-weight: 600;
             color: var(--primary);
-            transform: translateZ(20px);
         }
 
         .form-control {
@@ -802,13 +871,12 @@
             border-radius: 8px;
             font-size: 1rem;
             transition: var(--transition);
-            transform-style: preserve-3d;
         }
 
         .form-control:focus {
             border-color: var(--secondary);
             box-shadow: 0 0 0 3px rgba(52, 152, 219, 0.2);
-            transform: translateY(-2px) translateZ(10px);
+            transform: translateY(-2px);
         }
 
         textarea.form-control {
@@ -824,7 +892,6 @@
             font-size: 1rem;
             transition: var(--transition);
             font-weight: 600;
-            transform-style: preserve-3d;
         }
 
         .btn-primary {
@@ -835,7 +902,7 @@
 
         .btn-primary:hover {
             background: #2980b9;
-            transform: translateY(-3px) translateZ(5px);
+            transform: translateY(-3px);
             box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
         }
 
@@ -856,7 +923,6 @@
             box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
             border-radius: 8px;
             overflow: hidden;
-            transform-style: preserve-3d;
         }
 
         .admin-table th, .admin-table td {
@@ -871,14 +937,10 @@
             color: var(--primary);
         }
 
-        .admin-table tr {
-            transition: var(--transition);
-            transform-style: preserve-3d;
-        }
-
         .admin-table tr:hover {
             background: #f8f9fa;
-            transform: scale(1.01) translateZ(5px);
+            transform: scale(1.01);
+            transition: var(--transition);
         }
 
         .action-btns {
@@ -915,69 +977,25 @@
             transform: translateY(-2px);
         }
 
-        /* Dashboard Cards */
-        .dashboard-cards {
+        /* Cultural Program Admin Styles */
+        .cultural-program-admin-container {
             display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
             gap: 25px;
-            margin-bottom: 30px;
+            margin-top: 25px;
         }
 
-        .dashboard-card {
-            background: white;
-            border-radius: 15px;
-            padding: 25px;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
-            transition: var(--transition);
-            text-align: center;
-            transform-style: preserve-3d;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .dashboard-card:before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 5px;
-            background: var(--secondary);
-            transform: scaleX(0);
+        .cultural-program-admin-card {
+            background: #f8f9fa;
+            border-radius: 10px;
+            padding: 20px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
             transition: var(--transition);
         }
 
-        .dashboard-card:hover:before {
-            transform: scaleX(1);
-        }
-
-        .dashboard-card:hover {
-            transform: translateY(-10px) rotateY(5deg);
-            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.15);
-        }
-
-        .card-icon {
-            font-size: 2.5rem;
-            color: var(--secondary);
-            margin-bottom: 15px;
-            transition: var(--transition);
-        }
-
-        .dashboard-card:hover .card-icon {
-            transform: scale(1.2) rotateY(180deg);
-            color: var(--accent);
-        }
-
-        .card-value {
-            font-size: 2rem;
-            font-weight: bold;
-            color: var(--primary);
-            margin: 10px 0;
-        }
-
-        .card-label {
-            color: #666;
-            font-size: 0.9rem;
+        .cultural-program-admin-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
         }
 
         /* Responsive Design */
@@ -1001,26 +1019,12 @@
                 font-size: 2.2rem;
             }
             
+            .admin-container {
+                flex-direction: column;
+            }
+            
             .admin-sidebar {
-                width: var(--sidebar-collapsed-width);
-            }
-            
-            .admin-sidebar .menu-text {
-                opacity: 0;
-                width: 0;
-            }
-            
-            .admin-sidebar .menu-item {
-                justify-content: center;
-                padding: 15px 0;
-            }
-            
-            .admin-sidebar .menu-item i {
-                margin-right: 0;
-            }
-            
-            .admin-content-area {
-                margin-left: var(--sidebar-collapsed-width);
+                width: 100%;
             }
             
             .section-title h2 {
@@ -1061,63 +1065,6 @@
                 opacity: 0;
             }
         }
-
-        /* 3D Login Form */
-        .login-container {
-            display: none;
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0, 0, 0, 0.7);
-            z-index: 2000;
-            justify-content: center;
-            align-items: center;
-        }
-
-        .login-form {
-            background: white;
-            padding: 40px;
-            border-radius: 15px;
-            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.3);
-            width: 90%;
-            max-width: 400px;
-            transform-style: preserve-3d;
-            animation: formAppear 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
-            transform: rotateX(10deg) translateY(50px);
-            opacity: 0;
-        }
-
-        @keyframes formAppear {
-            to {
-                transform: rotateX(0) translateY(0);
-                opacity: 1;
-            }
-        }
-
-        .login-form h3 {
-            text-align: center;
-            margin-bottom: 25px;
-            color: var(--primary);
-        }
-
-        .close-login {
-            position: absolute;
-            top: 15px;
-            right: 15px;
-            background: none;
-            border: none;
-            font-size: 1.5rem;
-            cursor: pointer;
-            color: #666;
-            transition: var(--transition);
-        }
-
-        .close-login:hover {
-            color: var(--accent);
-            transform: rotate(90deg);
-        }
     </style>
 </head>
 <body>
@@ -1141,6 +1088,7 @@
                     <ul>
                         <li><a href="#home" class="active">Home</a></li>
                         <li><a href="#news">News</a></li>
+                        <li><a href="#cultural-programs">Cultural Programs</a></li>
                         <li><a href="#gallery">Gallery</a></li>
                         <li><a href="#programs">Programs</a></li>
                         <li><a href="#about">About Us</a></li>
@@ -1156,7 +1104,7 @@
                 <div class="hero-content">
                     <h2>Welcome to JPTT College</h2>
                     <p>Jehal Prasad Teachers Training College is committed to providing quality education and training for aspiring teachers. Our mission is to shape the future of education through innovative teaching methods and practical experience.</p>
-                    <a href="#programs" class="hero-btn btn-3d">Explore Our Programs</a>
+                    <a href="#cultural-programs" class="hero-btn btn-3d">View Cultural Programs</a>
                 </div>
             </div>
         </section>
@@ -1169,6 +1117,18 @@
                 </div>
                 <div class="news-container" id="news-container">
                     <!-- News items will be dynamically loaded here -->
+                </div>
+            </div>
+        </section>
+
+        <section id="cultural-programs">
+            <div class="container">
+                <div class="section-title">
+                    <h2>Cultural Programs</h2>
+                    <p>Upcoming and completed cultural events at JPTT College</p>
+                </div>
+                <div class="cultural-programs-container" id="cultural-programs-container">
+                    <!-- Cultural program items will be dynamically loaded here -->
                 </div>
             </div>
         </section>
@@ -1258,6 +1218,7 @@
                         <h3>Quick Links</h3>
                         <a href="#home">Home</a>
                         <a href="#news">News</a>
+                        <a href="#cultural-programs">Cultural Programs</a>
                         <a href="#gallery">Gallery</a>
                         <a href="#programs">Programs</a>
                         <a href="#about">About Us</a>
@@ -1277,270 +1238,211 @@
         </footer>
     </div>
 
-    <!-- Login Modal -->
-    <div class="login-container" id="login-container">
-        <div class="login-form">
-            <button class="close-login" id="close-login"><i class="fas fa-times"></i></button>
-            <h3>Admin Login</h3>
-            <form id="login-form">
-                <div class="form-group">
-                    <label for="username">Username</label>
-                    <input type="text" id="username" class="form-control" required>
-                </div>
-                <div class="form-group">
-                    <label for="password">Password</label>
-                    <input type="password" id="password" class="form-control" required>
-                </div>
-                <button type="submit" class="btn btn-primary btn-3d" style="width: 100%;">Login</button>
-            </form>
-        </div>
-    </div>
-
     <!-- Admin Panel -->
     <div id="admin-panel" class="admin-panel">
         <div class="admin-header">
-            <div class="admin-nav">
-                <h2>JPTT College Admin Panel</h2>
-                <button class="btn btn-primary btn-3d" id="back-to-website">
-                    <i class="fas fa-arrow-left"></i> Back to Website
-                </button>
+            <div class="container">
+                <div class="admin-nav">
+                    <h2>JPTT College Admin Panel</h2>
+                    <button class="btn btn-primary btn-3d" id="back-to-website">
+                        <i class="fas fa-arrow-left"></i> Back to Website
+                    </button>
+                </div>
             </div>
         </div>
 
-        <div class="admin-main">
-            <div class="admin-sidebar" id="admin-sidebar">
-                <button class="sidebar-toggle" id="sidebar-toggle">
-                    <i class="fas fa-chevron-left"></i>
-                </button>
-                <div class="sidebar-menu">
-                    <div class="menu-item active" data-section="dashboard">
-                        <i class="fas fa-tachometer-alt"></i>
-                        <span class="menu-text">Dashboard</span>
+        <div class="container">
+            <div class="admin-container">
+                <div class="admin-sidebar">
+                    <div class="admin-sidebar-header">
+                        <h3>Management Sections</h3>
                     </div>
-                    <div class="menu-item" data-section="news-management">
-                        <i class="fas fa-newspaper"></i>
-                        <span class="menu-text">News Management</span>
-                    </div>
-                    <div class="menu-item" data-section="gallery-management">
-                        <i class="fas fa-images"></i>
-                        <span class="menu-text">Gallery Management</span>
-                    </div>
-                    <div class="menu-item" data-section="programs-management">
-                        <i class="fas fa-graduation-cap"></i>
-                        <span class="menu-text">Programs Management</span>
-                    </div>
-                    <div class="menu-item" data-section="fee-management">
-                        <i class="fas fa-money-bill-wave"></i>
-                        <span class="menu-text">Fee Management</span>
-                    </div>
-                    <div class="menu-item" data-section="user-management">
-                        <i class="fas fa-users"></i>
-                        <span class="menu-text">User Management</span>
-                    </div>
-                    <div class="menu-item" data-section="settings">
-                        <i class="fas fa-cog"></i>
-                        <span class="menu-text">Settings</span>
-                    </div>
+                    <ul class="admin-sidebar-menu">
+                        <li><a href="#" class="admin-sidebar-link active" data-section="news-management"><i class="fas fa-newspaper"></i> News Management</a></li>
+                        <li><a href="#" class="admin-sidebar-link" data-section="cultural-programs-management"><i class="fas fa-music"></i> Cultural Programs</a></li>
+                        <li><a href="#" class="admin-sidebar-link" data-section="gallery-management"><i class="fas fa-images"></i> Gallery Management</a></li>
+                        <li><a href="#" class="admin-sidebar-link" data-section="programs-management"><i class="fas fa-graduation-cap"></i> Programs Management</a></li>
+                        <li><a href="#" class="admin-sidebar-link" data-section="fee-management"><i class="fas fa-money-bill-wave"></i> Fee Management</a></li>
+                    </ul>
                 </div>
-            </div>
 
-            <div class="admin-content-area" id="admin-content-area">
-                <!-- Dashboard Section -->
-                <div id="dashboard" class="admin-section active">
-                    <h3>Dashboard Overview</h3>
-                    <div class="dashboard-cards">
-                        <div class="dashboard-card">
-                            <div class="card-icon">
-                                <i class="fas fa-newspaper"></i>
+                <div class="admin-content">
+                    <!-- News Management -->
+                    <div id="news-management" class="admin-section active">
+                        <h3>Manage News & Events</h3>
+                        <form id="news-form">
+                            <div class="form-group">
+                                <label for="news-title">News Title</label>
+                                <input type="text" id="news-title" class="form-control" required>
                             </div>
-                            <div class="card-value" id="news-count">0</div>
-                            <div class="card-label">Total News Items</div>
-                        </div>
-                        <div class="dashboard-card">
-                            <div class="card-icon">
-                                <i class="fas fa-images"></i>
+                            <div class="form-group">
+                                <label for="news-content">News Content</label>
+                                <textarea id="news-content" class="form-control" required></textarea>
                             </div>
-                            <div class="card-value" id="gallery-count">0</div>
-                            <div class="card-label">Gallery Images</div>
-                        </div>
-                        <div class="dashboard-card">
-                            <div class="card-icon">
-                                <i class="fas fa-graduation-cap"></i>
+                            <div class="form-group">
+                                <label for="news-date">Date</label>
+                                <input type="date" id="news-date" class="form-control" required>
                             </div>
-                            <div class="card-value" id="programs-count">0</div>
-                            <div class="card-label">Active Programs</div>
-                        </div>
-                        <div class="dashboard-card">
-                            <div class="card-icon">
-                                <i class="fas fa-users"></i>
+                            <div class="form-group">
+                                <label for="news-image">Image URL</label>
+                                <input type="text" id="news-image" class="form-control" placeholder="Paste image URL or upload">
+                                <small>Note: For demonstration, paste image URL. In a real application, you would upload files.</small>
                             </div>
-                            <div class="card-value" id="users-count">0</div>
-                            <div class="card-label">Registered Users</div>
+                            <button type="submit" class="btn btn-primary btn-3d">Add News</button>
+                        </form>
+
+                        <h4 style="margin-top: 30px;">Existing News</h4>
+                        <table class="admin-table">
+                            <thead>
+                                <tr>
+                                    <th>Title</th>
+                                    <th>Date</th>
+                                    <th>Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody id="news-table-body">
+                                <!-- News items will be dynamically loaded here -->
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <!-- Cultural Programs Management -->
+                    <div id="cultural-programs-management" class="admin-section">
+                        <h3>Manage Cultural Programs</h3>
+                        <form id="cultural-programs-form">
+                            <div class="form-group">
+                                <label for="cultural-program-title">Program Title</label>
+                                <input type="text" id="cultural-program-title" class="form-control" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="cultural-program-description">Description</label>
+                                <textarea id="cultural-program-description" class="form-control" required></textarea>
+                            </div>
+                            <div class="form-group">
+                                <label for="cultural-program-date">Date</label>
+                                <input type="date" id="cultural-program-date" class="form-control" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="cultural-program-venue">Venue</label>
+                                <input type="text" id="cultural-program-venue" class="form-control" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="cultural-program-status">Status</label>
+                                <select id="cultural-program-status" class="form-control" required>
+                                    <option value="upcoming">Upcoming</option>
+                                    <option value="completed">Completed</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label for="cultural-program-image">Image URL</label>
+                                <input type="text" id="cultural-program-image" class="form-control" placeholder="Paste image URL or upload">
+                            </div>
+                            <button type="submit" class="btn btn-primary btn-3d">Add Cultural Program</button>
+                        </form>
+
+                        <h4 style="margin-top: 30px;">Cultural Programs</h4>
+                        <div class="cultural-program-admin-container" id="cultural-programs-admin-container">
+                            <!-- Cultural program items will be dynamically loaded here -->
                         </div>
                     </div>
-                    
-                    <h4>Recent Activity</h4>
-                    <table class="admin-table">
-                        <thead>
-                            <tr>
-                                <th>Action</th>
-                                <th>Item</th>
-                                <th>Date</th>
-                            </tr>
-                        </thead>
-                        <tbody id="activity-table-body">
-                            <!-- Activity items will be dynamically loaded here -->
-                        </tbody>
-                    </table>
-                </div>
 
-                <!-- News Management -->
-                <div id="news-management" class="admin-section">
-                    <h3>Manage News & Events</h3>
-                    <form id="news-form">
-                        <div class="form-group">
-                            <label for="news-title">News Title</label>
-                            <input type="text" id="news-title" class="form-control" required>
-                        </div>
-                        <div class="form-group">
-                            <label for="news-content">News Content</label>
-                            <textarea id="news-content" class="form-control" required></textarea>
-                        </div>
-                        <div class="form-group">
-                            <label for="news-date">Date</label>
-                            <input type="date" id="news-date" class="form-control" required>
-                        </div>
-                        <div class="form-group">
-                            <label for="news-image">Image URL</label>
-                            <input type="text" id="news-image" class="form-control" placeholder="Paste image URL or upload">
-                            <small>Note: For demonstration, paste image URL. In a real application, you would upload files.</small>
-                        </div>
-                        <button type="submit" class="btn btn-primary btn-3d">Add News</button>
-                    </form>
+                    <!-- Gallery Management -->
+                    <div id="gallery-management" class="admin-section">
+                        <h3>Manage Gallery</h3>
+                        <form id="gallery-form">
+                            <div class="form-group">
+                                <label for="gallery-title">Image Title/Description</label>
+                                <input type="text" id="gallery-title" class="form-control" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="gallery-date">Event Date</label>
+                                <input type="date" id="gallery-date" class="form-control" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="gallery-image">Image URL</label>
+                                <input type="text" id="gallery-image" class="form-control" placeholder="Paste image URL or upload">
+                                <small>Note: For demonstration, paste image URL. In a real application, you would upload files.</small>
+                            </div>
+                            <button type="submit" class="btn btn-primary btn-3d">Add to Gallery</button>
+                        </form>
 
-                    <h4 style="margin-top: 30px;">Existing News</h4>
-                    <table class="admin-table">
-                        <thead>
-                            <tr>
-                                <th>Title</th>
-                                <th>Date</th>
-                                <th>Actions</th>
-                            </tr>
-                        </thead>
-                        <tbody id="news-table-body">
-                            <!-- News items will be dynamically loaded here -->
-                        </tbody>
-                    </table>
-                </div>
-
-                <!-- Gallery Management -->
-                <div id="gallery-management" class="admin-section">
-                    <h3>Manage Gallery</h3>
-                    <form id="gallery-form">
-                        <div class="form-group">
-                            <label for="gallery-title">Image Title/Description</label>
-                            <input type="text" id="gallery-title" class="form-control" required>
+                        <h4 style="margin-top: 30px;">Gallery Items</h4>
+                        <div class="gallery-container" id="admin-gallery-container">
+                            <!-- Gallery items will be dynamically loaded here -->
                         </div>
-                        <div class="form-group">
-                            <label for="gallery-date">Event Date</label>
-                            <input type="date" id="gallery-date" class="form-control" required>
-                        </div>
-                        <div class="form-group">
-                            <label for="gallery-image">Image URL</label>
-                            <input type="text" id="gallery-image" class="form-control" placeholder="Paste image URL or upload">
-                            <small>Note: For demonstration, paste image URL. In a real application, you would upload files.</small>
-                        </div>
-                        <button type="submit" class="btn btn-primary btn-3d">Add to Gallery</button>
-                    </form>
-
-                    <h4 style="margin-top: 30px;">Gallery Items</h4>
-                    <div class="gallery-container" id="admin-gallery-container">
-                        <!-- Gallery items will be dynamically loaded here -->
                     </div>
-                </div>
 
-                <!-- Programs Management -->
-                <div id="programs-management" class="admin-section">
-                    <h3>Manage Programs</h3>
-                    <form id="programs-form">
-                        <div class="form-group">
-                            <label for="program-title">Program Title</label>
-                            <input type="text" id="program-title" class="form-control" required>
-                        </div>
-                        <div class="form-group">
-                            <label for="program-description">Program Description</label>
-                            <textarea id="program-description" class="form-control" required></textarea>
-                        </div>
-                        <div class="form-group">
-                            <label for="program-duration">Duration</label>
-                            <input type="text" id="program-duration" class="form-control" required>
-                        </div>
-                        <button type="submit" class="btn btn-primary btn-3d">Add Program</button>
-                    </form>
+                    <!-- Programs Management -->
+                    <div id="programs-management" class="admin-section">
+                        <h3>Manage Programs</h3>
+                        <form id="programs-form">
+                            <div class="form-group">
+                                <label for="program-title">Program Title</label>
+                                <input type="text" id="program-title" class="form-control" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="program-description">Program Description</label>
+                                <textarea id="program-description" class="form-control" required></textarea>
+                            </div>
+                            <div class="form-group">
+                                <label for="program-duration">Duration</label>
+                                <input type="text" id="program-duration" class="form-control" required>
+                            </div>
+                            <button type="submit" class="btn btn-primary btn-3d">Add Program</button>
+                        </form>
 
-                    <h4 style="margin-top: 30px;">Existing Programs</h4>
-                    <table class="admin-table">
-                        <thead>
-                            <tr>
-                                <th>Program Name</th>
-                                <th>Duration</th>
-                                <th>Actions</th>
-                            </tr>
-                        </thead>
-                        <tbody id="programs-table-body">
-                            <!-- Program items will be dynamically loaded here -->
-                        </tbody>
-                    </table>
-                </div>
+                        <h4 style="margin-top: 30px;">Existing Programs</h4>
+                        <table class="admin-table">
+                            <thead>
+                                <tr>
+                                    <th>Program Name</th>
+                                    <th>Duration</th>
+                                    <th>Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody id="programs-table-body">
+                                <!-- Program items will be dynamically loaded here -->
+                            </tbody>
+                        </table>
+                    </div>
 
-                <!-- Fee Management -->
-                <div id="fee-management" class="admin-section">
-                    <h3>Fee Management</h3>
-                    <form id="fee-form">
-                        <div class="form-group">
-                            <label for="fee-program">Select Program</label>
-                            <select id="fee-program" class="form-control" required>
-                                <option value="">Select a program</option>
-                                <!-- Options will be dynamically loaded -->
-                            </select>
-                        </div>
-                        <div class="form-group">
-                            <label for="fee-amount">Fee Amount (₹)</label>
-                            <input type="number" id="fee-amount" class="form-control" required>
-                        </div>
-                        <div class="form-group">
-                            <label for="fee-details">Fee Details</label>
-                            <textarea id="fee-details" class="form-control" required></textarea>
-                        </div>
-                        <button type="submit" class="btn btn-primary btn-3d">Update Fee</button>
-                    </form>
+                    <!-- Fee Management -->
+                    <div id="fee-management" class="admin-section">
+                        <h3>Fee Management</h3>
+                        <form id="fee-form">
+                            <div class="form-group">
+                                <label for="fee-program">Select Program</label>
+                                <select id="fee-program" class="form-control" required>
+                                    <option value="">Select a program</option>
+                                    <!-- Options will be dynamically loaded -->
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label for="fee-amount">Fee Amount (₹)</label>
+                                <input type="number" id="fee-amount" class="form-control" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="fee-details">Fee Details</label>
+                                <textarea id="fee-details" class="form-control" required></textarea>
+                            </div>
+                            <button type="submit" class="btn btn-primary btn-3d">Update Fee</button>
+                        </form>
 
-                    <h4 style="margin-top: 30px;">Current Fee Structure</h4>
-                    <table class="admin-table">
-                        <thead>
-                            <tr>
-                                <th>Program</th>
-                                <th>Fee Amount</th>
-                                <th>Details</th>
-                                <th>Actions</th>
-                            </tr>
-                        </thead>
-                        <tbody id="fee-table-body">
-                            <!-- Fee items will be dynamically loaded here -->
-                        </tbody>
-                    </table>
-                </div>
-
-                <!-- User Management -->
-                <div id="user-management" class="admin-section">
-                    <h3>User Management</h3>
-                    <p>User management functionality would be implemented here in a real application.</p>
-                </div>
-
-                <!-- Settings -->
-                <div id="settings" class="admin-section">
-                    <h3>System Settings</h3>
-                    <p>System configuration and settings would be implemented here in a real application.</p>
+                        <h4 style="margin-top: 30px;">Current Fee Structure</h4>
+                        <table class="admin-table">
+                            <thead>
+                                <tr>
+                                    <th>Program</th>
+                                    <th>Fee Amount</th>
+                                    <th>Details</th>
+                                    <th>Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody id="fee-table-body">
+                                <!-- Fee items will be dynamically loaded here -->
+                            </tbody>
+                        </table>
+                    </div>
                 </div>
             </div>
         </div>
@@ -1577,7 +1479,7 @@
 
         // Add scroll animations
         function initScrollAnimations() {
-            const animatedElements = document.querySelectorAll('.news-card, .program-card, .gallery-item');
+            const animatedElements = document.querySelectorAll('.news-card, .program-card, .gallery-item, .cultural-program-card');
             
             const observer = new IntersectionObserver((entries) => {
                 entries.forEach(entry => {
@@ -1618,6 +1520,45 @@
                 content: "Students organized a special program to celebrate Teacher's Day, expressing gratitude to all faculty members.",
                 date: "2023-09-05",
                 image: "https://images.unsplash.com/photo-1503676260728-1c00da094a0b?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80"
+            }
+        ];
+
+        let culturalProgramsData = [
+            {
+                id: 1,
+                title: "Annual Cultural Festival",
+                description: "A grand celebration of cultural diversity with performances, competitions, and food stalls.",
+                date: "2023-11-20",
+                venue: "College Auditorium",
+                status: "upcoming",
+                image: "https://images.unsplash.com/photo-1540575467063-178a50c2df87?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80"
+            },
+            {
+                id: 2,
+                title: "Music Concert - Melody Night",
+                description: "An evening of soulful music performed by our talented students and guest artists.",
+                date: "2023-10-05",
+                venue: "College Amphitheater",
+                status: "upcoming",
+                image: "https://images.unsplash.com/photo-1470225620780-dba8ba36b745?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80"
+            },
+            {
+                id: 3,
+                title: "Drama Competition",
+                description: "Inter-class drama competition showcasing theatrical talents of our students.",
+                date: "2023-09-15",
+                venue: "College Auditorium",
+                status: "completed",
+                image: "https://images.unsplash.com/photo-1543536448-d209d2d13a1c?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80"
+            },
+            {
+                id: 4,
+                title: "Art Exhibition",
+                description: "Display of creative artworks by students from various departments.",
+                date: "2023-08-25",
+                venue: "Art Gallery",
+                status: "completed",
+                image: "https://images.unsplash.com/photo-1563089145-599997674d42?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80"
             }
         ];
 
@@ -1690,41 +1631,23 @@
             }
         ];
 
-        let activityData = [
-            {
-                action: "Added News",
-                item: "Annual Cultural Festival 2023",
-                date: "2023-10-15"
-            },
-            {
-                action: "Updated Program",
-                item: "Diploma in Elementary Education",
-                date: "2023-10-10"
-            },
-            {
-                action: "Added Gallery Image",
-                item: "Science Exhibition",
-                date: "2023-10-05"
-            }
-        ];
-
         // DOM Elements
         const mainWebsite = document.getElementById('main-website');
         const adminPanel = document.getElementById('admin-panel');
         const adminLoginBtn = document.getElementById('admin-login-btn');
         const backToWebsiteBtn = document.getElementById('back-to-website');
-        const loginContainer = document.getElementById('login-container');
-        const closeLogin = document.getElementById('close-login');
-        const loginForm = document.getElementById('login-form');
-        const adminSidebar = document.getElementById('admin-sidebar');
-        const sidebarToggle = document.getElementById('sidebar-toggle');
-        const menuItems = document.querySelectorAll('.menu-item');
+        const adminSidebarLinks = document.querySelectorAll('.admin-sidebar-link');
         const adminSections = document.querySelectorAll('.admin-section');
 
         // News elements
         const newsContainer = document.getElementById('news-container');
         const newsForm = document.getElementById('news-form');
         const newsTableBody = document.getElementById('news-table-body');
+
+        // Cultural Programs elements
+        const culturalProgramsContainer = document.getElementById('cultural-programs-container');
+        const culturalProgramsForm = document.getElementById('cultural-programs-form');
+        const culturalProgramsAdminContainer = document.getElementById('cultural-programs-admin-container');
 
         // Gallery elements
         const galleryContainer = document.getElementById('gallery-container');
@@ -1741,30 +1664,23 @@
         const feeProgramSelect = document.getElementById('fee-program');
         const feeTableBody = document.getElementById('fee-table-body');
 
-        // Dashboard elements
-        const newsCount = document.getElementById('news-count');
-        const galleryCount = document.getElementById('gallery-count');
-        const programsCount = document.getElementById('programs-count');
-        const usersCount = document.getElementById('users-count');
-        const activityTableBody = document.getElementById('activity-table-body');
-
         // Initialize the website
         document.addEventListener('DOMContentLoaded', function() {
             renderNews();
+            renderCulturalPrograms();
             renderGallery();
             renderPrograms();
             renderAdminNews();
+            renderAdminCulturalPrograms();
             renderAdminGallery();
             renderAdminPrograms();
             renderFeeData();
             populateProgramsSelect();
-            updateDashboard();
-            renderActivity();
             initScrollAnimations();
             
             // Add 3D effect to cards on mouse move
             document.addEventListener('mousemove', function(e) {
-                const cards = document.querySelectorAll('.news-card, .program-card, .gallery-item, .dashboard-card');
+                const cards = document.querySelectorAll('.news-card, .program-card, .gallery-item, .cultural-program-card');
                 cards.forEach(card => {
                     const rect = card.getBoundingClientRect();
                     const x = e.clientX - rect.left;
@@ -1783,56 +1699,25 @@
             });
         });
 
-        // Login Functionality
-        adminLoginBtn.addEventListener('click', function() {
-            loginContainer.style.display = 'flex';
-        });
-
-        closeLogin.addEventListener('click', function() {
-            loginContainer.style.display = 'none';
-        });
-
-        loginForm.addEventListener('submit', function(e) {
-            e.preventDefault();
-            const username = document.getElementById('username').value;
-            const password = document.getElementById('password').value;
-            
-            // Simple authentication (in a real app, this would be server-side)
-            if (username === 'admin' && password === 'admin') {
-                loginContainer.style.display = 'none';
-                mainWebsite.style.display = 'none';
-                adminPanel.style.display = 'block';
-            } else {
-                alert('Invalid credentials. Try admin/admin for demo.');
-            }
-        });
-
         // Admin Panel Navigation
+        adminLoginBtn.addEventListener('click', function() {
+            mainWebsite.style.display = 'none';
+            adminPanel.style.display = 'block';
+        });
+
         backToWebsiteBtn.addEventListener('click', function() {
             adminPanel.style.display = 'none';
             mainWebsite.style.display = 'block';
         });
 
-        // Sidebar Toggle
-        sidebarToggle.addEventListener('click', function() {
-            adminSidebar.classList.toggle('collapsed');
-            const icon = this.querySelector('i');
-            if (adminSidebar.classList.contains('collapsed')) {
-                icon.classList.remove('fa-chevron-left');
-                icon.classList.add('fa-chevron-right');
-            } else {
-                icon.classList.remove('fa-chevron-right');
-                icon.classList.add('fa-chevron-left');
-            }
-        });
-
-        // Menu Item Click Handler
-        menuItems.forEach(item => {
-            item.addEventListener('click', function() {
+        // Admin Sidebar Navigation
+        adminSidebarLinks.forEach(link => {
+            link.addEventListener('click', function(e) {
+                e.preventDefault();
                 const sectionId = this.getAttribute('data-section');
                 
-                // Update active menu item
-                menuItems.forEach(i => i.classList.remove('active'));
+                // Update active link
+                adminSidebarLinks.forEach(l => l.classList.remove('active'));
                 this.classList.add('active');
                 
                 // Show corresponding section
@@ -1863,6 +1748,32 @@
                     </div>
                 `;
                 newsContainer.appendChild(newsCard);
+            });
+        }
+
+        function renderCulturalPrograms() {
+            culturalProgramsContainer.innerHTML = '';
+            culturalProgramsData.forEach(program => {
+                const programCard = document.createElement('div');
+                programCard.className = 'cultural-program-card hover-3d';
+                programCard.innerHTML = `
+                    <div class="cultural-program-image">
+                        <div class="cultural-program-date">${formatDate(program.date)}</div>
+                        <img src="${program.image}" alt="${program.title}">
+                    </div>
+                    <div class="cultural-program-content">
+                        <h3>${program.title}</h3>
+                        <p>${program.description}</p>
+                        <div class="cultural-program-details">
+                            <span><i class="fas fa-map-marker-alt"></i> ${program.venue}</span>
+                            <span class="cultural-program-status ${program.status === 'upcoming' ? 'status-upcoming' : 'status-completed'}">
+                                ${program.status === 'upcoming' ? 'Upcoming' : 'Completed'}
+                            </span>
+                        </div>
+                        <a href="#" class="read-more">View Details <i class="fas fa-arrow-right"></i></a>
+                    </div>
+                `;
+                culturalProgramsContainer.appendChild(programCard);
             });
         }
 
@@ -1928,6 +1839,40 @@
                 btn.addEventListener('click', function() {
                     const id = parseInt(this.getAttribute('data-id'));
                     deleteNews(id);
+                });
+            });
+        }
+
+        function renderAdminCulturalPrograms() {
+            culturalProgramsAdminContainer.innerHTML = '';
+            culturalProgramsData.forEach(program => {
+                const programCard = document.createElement('div');
+                programCard.className = 'cultural-program-admin-card';
+                programCard.innerHTML = `
+                    <h4>${program.title}</h4>
+                    <p><strong>Date:</strong> ${formatDate(program.date)}</p>
+                    <p><strong>Venue:</strong> ${program.venue}</p>
+                    <p><strong>Status:</strong> <span class="cultural-program-status ${program.status === 'upcoming' ? 'status-upcoming' : 'status-completed'}">${program.status === 'upcoming' ? 'Upcoming' : 'Completed'}</span></p>
+                    <div class="action-btns" style="margin-top: 15px;">
+                        <button class="action-btn edit-btn" data-id="${program.id}">Edit</button>
+                        <button class="action-btn delete-btn" data-id="${program.id}">Delete</button>
+                    </div>
+                `;
+                culturalProgramsAdminContainer.appendChild(programCard);
+            });
+
+            // Add event listeners for edit and delete buttons
+            document.querySelectorAll('#cultural-programs-admin-container .edit-btn').forEach(btn => {
+                btn.addEventListener('click', function() {
+                    const id = parseInt(this.getAttribute('data-id'));
+                    editCulturalProgram(id);
+                });
+            });
+
+            document.querySelectorAll('#cultural-programs-admin-container .delete-btn').forEach(btn => {
+                btn.addEventListener('click', function() {
+                    const id = parseInt(this.getAttribute('data-id'));
+                    deleteCulturalProgram(id);
                 });
             });
         }
@@ -2030,26 +1975,6 @@
             });
         }
 
-        function renderActivity() {
-            activityTableBody.innerHTML = '';
-            activityData.forEach(activity => {
-                const row = document.createElement('tr');
-                row.innerHTML = `
-                    <td>${activity.action}</td>
-                    <td>${activity.item}</td>
-                    <td>${formatDate(activity.date)}</td>
-                `;
-                activityTableBody.appendChild(row);
-            });
-        }
-
-        function updateDashboard() {
-            newsCount.textContent = newsData.length;
-            galleryCount.textContent = galleryData.length;
-            programsCount.textContent = programsData.length;
-            usersCount.textContent = "125"; // Static for demo
-        }
-
         function populateProgramsSelect() {
             feeProgramSelect.innerHTML = '<option value="">Select a program</option>';
             programsData.forEach(program => {
@@ -2077,20 +2002,36 @@
             };
 
             newsData.push(newNews);
-            
-            // Add to activity
-            activityData.unshift({
-                action: "Added News",
-                item: title,
-                date: new Date().toISOString().split('T')[0]
-            });
-            
             renderNews();
             renderAdminNews();
-            updateDashboard();
-            renderActivity();
             newsForm.reset();
             alert('News added successfully!');
+        });
+
+        culturalProgramsForm.addEventListener('submit', function(e) {
+            e.preventDefault();
+            const title = document.getElementById('cultural-program-title').value;
+            const description = document.getElementById('cultural-program-description').value;
+            const date = document.getElementById('cultural-program-date').value;
+            const venue = document.getElementById('cultural-program-venue').value;
+            const status = document.getElementById('cultural-program-status').value;
+            const image = document.getElementById('cultural-program-image').value;
+
+            const newCulturalProgram = {
+                id: culturalProgramsData.length > 0 ? Math.max(...culturalProgramsData.map(p => p.id)) + 1 : 1,
+                title,
+                description,
+                date,
+                venue,
+                status,
+                image: image || 'https://images.unsplash.com/photo-1540575467063-178a50c2df87?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80'
+            };
+
+            culturalProgramsData.push(newCulturalProgram);
+            renderCulturalPrograms();
+            renderAdminCulturalPrograms();
+            culturalProgramsForm.reset();
+            alert('Cultural program added successfully!');
         });
 
         galleryForm.addEventListener('submit', function(e) {
@@ -2107,18 +2048,8 @@
             };
 
             galleryData.push(newGalleryItem);
-            
-            // Add to activity
-            activityData.unshift({
-                action: "Added Gallery Image",
-                item: title,
-                date: new Date().toISOString().split('T')[0]
-            });
-            
             renderGallery();
             renderAdminGallery();
-            updateDashboard();
-            renderActivity();
             galleryForm.reset();
             alert('Gallery item added successfully!');
         });
@@ -2137,19 +2068,9 @@
             };
 
             programsData.push(newProgram);
-            
-            // Add to activity
-            activityData.unshift({
-                action: "Added Program",
-                item: title,
-                date: new Date().toISOString().split('T')[0]
-            });
-            
             renderPrograms();
             renderAdminPrograms();
             populateProgramsSelect();
-            updateDashboard();
-            renderActivity();
             programsForm.reset();
             alert('Program added successfully!');
         });
@@ -2172,13 +2093,6 @@
                 // Update existing fee
                 feeData[existingFeeIndex].amount = amount;
                 feeData[existingFeeIndex].details = details;
-                
-                // Add to activity
-                activityData.unshift({
-                    action: "Updated Fee",
-                    item: program.title,
-                    date: new Date().toISOString().split('T')[0]
-                });
             } else {
                 // Add new fee
                 const newFee = {
@@ -2188,17 +2102,9 @@
                     details
                 };
                 feeData.push(newFee);
-                
-                // Add to activity
-                activityData.unshift({
-                    action: "Added Fee",
-                    item: program.title,
-                    date: new Date().toISOString().split('T')[0]
-                });
             }
 
             renderFeeData();
-            renderActivity();
             feeForm.reset();
             alert('Fee updated successfully!');
         });
@@ -2220,16 +2126,8 @@
                     news.date = document.getElementById('news-date').value;
                     news.image = document.getElementById('news-image').value;
                     
-                    // Add to activity
-                    activityData.unshift({
-                        action: "Updated News",
-                        item: news.title,
-                        date: new Date().toISOString().split('T')[0]
-                    });
-                    
                     renderNews();
                     renderAdminNews();
-                    renderActivity();
                     newsForm.reset();
                     newsForm.onsubmit = arguments.callee; // Reset to original handler
                     alert('News updated successfully!');
@@ -2239,21 +2137,48 @@
 
         function deleteNews(id) {
             if (confirm('Are you sure you want to delete this news item?')) {
-                const news = newsData.find(n => n.id === id);
                 newsData = newsData.filter(n => n.id !== id);
-                
-                // Add to activity
-                activityData.unshift({
-                    action: "Deleted News",
-                    item: news.title,
-                    date: new Date().toISOString().split('T')[0]
-                });
-                
                 renderNews();
                 renderAdminNews();
-                updateDashboard();
-                renderActivity();
                 alert('News deleted successfully!');
+            }
+        }
+
+        function editCulturalProgram(id) {
+            const program = culturalProgramsData.find(p => p.id === id);
+            if (program) {
+                document.getElementById('cultural-program-title').value = program.title;
+                document.getElementById('cultural-program-description').value = program.description;
+                document.getElementById('cultural-program-date').value = program.date;
+                document.getElementById('cultural-program-venue').value = program.venue;
+                document.getElementById('cultural-program-status').value = program.status;
+                document.getElementById('cultural-program-image').value = program.image;
+                
+                // Change form to update mode
+                culturalProgramsForm.onsubmit = function(e) {
+                    e.preventDefault();
+                    program.title = document.getElementById('cultural-program-title').value;
+                    program.description = document.getElementById('cultural-program-description').value;
+                    program.date = document.getElementById('cultural-program-date').value;
+                    program.venue = document.getElementById('cultural-program-venue').value;
+                    program.status = document.getElementById('cultural-program-status').value;
+                    program.image = document.getElementById('cultural-program-image').value;
+                    
+                    renderCulturalPrograms();
+                    renderAdminCulturalPrograms();
+                    culturalProgramsForm.reset();
+                    culturalProgramsForm.onsubmit = arguments.callee; // Reset to original handler
+                    alert('Cultural program updated successfully!');
+                };
+            }
+        }
+
+        function deleteCulturalProgram(id) {
+            if (confirm('Are you sure you want to delete this cultural program?')) {
+                culturalProgramsData = culturalProgramsData.filter(p => p.id !== id);
+                renderCulturalPrograms();
+                renderAdminCulturalPrograms();
+                alert('Cultural program deleted successfully!');
             }
         }
 
@@ -2271,16 +2196,8 @@
                     item.date = document.getElementById('gallery-date').value;
                     item.image = document.getElementById('gallery-image').value;
                     
-                    // Add to activity
-                    activityData.unshift({
-                        action: "Updated Gallery Item",
-                        item: item.title,
-                        date: new Date().toISOString().split('T')[0]
-                    });
-                    
                     renderGallery();
                     renderAdminGallery();
-                    renderActivity();
                     galleryForm.reset();
                     galleryForm.onsubmit = arguments.callee; // Reset to original handler
                     alert('Gallery item updated successfully!');
@@ -2290,20 +2207,9 @@
 
         function deleteGalleryItem(id) {
             if (confirm('Are you sure you want to delete this gallery item?')) {
-                const item = galleryData.find(g => g.id === id);
                 galleryData = galleryData.filter(g => g.id !== id);
-                
-                // Add to activity
-                activityData.unshift({
-                    action: "Deleted Gallery Item",
-                    item: item.title,
-                    date: new Date().toISOString().split('T')[0]
-                });
-                
                 renderGallery();
                 renderAdminGallery();
-                updateDashboard();
-                renderActivity();
                 alert('Gallery item deleted successfully!');
             }
         }
@@ -2322,17 +2228,9 @@
                     program.description = document.getElementById('program-description').value;
                     program.duration = document.getElementById('program-duration').value;
                     
-                    // Add to activity
-                    activityData.unshift({
-                        action: "Updated Program",
-                        item: program.title,
-                        date: new Date().toISOString().split('T')[0]
-                    });
-                    
                     renderPrograms();
                     renderAdminPrograms();
                     populateProgramsSelect();
-                    renderActivity();
                     programsForm.reset();
                     programsForm.onsubmit = arguments.callee; // Reset to original handler
                     alert('Program updated successfully!');
@@ -2342,26 +2240,15 @@
 
         function deleteProgram(id) {
             if (confirm('Are you sure you want to delete this program?')) {
-                const program = programsData.find(p => p.id === id);
                 programsData = programsData.filter(p => p.id !== id);
                 feeData = feeData.filter(f => {
                     const program = programsData.find(p => p.title === f.program);
                     return program !== undefined;
                 });
-                
-                // Add to activity
-                activityData.unshift({
-                    action: "Deleted Program",
-                    item: program.title,
-                    date: new Date().toISOString().split('T')[0]
-                });
-                
                 renderPrograms();
                 renderAdminPrograms();
                 renderFeeData();
                 populateProgramsSelect();
-                updateDashboard();
-                renderActivity();
                 alert('Program deleted successfully!');
             }
         }
@@ -2387,15 +2274,7 @@
                         fee.amount = parseInt(document.getElementById('fee-amount').value);
                         fee.details = document.getElementById('fee-details').value;
                         
-                        // Add to activity
-                        activityData.unshift({
-                            action: "Updated Fee",
-                            item: program.title,
-                            date: new Date().toISOString().split('T')[0]
-                        });
-                        
                         renderFeeData();
-                        renderActivity();
                         feeForm.reset();
                         feeForm.onsubmit = arguments.callee; // Reset to original handler
                         alert('Fee updated successfully!');
@@ -2406,18 +2285,8 @@
 
         function deleteFee(id) {
             if (confirm('Are you sure you want to delete this fee structure?')) {
-                const fee = feeData.find(f => f.id === id);
                 feeData = feeData.filter(f => f.id !== id);
-                
-                // Add to activity
-                activityData.unshift({
-                    action: "Deleted Fee",
-                    item: fee.program,
-                    date: new Date().toISOString().split('T')[0]
-                });
-                
                 renderFeeData();
-                renderActivity();
                 alert('Fee structure deleted successfully!');
             }
         }
