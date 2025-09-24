@@ -20,12 +20,15 @@
             --light: #ecf0f1;
             --dark: #2c3e50;
             --success: #2ecc71;
+            --transition: all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
         }
 
         body {
             background-color: #f9f9f9;
             color: #333;
             line-height: 1.6;
+            overflow-x: hidden;
+            perspective: 1000px;
         }
 
         .container {
@@ -35,12 +38,77 @@
             padding: 0 15px;
         }
 
+        /* 3D Animation Classes */
+        .floating {
+            animation: floating 6s ease-in-out infinite;
+        }
+
+        @keyframes floating {
+            0% { transform: translateY(0px) rotateX(0deg); }
+            50% { transform: translateY(-20px) rotateX(5deg); }
+            100% { transform: translateY(0px) rotateX(0deg); }
+        }
+
+        .hover-3d {
+            transition: var(--transition);
+            transform-style: preserve-3d;
+        }
+
+        .hover-3d:hover {
+            transform: translateY(-10px) rotateX(5deg) rotateY(5deg);
+            box-shadow: 0 20px 30px rgba(0, 0, 0, 0.2);
+        }
+
+        .btn-3d {
+            position: relative;
+            transition: var(--transition);
+            transform-style: preserve-3d;
+            border: none;
+            cursor: pointer;
+            overflow: hidden;
+        }
+
+        .btn-3d:before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(255, 255, 255, 0.1);
+            transform: translateZ(-1px);
+            transition: var(--transition);
+        }
+
+        .btn-3d:hover {
+            transform: translateY(-5px) rotateX(5deg);
+        }
+
+        .btn-3d:active {
+            transform: translateY(0px) rotateX(0deg);
+        }
+
+        .card-3d {
+            transform-style: preserve-3d;
+            transition: var(--transition);
+        }
+
+        .card-3d:hover {
+            transform: rotateY(10deg) rotateX(5deg) translateY(-10px);
+        }
+
+        .parallax {
+            transform-style: preserve-3d;
+        }
+
         /* Header Styles */
         header {
             background: linear-gradient(135deg, var(--primary), var(--secondary));
             color: white;
             padding: 1rem 0;
-            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            box-shadow: 0 2px 20px rgba(0, 0, 0, 0.2);
+            position: relative;
+            z-index: 100;
         }
 
         .header-top {
@@ -59,11 +127,14 @@
         .logo img {
             height: 70px;
             margin-right: 15px;
+            border-radius: 50%;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
         }
 
         .logo-text h1 {
             font-size: 1.8rem;
             margin-bottom: 5px;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
         }
 
         .logo-text p {
@@ -75,14 +146,22 @@
             background: var(--accent);
             color: white;
             border: none;
-            padding: 8px 15px;
-            border-radius: 4px;
+            padding: 12px 20px;
+            border-radius: 30px;
             cursor: pointer;
-            transition: background 0.3s;
+            transition: var(--transition);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+            position: relative;
+            overflow: hidden;
         }
 
         .admin-login:hover {
-            background: #c0392b;
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+        }
+
+        .admin-login:active {
+            transform: translateY(0);
         }
 
         nav ul {
@@ -98,69 +177,114 @@
         nav ul li a {
             color: white;
             text-decoration: none;
-            padding: 5px 10px;
-            border-radius: 4px;
-            transition: background 0.3s;
+            padding: 8px 15px;
+            border-radius: 30px;
+            transition: var(--transition);
+            position: relative;
+            overflow: hidden;
+        }
+
+        nav ul li a:before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: rgba(255, 255, 255, 0.1);
+            transition: var(--transition);
+        }
+
+        nav ul li a:hover:before, nav ul li a.active:before {
+            left: 0;
         }
 
         nav ul li a:hover, nav ul li a.active {
             background: rgba(255, 255, 255, 0.2);
+            transform: translateY(-2px);
         }
 
         /* Hero Section */
         .hero {
-            background: url('https://images.unsplash.com/photo-1523050854058-8df90110c9f1?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80') no-repeat center center/cover;
-            height: 400px;
+            background: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), url('https://images.unsplash.com/photo-1523050854058-8df90110c9f1?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80') no-repeat center center/cover;
+            height: 80vh;
             display: flex;
             align-items: center;
             color: white;
             text-align: center;
             position: relative;
-        }
-
-        .hero::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0, 0, 0, 0.5);
+            overflow: hidden;
         }
 
         .hero-content {
             position: relative;
             z-index: 1;
             width: 100%;
+            transform: translateZ(50px);
         }
 
         .hero h2 {
-            font-size: 2.5rem;
-            margin-bottom: 15px;
+            font-size: 3rem;
+            margin-bottom: 20px;
+            text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.5);
+            animation: fadeInUp 1s ease-out;
         }
 
         .hero p {
-            font-size: 1.2rem;
+            font-size: 1.3rem;
             max-width: 700px;
-            margin: 0 auto;
+            margin: 0 auto 30px;
+            animation: fadeInUp 1s ease-out 0.3s both;
+        }
+
+        .hero-btn {
+            display: inline-block;
+            background: var(--accent);
+            color: white;
+            padding: 15px 30px;
+            border-radius: 30px;
+            text-decoration: none;
+            font-weight: bold;
+            transition: var(--transition);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+            animation: fadeInUp 1s ease-out 0.6s both;
+        }
+
+        .hero-btn:hover {
+            transform: translateY(-5px) scale(1.05);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.4);
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
         }
 
         /* Main Content Sections */
         section {
-            padding: 60px 0;
+            padding: 80px 0;
+            position: relative;
         }
 
         .section-title {
             text-align: center;
-            margin-bottom: 40px;
+            margin-bottom: 60px;
             color: var(--primary);
+            position: relative;
         }
 
         .section-title h2 {
-            font-size: 2rem;
-            margin-bottom: 10px;
+            font-size: 2.5rem;
+            margin-bottom: 15px;
             position: relative;
             display: inline-block;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
         }
 
         .section-title h2::after {
@@ -170,91 +294,133 @@
             left: 50%;
             transform: translateX(-50%);
             width: 80px;
-            height: 3px;
+            height: 4px;
             background: var(--secondary);
+            border-radius: 2px;
+        }
+
+        .section-title p {
+            font-size: 1.1rem;
+            color: #666;
+            max-width: 600px;
+            margin: 0 auto;
         }
 
         /* News Section */
         .news-container {
             display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
             gap: 30px;
         }
 
         .news-card {
             background: white;
-            border-radius: 8px;
+            border-radius: 15px;
             overflow: hidden;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
-            transition: transform 0.3s;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            transition: var(--transition);
+            position: relative;
         }
 
         .news-card:hover {
-            transform: translateY(-5px);
+            transform: translateY(-10px) rotateY(5deg);
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.15);
         }
 
         .news-image {
-            height: 200px;
+            height: 220px;
             overflow: hidden;
+            position: relative;
         }
 
         .news-image img {
             width: 100%;
             height: 100%;
             object-fit: cover;
-            transition: transform 0.5s;
+            transition: var(--transition);
         }
 
         .news-card:hover .news-image img {
-            transform: scale(1.05);
-        }
-
-        .news-content {
-            padding: 20px;
+            transform: scale(1.1);
         }
 
         .news-date {
-            color: var(--secondary);
-            font-size: 0.9rem;
-            margin-bottom: 10px;
+            position: absolute;
+            top: 15px;
+            left: 15px;
+            background: var(--secondary);
+            color: white;
+            padding: 5px 10px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            z-index: 2;
+        }
+
+        .news-content {
+            padding: 25px;
         }
 
         .news-content h3 {
-            margin-bottom: 10px;
+            margin-bottom: 15px;
             color: var(--primary);
+            font-size: 1.3rem;
         }
 
         .news-content p {
             color: #666;
-            margin-bottom: 15px;
+            margin-bottom: 20px;
+            line-height: 1.6;
         }
 
         .read-more {
             color: var(--secondary);
             text-decoration: none;
             font-weight: 600;
+            display: inline-flex;
+            align-items: center;
+            transition: var(--transition);
+        }
+
+        .read-more i {
+            margin-left: 5px;
+            transition: var(--transition);
+        }
+
+        .read-more:hover {
+            color: var(--accent);
+        }
+
+        .read-more:hover i {
+            transform: translateX(5px);
         }
 
         /* Gallery Section */
         .gallery-container {
             display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
-            gap: 20px;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 25px;
         }
 
         .gallery-item {
             position: relative;
             overflow: hidden;
-            border-radius: 8px;
-            height: 200px;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            border-radius: 15px;
+            height: 250px;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+            transition: var(--transition);
+            transform-style: preserve-3d;
+        }
+
+        .gallery-item:hover {
+            transform: translateY(-10px) rotateY(5deg) rotateX(5deg);
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.2);
         }
 
         .gallery-item img {
             width: 100%;
             height: 100%;
             object-fit: cover;
-            transition: transform 0.5s;
+            transition: var(--transition);
         }
 
         .gallery-item:hover img {
@@ -266,84 +432,126 @@
             bottom: 0;
             left: 0;
             width: 100%;
-            background: rgba(0, 0, 0, 0.7);
+            background: linear-gradient(transparent, rgba(0, 0, 0, 0.8));
             color: white;
-            padding: 10px;
+            padding: 20px;
             transform: translateY(100%);
-            transition: transform 0.3s;
+            transition: var(--transition);
         }
 
         .gallery-item:hover .gallery-caption {
             transform: translateY(0);
         }
 
+        .gallery-caption h4 {
+            margin-bottom: 5px;
+            font-size: 1.1rem;
+        }
+
+        .gallery-caption p {
+            font-size: 0.9rem;
+            opacity: 0.9;
+        }
+
         /* Programs Section */
         .programs-container {
             display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
             gap: 30px;
         }
 
         .program-card {
             background: white;
-            border-radius: 8px;
-            padding: 30px;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            border-radius: 15px;
+            padding: 35px 30px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
             text-align: center;
-            transition: transform 0.3s;
+            transition: var(--transition);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .program-card:before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 5px;
+            background: var(--secondary);
+            transform: scaleX(0);
+            transition: var(--transition);
+        }
+
+        .program-card:hover:before {
+            transform: scaleX(1);
         }
 
         .program-card:hover {
-            transform: translateY(-5px);
+            transform: translateY(-10px) rotateY(5deg);
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.15);
         }
 
         .program-icon {
-            font-size: 3rem;
+            font-size: 3.5rem;
             color: var(--secondary);
-            margin-bottom: 20px;
+            margin-bottom: 25px;
+            transition: var(--transition);
+        }
+
+        .program-card:hover .program-icon {
+            transform: scale(1.1) rotateY(180deg);
+            color: var(--accent);
         }
 
         .program-card h3 {
             margin-bottom: 15px;
             color: var(--primary);
+            font-size: 1.4rem;
         }
 
         .program-card p {
             color: #666;
-            margin-bottom: 20px;
+            margin-bottom: 25px;
+            line-height: 1.6;
         }
 
         .program-btn {
             background: var(--secondary);
             color: white;
             border: none;
-            padding: 10px 20px;
-            border-radius: 4px;
+            padding: 12px 25px;
+            border-radius: 30px;
             cursor: pointer;
-            transition: background 0.3s;
+            transition: var(--transition);
+            font-weight: 600;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
         }
 
         .program-btn:hover {
-            background: #2980b9;
+            background: var(--accent);
+            transform: translateY(-3px) scale(1.05);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
         }
 
         /* Footer */
         footer {
             background: var(--dark);
             color: white;
-            padding: 40px 0 20px;
+            padding: 60px 0 20px;
+            position: relative;
         }
 
         .footer-content {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 30px;
-            margin-bottom: 30px;
+            gap: 40px;
+            margin-bottom: 40px;
         }
 
         .footer-column h3 {
-            margin-bottom: 20px;
-            font-size: 1.2rem;
+            margin-bottom: 25px;
+            font-size: 1.3rem;
             position: relative;
             padding-bottom: 10px;
         }
@@ -354,45 +562,50 @@
             bottom: 0;
             left: 0;
             width: 50px;
-            height: 2px;
+            height: 3px;
             background: var(--secondary);
+            border-radius: 2px;
         }
 
         .footer-column p, .footer-column a {
             color: #bbb;
-            margin-bottom: 10px;
+            margin-bottom: 12px;
             display: block;
             text-decoration: none;
+            transition: var(--transition);
         }
 
         .footer-column a:hover {
             color: white;
+            transform: translateX(5px);
         }
 
         .social-links {
             display: flex;
             gap: 15px;
-            margin-top: 15px;
+            margin-top: 20px;
         }
 
         .social-links a {
             display: inline-flex;
             align-items: center;
             justify-content: center;
-            width: 40px;
-            height: 40px;
+            width: 45px;
+            height: 45px;
             background: rgba(255, 255, 255, 0.1);
             border-radius: 50%;
-            transition: background 0.3s;
+            transition: var(--transition);
+            font-size: 1.2rem;
         }
 
         .social-links a:hover {
             background: var(--secondary);
+            transform: translateY(-5px) rotateY(180deg);
         }
 
         .copyright {
             text-align: center;
-            padding-top: 20px;
+            padding-top: 30px;
             border-top: 1px solid rgba(255, 255, 255, 0.1);
             color: #bbb;
             font-size: 0.9rem;
@@ -409,8 +622,9 @@
         .admin-header {
             background: var(--primary);
             color: white;
-            padding: 15px 0;
+            padding: 20px 0;
             margin-bottom: 30px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
         }
 
         .admin-nav {
@@ -420,25 +634,29 @@
         }
 
         .admin-nav h2 {
-            font-size: 1.5rem;
+            font-size: 1.8rem;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
         }
 
         .admin-tabs {
             display: flex;
             background: white;
-            border-radius: 5px;
+            border-radius: 10px;
             overflow: hidden;
             margin-bottom: 30px;
-            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
         }
 
         .admin-tab {
-            padding: 15px 25px;
+            padding: 18px 30px;
             cursor: pointer;
-            transition: background 0.3s;
+            transition: var(--transition);
             border: none;
             background: white;
             font-size: 1rem;
+            font-weight: 600;
+            flex: 1;
+            text-align: center;
         }
 
         .admin-tab.active {
@@ -446,11 +664,21 @@
             color: white;
         }
 
+        .admin-tab:hover:not(.active) {
+            background: #f0f0f0;
+        }
+
         .admin-content {
             background: white;
-            border-radius: 8px;
+            border-radius: 15px;
             padding: 30px;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            transition: var(--transition);
+        }
+
+        .admin-content:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.15);
         }
 
         .admin-section {
@@ -459,24 +687,38 @@
 
         .admin-section.active {
             display: block;
+            animation: fadeIn 0.5s ease-out;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
         }
 
         .form-group {
-            margin-bottom: 20px;
+            margin-bottom: 25px;
         }
 
         .form-group label {
             display: block;
-            margin-bottom: 8px;
+            margin-bottom: 10px;
             font-weight: 600;
+            color: var(--primary);
         }
 
         .form-control {
             width: 100%;
-            padding: 10px 15px;
+            padding: 12px 15px;
             border: 1px solid #ddd;
-            border-radius: 4px;
+            border-radius: 8px;
             font-size: 1rem;
+            transition: var(--transition);
+        }
+
+        .form-control:focus {
+            border-color: var(--secondary);
+            box-shadow: 0 0 0 3px rgba(52, 152, 219, 0.2);
+            transform: translateY(-2px);
         }
 
         textarea.form-control {
@@ -485,21 +727,25 @@
         }
 
         .btn {
-            padding: 10px 20px;
+            padding: 12px 25px;
             border: none;
-            border-radius: 4px;
+            border-radius: 8px;
             cursor: pointer;
             font-size: 1rem;
-            transition: background 0.3s;
+            transition: var(--transition);
+            font-weight: 600;
         }
 
         .btn-primary {
             background: var(--secondary);
             color: white;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
         }
 
         .btn-primary:hover {
             background: #2980b9;
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
         }
 
         .btn-danger {
@@ -509,23 +755,34 @@
 
         .btn-danger:hover {
             background: #c0392b;
+            transform: translateY(-3px);
         }
 
         .admin-table {
             width: 100%;
             border-collapse: collapse;
-            margin-top: 20px;
+            margin-top: 25px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+            border-radius: 8px;
+            overflow: hidden;
         }
 
         .admin-table th, .admin-table td {
-            padding: 12px 15px;
+            padding: 15px;
             text-align: left;
-            border-bottom: 1px solid #ddd;
+            border-bottom: 1px solid #eee;
         }
 
         .admin-table th {
-            background: #f5f5f5;
+            background: #f8f9fa;
             font-weight: 600;
+            color: var(--primary);
+        }
+
+        .admin-table tr:hover {
+            background: #f8f9fa;
+            transform: scale(1.01);
+            transition: var(--transition);
         }
 
         .action-btns {
@@ -534,11 +791,12 @@
         }
 
         .action-btn {
-            padding: 5px 10px;
+            padding: 8px 15px;
             border: none;
-            border-radius: 4px;
+            border-radius: 5px;
             cursor: pointer;
             font-size: 0.9rem;
+            transition: var(--transition);
         }
 
         .edit-btn {
@@ -546,9 +804,19 @@
             color: white;
         }
 
+        .edit-btn:hover {
+            background: #e67e22;
+            transform: translateY(-2px);
+        }
+
         .delete-btn {
             background: var(--accent);
             color: white;
+        }
+
+        .delete-btn:hover {
+            background: #c0392b;
+            transform: translateY(-2px);
         }
 
         /* Responsive Design */
@@ -569,7 +837,7 @@
             }
             
             .hero h2 {
-                font-size: 2rem;
+                font-size: 2.2rem;
             }
             
             .admin-tabs {
@@ -581,6 +849,44 @@
                 min-width: 120px;
                 text-align: center;
             }
+            
+            .section-title h2 {
+                font-size: 2rem;
+            }
+        }
+
+        /* Particle Background */
+        .particles {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+        }
+
+        .particle {
+            position: absolute;
+            background: rgba(255, 255, 255, 0.5);
+            border-radius: 50%;
+            animation: float 15s infinite linear;
+        }
+
+        @keyframes float {
+            0% {
+                transform: translateY(0) translateX(0) rotate(0deg);
+                opacity: 0;
+            }
+            10% {
+                opacity: 1;
+            }
+            90% {
+                opacity: 1;
+            }
+            100% {
+                transform: translateY(-1000px) translateX(1000px) rotate(720deg);
+                opacity: 0;
+            }
         }
     </style>
 </head>
@@ -591,13 +897,15 @@
             <div class="container">
                 <div class="header-top">
                     <div class="logo">
-                        <img src="https://via.placeholder.com/70x70/2c3e50/ffffff?text=JPTT" alt="JPTT Logo">
+                        <img src="https://via.placeholder.com/70x70/2c3e50/ffffff?text=JPTT" alt="JPTT Logo" class="floating">
                         <div class="logo-text">
                             <h1>Jehal Prasad Teachers Training College</h1>
                             <p>Established on 2 May 2017 | Session Started at 2018</p>
                         </div>
                     </div>
-                    <button class="admin-login" id="admin-login-btn">Admin Login</button>
+                    <button class="admin-login btn-3d" id="admin-login-btn">
+                        <i class="fas fa-lock"></i> Admin Login
+                    </button>
                 </div>
                 <nav>
                     <ul>
@@ -613,10 +921,12 @@
         </header>
 
         <section class="hero" id="home">
+            <div class="particles" id="particles"></div>
             <div class="container">
                 <div class="hero-content">
                     <h2>Welcome to JPTT College</h2>
                     <p>Jehal Prasad Teachers Training College is committed to providing quality education and training for aspiring teachers. Our mission is to shape the future of education through innovative teaching methods and practical experience.</p>
+                    <a href="#programs" class="hero-btn btn-3d">Explore Our Programs</a>
                 </div>
             </div>
         </section>
@@ -662,9 +972,9 @@
                 <div class="section-title">
                     <h2>About JPTT College</h2>
                 </div>
-                <div style="max-width: 800px; margin: 0 auto; background: white; padding: 30px; border-radius: 8px; box-shadow: 0 5px 15px rgba(0,0,0,0.1);">
+                <div style="max-width: 800px; margin: 0 auto; background: white; padding: 40px; border-radius: 15px; box-shadow: 0 10px 30px rgba(0,0,0,0.1);" class="card-3d">
                     <p>Jehal Prasad Teachers Training College (JPTT) was established on 2 May 2017 with the vision to provide quality teacher education. The first academic session commenced in 2018.</p>
-                    <p>Our college is located at Pathra Englishodhanpur, Nawada, Bihar - 805123. We are committed to nurturing future educators with a perfect blend of theoretical knowledge and practical skills.</p>
+                    <p style="margin: 20px 0;">Our college is located at Pathra Englishodhanpur, Nawada, Bihar - 805123. We are committed to nurturing future educators with a perfect blend of theoretical knowledge and practical skills.</p>
                     <p>JPTT College offers a conducive learning environment with well-equipped laboratories, a rich library, and experienced faculty members dedicated to student success.</p>
                 </div>
             </div>
@@ -676,13 +986,13 @@
                     <h2>Contact Us</h2>
                 </div>
                 <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 30px;">
-                    <div style="background: white; padding: 30px; border-radius: 8px; box-shadow: 0 5px 15px rgba(0,0,0,0.1);">
+                    <div style="background: white; padding: 30px; border-radius: 15px; box-shadow: 0 10px 30px rgba(0,0,0,0.1);" class="hover-3d">
                         <h3 style="margin-bottom: 20px; color: var(--primary);">Get In Touch</h3>
                         <p><i class="fas fa-map-marker-alt"></i> <strong>Address:</strong> Pathra Englishodhanpur, Nawada, Bihar - 805123</p>
-                        <p><i class="fas fa-phone"></i> <strong>Phone:</strong> +91 XXXXX XXXXX</p>
+                        <p style="margin: 15px 0;"><i class="fas fa-phone"></i> <strong>Phone:</strong> +91 XXXXX XXXXX</p>
                         <p><i class="fas fa-envelope"></i> <strong>Email:</strong> info@jpttcollege.edu.in</p>
                     </div>
-                    <div style="background: white; padding: 30px; border-radius: 8px; box-shadow: 0 5px 15px rgba(0,0,0,0.1);">
+                    <div style="background: white; padding: 30px; border-radius: 15px; box-shadow: 0 10px 30px rgba(0,0,0,0.1);" class="hover-3d">
                         <h3 style="margin-bottom: 20px; color: var(--primary);">Send Message</h3>
                         <form>
                             <div class="form-group">
@@ -694,7 +1004,7 @@
                             <div class="form-group">
                                 <textarea class="form-control" placeholder="Your Message"></textarea>
                             </div>
-                            <button type="submit" class="btn btn-primary">Send Message</button>
+                            <button type="submit" class="btn btn-primary btn-3d">Send Message</button>
                         </form>
                     </div>
                 </div>
@@ -708,10 +1018,10 @@
                         <h3>About JPTT</h3>
                         <p>Jehal Prasad Teachers Training College is committed to excellence in teacher education since 2017.</p>
                         <div class="social-links">
-                            <a href="#"><i class="fab fa-facebook-f"></i></a>
-                            <a href="#"><i class="fab fa-twitter"></i></a>
-                            <a href="#"><i class="fab fa-instagram"></i></a>
-                            <a href="#"><i class="fab fa-linkedin-in"></i></a>
+                            <a href="#" class="btn-3d"><i class="fab fa-facebook-f"></i></a>
+                            <a href="#" class="btn-3d"><i class="fab fa-twitter"></i></a>
+                            <a href="#" class="btn-3d"><i class="fab fa-instagram"></i></a>
+                            <a href="#" class="btn-3d"><i class="fab fa-linkedin-in"></i></a>
                         </div>
                     </div>
                     <div class="footer-column">
@@ -743,7 +1053,9 @@
             <div class="container">
                 <div class="admin-nav">
                     <h2>JPTT College Admin Panel</h2>
-                    <button class="btn btn-primary" id="back-to-website">Back to Website</button>
+                    <button class="btn btn-primary btn-3d" id="back-to-website">
+                        <i class="fas fa-arrow-left"></i> Back to Website
+                    </button>
                 </div>
             </div>
         </div>
@@ -778,7 +1090,7 @@
                             <input type="text" id="news-image" class="form-control" placeholder="Paste image URL or upload">
                             <small>Note: For demonstration, paste image URL. In a real application, you would upload files.</small>
                         </div>
-                        <button type="submit" class="btn btn-primary">Add News</button>
+                        <button type="submit" class="btn btn-primary btn-3d">Add News</button>
                     </form>
 
                     <h4 style="margin-top: 30px;">Existing News</h4>
@@ -813,7 +1125,7 @@
                             <input type="text" id="gallery-image" class="form-control" placeholder="Paste image URL or upload">
                             <small>Note: For demonstration, paste image URL. In a real application, you would upload files.</small>
                         </div>
-                        <button type="submit" class="btn btn-primary">Add to Gallery</button>
+                        <button type="submit" class="btn btn-primary btn-3d">Add to Gallery</button>
                     </form>
 
                     <h4 style="margin-top: 30px;">Gallery Items</h4>
@@ -838,7 +1150,7 @@
                             <label for="program-duration">Duration</label>
                             <input type="text" id="program-duration" class="form-control" required>
                         </div>
-                        <button type="submit" class="btn btn-primary">Add Program</button>
+                        <button type="submit" class="btn btn-primary btn-3d">Add Program</button>
                     </form>
 
                     <h4 style="margin-top: 30px;">Existing Programs</h4>
@@ -875,7 +1187,7 @@
                             <label for="fee-details">Fee Details</label>
                             <textarea id="fee-details" class="form-control" required></textarea>
                         </div>
-                        <button type="submit" class="btn btn-primary">Update Fee</button>
+                        <button type="submit" class="btn btn-primary btn-3d">Update Fee</button>
                     </form>
 
                     <h4 style="margin-top: 30px;">Current Fee Structure</h4>
@@ -898,6 +1210,55 @@
     </div>
 
     <script>
+        // Enhanced 3D Animation Functions
+        function createParticles() {
+            const particlesContainer = document.getElementById('particles');
+            const particleCount = 50;
+            
+            for (let i = 0; i < particleCount; i++) {
+                const particle = document.createElement('div');
+                particle.classList.add('particle');
+                
+                // Random properties
+                const size = Math.random() * 10 + 5;
+                const posX = Math.random() * 100;
+                const delay = Math.random() * 15;
+                const duration = Math.random() * 20 + 10;
+                
+                particle.style.width = `${size}px`;
+                particle.style.height = `${size}px`;
+                particle.style.left = `${posX}%`;
+                particle.style.animationDelay = `${delay}s`;
+                particle.style.animationDuration = `${duration}s`;
+                
+                particlesContainer.appendChild(particle);
+            }
+        }
+
+        // Initialize particles
+        createParticles();
+
+        // Add scroll animations
+        function initScrollAnimations() {
+            const animatedElements = document.querySelectorAll('.news-card, .program-card, .gallery-item');
+            
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.style.opacity = '1';
+                        entry.target.style.transform = 'translateY(0) rotateY(0)';
+                    }
+                });
+            }, { threshold: 0.1 });
+            
+            animatedElements.forEach(el => {
+                el.style.opacity = '0';
+                el.style.transform = 'translateY(50px) rotateY(10deg)';
+                el.style.transition = 'opacity 0.8s ease, transform 0.8s ease';
+                observer.observe(el);
+            });
+        }
+
         // Sample data for demonstration
         let newsData = [
             {
@@ -1030,6 +1391,27 @@
             renderAdminPrograms();
             renderFeeData();
             populateProgramsSelect();
+            initScrollAnimations();
+            
+            // Add 3D effect to cards on mouse move
+            document.addEventListener('mousemove', function(e) {
+                const cards = document.querySelectorAll('.news-card, .program-card, .gallery-item');
+                cards.forEach(card => {
+                    const rect = card.getBoundingClientRect();
+                    const x = e.clientX - rect.left;
+                    const y = e.clientY - rect.top;
+                    
+                    const centerX = rect.width / 2;
+                    const centerY = rect.height / 2;
+                    
+                    const angleY = (x - centerX) / 25;
+                    const angleX = (centerY - y) / 25;
+                    
+                    if (card.matches(':hover')) {
+                        card.style.transform = `perspective(1000px) rotateX(${angleX}deg) rotateY(${angleY}deg) translateY(-10px)`;
+                    }
+                });
+            });
         });
 
         // Admin Panel Navigation
@@ -1067,16 +1449,16 @@
             newsContainer.innerHTML = '';
             newsData.forEach(news => {
                 const newsCard = document.createElement('div');
-                newsCard.className = 'news-card';
+                newsCard.className = 'news-card hover-3d';
                 newsCard.innerHTML = `
                     <div class="news-image">
+                        <div class="news-date">${formatDate(news.date)}</div>
                         <img src="${news.image}" alt="${news.title}">
                     </div>
                     <div class="news-content">
-                        <div class="news-date">${formatDate(news.date)}</div>
                         <h3>${news.title}</h3>
                         <p>${news.content}</p>
-                        <a href="#" class="read-more">Read More</a>
+                        <a href="#" class="read-more">Read More <i class="fas fa-arrow-right"></i></a>
                     </div>
                 `;
                 newsContainer.appendChild(newsCard);
@@ -1087,7 +1469,7 @@
             galleryContainer.innerHTML = '';
             galleryData.forEach(item => {
                 const galleryItem = document.createElement('div');
-                galleryItem.className = 'gallery-item';
+                galleryItem.className = 'gallery-item hover-3d';
                 galleryItem.innerHTML = `
                     <img src="${item.image}" alt="${item.title}">
                     <div class="gallery-caption">
@@ -1103,7 +1485,7 @@
             programsContainer.innerHTML = '';
             programsData.forEach(program => {
                 const programCard = document.createElement('div');
-                programCard.className = 'program-card';
+                programCard.className = 'program-card hover-3d';
                 programCard.innerHTML = `
                     <div class="program-icon">
                         <i class="fas fa-graduation-cap"></i>
@@ -1111,7 +1493,7 @@
                     <h3>${program.title}</h3>
                     <p>${program.description}</p>
                     <p><strong>Duration:</strong> ${program.duration}</p>
-                    <button class="program-btn">Learn More</button>
+                    <button class="program-btn btn-3d">Learn More</button>
                 `;
                 programsContainer.appendChild(programCard);
             });
