@@ -21,6 +21,8 @@
             --dark: #2c3e50;
             --success: #2ecc71;
             --transition: all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            --sidebar-width: 250px;
+            --sidebar-collapsed-width: 70px;
         }
 
         body {
@@ -616,21 +618,24 @@
             display: none;
             background: #f5f5f5;
             min-height: 100vh;
-            padding: 20px 0;
         }
 
         .admin-header {
             background: var(--primary);
             color: white;
             padding: 20px 0;
-            margin-bottom: 30px;
             box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
         }
 
         .admin-nav {
             display: flex;
             justify-content: space-between;
             align-items: center;
+            padding: 0 20px;
         }
 
         .admin-nav h2 {
@@ -638,65 +643,148 @@
             text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
         }
 
-        .admin-tabs {
+        .admin-main {
             display: flex;
-            background: white;
-            border-radius: 10px;
-            overflow: hidden;
-            margin-bottom: 30px;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            margin-top: 80px;
         }
 
-        .admin-tab {
-            padding: 18px 30px;
-            cursor: pointer;
+        /* Admin Sidebar */
+        .admin-sidebar {
+            width: var(--sidebar-width);
+            background: var(--dark);
+            color: white;
+            height: calc(100vh - 80px);
+            position: fixed;
             transition: var(--transition);
-            border: none;
-            background: white;
-            font-size: 1rem;
-            font-weight: 600;
-            flex: 1;
-            text-align: center;
+            z-index: 999;
+            box-shadow: 5px 0 15px rgba(0, 0, 0, 0.1);
+            transform-style: preserve-3d;
         }
 
-        .admin-tab.active {
+        .admin-sidebar.collapsed {
+            width: var(--sidebar-collapsed-width);
+        }
+
+        .sidebar-toggle {
+            position: absolute;
+            top: 15px;
+            right: -15px;
             background: var(--secondary);
             color: white;
+            border: none;
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+            transition: var(--transition);
+            z-index: 1001;
         }
 
-        .admin-tab:hover:not(.active) {
-            background: #f0f0f0;
+        .sidebar-toggle:hover {
+            transform: rotate(180deg) scale(1.1);
         }
 
-        .admin-content {
+        .sidebar-menu {
+            padding: 20px 0;
+            overflow-y: auto;
+            height: 100%;
+        }
+
+        .menu-item {
+            padding: 15px 25px;
+            cursor: pointer;
+            transition: var(--transition);
+            display: flex;
+            align-items: center;
+            border-left: 4px solid transparent;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .menu-item:hover {
+            background: rgba(255, 255, 255, 0.1);
+            border-left-color: var(--secondary);
+            transform: translateX(5px);
+        }
+
+        .menu-item.active {
+            background: rgba(255, 255, 255, 0.15);
+            border-left-color: var(--accent);
+        }
+
+        .menu-item i {
+            font-size: 1.2rem;
+            margin-right: 15px;
+            width: 20px;
+            text-align: center;
+            transition: var(--transition);
+        }
+
+        .menu-text {
+            transition: var(--transition);
+            white-space: nowrap;
+            overflow: hidden;
+        }
+
+        .admin-sidebar.collapsed .menu-text {
+            opacity: 0;
+            width: 0;
+        }
+
+        .admin-sidebar.collapsed .menu-item {
+            justify-content: center;
+            padding: 15px 0;
+        }
+
+        .admin-sidebar.collapsed .menu-item i {
+            margin-right: 0;
+        }
+
+        /* Admin Content Area */
+        .admin-content-area {
+            flex: 1;
+            margin-left: var(--sidebar-width);
+            padding: 30px;
+            transition: var(--transition);
+        }
+
+        .admin-sidebar.collapsed ~ .admin-content-area {
+            margin-left: var(--sidebar-collapsed-width);
+        }
+
+        .admin-section {
+            display: none;
+            animation: fadeIn 0.5s ease-out;
             background: white;
             border-radius: 15px;
             padding: 30px;
             box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
             transition: var(--transition);
+            transform-style: preserve-3d;
         }
 
-        .admin-content:hover {
-            transform: translateY(-5px);
+        .admin-section:hover {
+            transform: translateY(-5px) rotateX(1deg);
             box-shadow: 0 15px 35px rgba(0, 0, 0, 0.15);
-        }
-
-        .admin-section {
-            display: none;
         }
 
         .admin-section.active {
             display: block;
-            animation: fadeIn 0.5s ease-out;
         }
 
         @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(20px); }
-            to { opacity: 1; transform: translateY(0); }
+            from { opacity: 0; transform: translateY(20px) rotateX(-10deg); }
+            to { opacity: 1; transform: translateY(0) rotateX(0); }
         }
 
         .form-group {
             margin-bottom: 25px;
+            position: relative;
+            transform-style: preserve-3d;
         }
 
         .form-group label {
@@ -704,6 +792,7 @@
             margin-bottom: 10px;
             font-weight: 600;
             color: var(--primary);
+            transform: translateZ(20px);
         }
 
         .form-control {
@@ -713,12 +802,13 @@
             border-radius: 8px;
             font-size: 1rem;
             transition: var(--transition);
+            transform-style: preserve-3d;
         }
 
         .form-control:focus {
             border-color: var(--secondary);
             box-shadow: 0 0 0 3px rgba(52, 152, 219, 0.2);
-            transform: translateY(-2px);
+            transform: translateY(-2px) translateZ(10px);
         }
 
         textarea.form-control {
@@ -734,6 +824,7 @@
             font-size: 1rem;
             transition: var(--transition);
             font-weight: 600;
+            transform-style: preserve-3d;
         }
 
         .btn-primary {
@@ -744,7 +835,7 @@
 
         .btn-primary:hover {
             background: #2980b9;
-            transform: translateY(-3px);
+            transform: translateY(-3px) translateZ(5px);
             box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
         }
 
@@ -765,6 +856,7 @@
             box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
             border-radius: 8px;
             overflow: hidden;
+            transform-style: preserve-3d;
         }
 
         .admin-table th, .admin-table td {
@@ -779,10 +871,14 @@
             color: var(--primary);
         }
 
+        .admin-table tr {
+            transition: var(--transition);
+            transform-style: preserve-3d;
+        }
+
         .admin-table tr:hover {
             background: #f8f9fa;
-            transform: scale(1.01);
-            transition: var(--transition);
+            transform: scale(1.01) translateZ(5px);
         }
 
         .action-btns {
@@ -819,6 +915,71 @@
             transform: translateY(-2px);
         }
 
+        /* Dashboard Cards */
+        .dashboard-cards {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 25px;
+            margin-bottom: 30px;
+        }
+
+        .dashboard-card {
+            background: white;
+            border-radius: 15px;
+            padding: 25px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            transition: var(--transition);
+            text-align: center;
+            transform-style: preserve-3d;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .dashboard-card:before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 5px;
+            background: var(--secondary);
+            transform: scaleX(0);
+            transition: var(--transition);
+        }
+
+        .dashboard-card:hover:before {
+            transform: scaleX(1);
+        }
+
+        .dashboard-card:hover {
+            transform: translateY(-10px) rotateY(5deg);
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.15);
+        }
+
+        .card-icon {
+            font-size: 2.5rem;
+            color: var(--secondary);
+            margin-bottom: 15px;
+            transition: var(--transition);
+        }
+
+        .dashboard-card:hover .card-icon {
+            transform: scale(1.2) rotateY(180deg);
+            color: var(--accent);
+        }
+
+        .card-value {
+            font-size: 2rem;
+            font-weight: bold;
+            color: var(--primary);
+            margin: 10px 0;
+        }
+
+        .card-label {
+            color: #666;
+            font-size: 0.9rem;
+        }
+
         /* Responsive Design */
         @media (max-width: 768px) {
             .header-top {
@@ -840,14 +1001,26 @@
                 font-size: 2.2rem;
             }
             
-            .admin-tabs {
-                flex-wrap: wrap;
+            .admin-sidebar {
+                width: var(--sidebar-collapsed-width);
             }
             
-            .admin-tab {
-                flex: 1;
-                min-width: 120px;
-                text-align: center;
+            .admin-sidebar .menu-text {
+                opacity: 0;
+                width: 0;
+            }
+            
+            .admin-sidebar .menu-item {
+                justify-content: center;
+                padding: 15px 0;
+            }
+            
+            .admin-sidebar .menu-item i {
+                margin-right: 0;
+            }
+            
+            .admin-content-area {
+                margin-left: var(--sidebar-collapsed-width);
             }
             
             .section-title h2 {
@@ -887,6 +1060,63 @@
                 transform: translateY(-1000px) translateX(1000px) rotate(720deg);
                 opacity: 0;
             }
+        }
+
+        /* 3D Login Form */
+        .login-container {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.7);
+            z-index: 2000;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .login-form {
+            background: white;
+            padding: 40px;
+            border-radius: 15px;
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.3);
+            width: 90%;
+            max-width: 400px;
+            transform-style: preserve-3d;
+            animation: formAppear 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
+            transform: rotateX(10deg) translateY(50px);
+            opacity: 0;
+        }
+
+        @keyframes formAppear {
+            to {
+                transform: rotateX(0) translateY(0);
+                opacity: 1;
+            }
+        }
+
+        .login-form h3 {
+            text-align: center;
+            margin-bottom: 25px;
+            color: var(--primary);
+        }
+
+        .close-login {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            cursor: pointer;
+            color: #666;
+            transition: var(--transition);
+        }
+
+        .close-login:hover {
+            color: var(--accent);
+            transform: rotate(90deg);
         }
     </style>
 </head>
@@ -1047,30 +1277,125 @@
         </footer>
     </div>
 
+    <!-- Login Modal -->
+    <div class="login-container" id="login-container">
+        <div class="login-form">
+            <button class="close-login" id="close-login"><i class="fas fa-times"></i></button>
+            <h3>Admin Login</h3>
+            <form id="login-form">
+                <div class="form-group">
+                    <label for="username">Username</label>
+                    <input type="text" id="username" class="form-control" required>
+                </div>
+                <div class="form-group">
+                    <label for="password">Password</label>
+                    <input type="password" id="password" class="form-control" required>
+                </div>
+                <button type="submit" class="btn btn-primary btn-3d" style="width: 100%;">Login</button>
+            </form>
+        </div>
+    </div>
+
     <!-- Admin Panel -->
     <div id="admin-panel" class="admin-panel">
         <div class="admin-header">
-            <div class="container">
-                <div class="admin-nav">
-                    <h2>JPTT College Admin Panel</h2>
-                    <button class="btn btn-primary btn-3d" id="back-to-website">
-                        <i class="fas fa-arrow-left"></i> Back to Website
-                    </button>
-                </div>
+            <div class="admin-nav">
+                <h2>JPTT College Admin Panel</h2>
+                <button class="btn btn-primary btn-3d" id="back-to-website">
+                    <i class="fas fa-arrow-left"></i> Back to Website
+                </button>
             </div>
         </div>
 
-        <div class="container">
-            <div class="admin-tabs">
-                <button class="admin-tab active" data-tab="news-management">News Management</button>
-                <button class="admin-tab" data-tab="gallery-management">Gallery Management</button>
-                <button class="admin-tab" data-tab="programs-management">Programs Management</button>
-                <button class="admin-tab" data-tab="fee-management">Fee Management</button>
+        <div class="admin-main">
+            <div class="admin-sidebar" id="admin-sidebar">
+                <button class="sidebar-toggle" id="sidebar-toggle">
+                    <i class="fas fa-chevron-left"></i>
+                </button>
+                <div class="sidebar-menu">
+                    <div class="menu-item active" data-section="dashboard">
+                        <i class="fas fa-tachometer-alt"></i>
+                        <span class="menu-text">Dashboard</span>
+                    </div>
+                    <div class="menu-item" data-section="news-management">
+                        <i class="fas fa-newspaper"></i>
+                        <span class="menu-text">News Management</span>
+                    </div>
+                    <div class="menu-item" data-section="gallery-management">
+                        <i class="fas fa-images"></i>
+                        <span class="menu-text">Gallery Management</span>
+                    </div>
+                    <div class="menu-item" data-section="programs-management">
+                        <i class="fas fa-graduation-cap"></i>
+                        <span class="menu-text">Programs Management</span>
+                    </div>
+                    <div class="menu-item" data-section="fee-management">
+                        <i class="fas fa-money-bill-wave"></i>
+                        <span class="menu-text">Fee Management</span>
+                    </div>
+                    <div class="menu-item" data-section="user-management">
+                        <i class="fas fa-users"></i>
+                        <span class="menu-text">User Management</span>
+                    </div>
+                    <div class="menu-item" data-section="settings">
+                        <i class="fas fa-cog"></i>
+                        <span class="menu-text">Settings</span>
+                    </div>
+                </div>
             </div>
 
-            <div class="admin-content">
+            <div class="admin-content-area" id="admin-content-area">
+                <!-- Dashboard Section -->
+                <div id="dashboard" class="admin-section active">
+                    <h3>Dashboard Overview</h3>
+                    <div class="dashboard-cards">
+                        <div class="dashboard-card">
+                            <div class="card-icon">
+                                <i class="fas fa-newspaper"></i>
+                            </div>
+                            <div class="card-value" id="news-count">0</div>
+                            <div class="card-label">Total News Items</div>
+                        </div>
+                        <div class="dashboard-card">
+                            <div class="card-icon">
+                                <i class="fas fa-images"></i>
+                            </div>
+                            <div class="card-value" id="gallery-count">0</div>
+                            <div class="card-label">Gallery Images</div>
+                        </div>
+                        <div class="dashboard-card">
+                            <div class="card-icon">
+                                <i class="fas fa-graduation-cap"></i>
+                            </div>
+                            <div class="card-value" id="programs-count">0</div>
+                            <div class="card-label">Active Programs</div>
+                        </div>
+                        <div class="dashboard-card">
+                            <div class="card-icon">
+                                <i class="fas fa-users"></i>
+                            </div>
+                            <div class="card-value" id="users-count">0</div>
+                            <div class="card-label">Registered Users</div>
+                        </div>
+                    </div>
+                    
+                    <h4>Recent Activity</h4>
+                    <table class="admin-table">
+                        <thead>
+                            <tr>
+                                <th>Action</th>
+                                <th>Item</th>
+                                <th>Date</th>
+                            </tr>
+                        </thead>
+                        <tbody id="activity-table-body">
+                            <!-- Activity items will be dynamically loaded here -->
+                        </tbody>
+                    </table>
+                </div>
+
                 <!-- News Management -->
-                <div id="news-management" class="admin-section active">
+                <div id="news-management" class="admin-section">
                     <h3>Manage News & Events</h3>
                     <form id="news-form">
                         <div class="form-group">
@@ -1204,6 +1529,18 @@
                             <!-- Fee items will be dynamically loaded here -->
                         </tbody>
                     </table>
+                </div>
+
+                <!-- User Management -->
+                <div id="user-management" class="admin-section">
+                    <h3>User Management</h3>
+                    <p>User management functionality would be implemented here in a real application.</p>
+                </div>
+
+                <!-- Settings -->
+                <div id="settings" class="admin-section">
+                    <h3>System Settings</h3>
+                    <p>System configuration and settings would be implemented here in a real application.</p>
                 </div>
             </div>
         </div>
@@ -1353,12 +1690,35 @@
             }
         ];
 
+        let activityData = [
+            {
+                action: "Added News",
+                item: "Annual Cultural Festival 2023",
+                date: "2023-10-15"
+            },
+            {
+                action: "Updated Program",
+                item: "Diploma in Elementary Education",
+                date: "2023-10-10"
+            },
+            {
+                action: "Added Gallery Image",
+                item: "Science Exhibition",
+                date: "2023-10-05"
+            }
+        ];
+
         // DOM Elements
         const mainWebsite = document.getElementById('main-website');
         const adminPanel = document.getElementById('admin-panel');
         const adminLoginBtn = document.getElementById('admin-login-btn');
         const backToWebsiteBtn = document.getElementById('back-to-website');
-        const adminTabs = document.querySelectorAll('.admin-tab');
+        const loginContainer = document.getElementById('login-container');
+        const closeLogin = document.getElementById('close-login');
+        const loginForm = document.getElementById('login-form');
+        const adminSidebar = document.getElementById('admin-sidebar');
+        const sidebarToggle = document.getElementById('sidebar-toggle');
+        const menuItems = document.querySelectorAll('.menu-item');
         const adminSections = document.querySelectorAll('.admin-section');
 
         // News elements
@@ -1381,6 +1741,13 @@
         const feeProgramSelect = document.getElementById('fee-program');
         const feeTableBody = document.getElementById('fee-table-body');
 
+        // Dashboard elements
+        const newsCount = document.getElementById('news-count');
+        const galleryCount = document.getElementById('gallery-count');
+        const programsCount = document.getElementById('programs-count');
+        const usersCount = document.getElementById('users-count');
+        const activityTableBody = document.getElementById('activity-table-body');
+
         // Initialize the website
         document.addEventListener('DOMContentLoaded', function() {
             renderNews();
@@ -1391,11 +1758,13 @@
             renderAdminPrograms();
             renderFeeData();
             populateProgramsSelect();
+            updateDashboard();
+            renderActivity();
             initScrollAnimations();
             
             // Add 3D effect to cards on mouse move
             document.addEventListener('mousemove', function(e) {
-                const cards = document.querySelectorAll('.news-card, .program-card, .gallery-item');
+                const cards = document.querySelectorAll('.news-card, .program-card, .gallery-item, .dashboard-card');
                 cards.forEach(card => {
                     const rect = card.getBoundingClientRect();
                     const x = e.clientX - rect.left;
@@ -1414,30 +1783,62 @@
             });
         });
 
-        // Admin Panel Navigation
+        // Login Functionality
         adminLoginBtn.addEventListener('click', function() {
-            mainWebsite.style.display = 'none';
-            adminPanel.style.display = 'block';
+            loginContainer.style.display = 'flex';
         });
 
+        closeLogin.addEventListener('click', function() {
+            loginContainer.style.display = 'none';
+        });
+
+        loginForm.addEventListener('submit', function(e) {
+            e.preventDefault();
+            const username = document.getElementById('username').value;
+            const password = document.getElementById('password').value;
+            
+            // Simple authentication (in a real app, this would be server-side)
+            if (username === 'admin' && password === 'admin') {
+                loginContainer.style.display = 'none';
+                mainWebsite.style.display = 'none';
+                adminPanel.style.display = 'block';
+            } else {
+                alert('Invalid credentials. Try admin/admin for demo.');
+            }
+        });
+
+        // Admin Panel Navigation
         backToWebsiteBtn.addEventListener('click', function() {
             adminPanel.style.display = 'none';
             mainWebsite.style.display = 'block';
         });
 
-        // Admin Tab Switching
-        adminTabs.forEach(tab => {
-            tab.addEventListener('click', function() {
-                const tabId = this.getAttribute('data-tab');
+        // Sidebar Toggle
+        sidebarToggle.addEventListener('click', function() {
+            adminSidebar.classList.toggle('collapsed');
+            const icon = this.querySelector('i');
+            if (adminSidebar.classList.contains('collapsed')) {
+                icon.classList.remove('fa-chevron-left');
+                icon.classList.add('fa-chevron-right');
+            } else {
+                icon.classList.remove('fa-chevron-right');
+                icon.classList.add('fa-chevron-left');
+            }
+        });
+
+        // Menu Item Click Handler
+        menuItems.forEach(item => {
+            item.addEventListener('click', function() {
+                const sectionId = this.getAttribute('data-section');
                 
-                // Update active tab
-                adminTabs.forEach(t => t.classList.remove('active'));
+                // Update active menu item
+                menuItems.forEach(i => i.classList.remove('active'));
                 this.classList.add('active');
                 
                 // Show corresponding section
                 adminSections.forEach(section => {
                     section.classList.remove('active');
-                    if (section.id === tabId) {
+                    if (section.id === sectionId) {
                         section.classList.add('active');
                     }
                 });
@@ -1629,6 +2030,26 @@
             });
         }
 
+        function renderActivity() {
+            activityTableBody.innerHTML = '';
+            activityData.forEach(activity => {
+                const row = document.createElement('tr');
+                row.innerHTML = `
+                    <td>${activity.action}</td>
+                    <td>${activity.item}</td>
+                    <td>${formatDate(activity.date)}</td>
+                `;
+                activityTableBody.appendChild(row);
+            });
+        }
+
+        function updateDashboard() {
+            newsCount.textContent = newsData.length;
+            galleryCount.textContent = galleryData.length;
+            programsCount.textContent = programsData.length;
+            usersCount.textContent = "125"; // Static for demo
+        }
+
         function populateProgramsSelect() {
             feeProgramSelect.innerHTML = '<option value="">Select a program</option>';
             programsData.forEach(program => {
@@ -1656,8 +2077,18 @@
             };
 
             newsData.push(newNews);
+            
+            // Add to activity
+            activityData.unshift({
+                action: "Added News",
+                item: title,
+                date: new Date().toISOString().split('T')[0]
+            });
+            
             renderNews();
             renderAdminNews();
+            updateDashboard();
+            renderActivity();
             newsForm.reset();
             alert('News added successfully!');
         });
@@ -1676,8 +2107,18 @@
             };
 
             galleryData.push(newGalleryItem);
+            
+            // Add to activity
+            activityData.unshift({
+                action: "Added Gallery Image",
+                item: title,
+                date: new Date().toISOString().split('T')[0]
+            });
+            
             renderGallery();
             renderAdminGallery();
+            updateDashboard();
+            renderActivity();
             galleryForm.reset();
             alert('Gallery item added successfully!');
         });
@@ -1696,9 +2137,19 @@
             };
 
             programsData.push(newProgram);
+            
+            // Add to activity
+            activityData.unshift({
+                action: "Added Program",
+                item: title,
+                date: new Date().toISOString().split('T')[0]
+            });
+            
             renderPrograms();
             renderAdminPrograms();
             populateProgramsSelect();
+            updateDashboard();
+            renderActivity();
             programsForm.reset();
             alert('Program added successfully!');
         });
@@ -1721,6 +2172,13 @@
                 // Update existing fee
                 feeData[existingFeeIndex].amount = amount;
                 feeData[existingFeeIndex].details = details;
+                
+                // Add to activity
+                activityData.unshift({
+                    action: "Updated Fee",
+                    item: program.title,
+                    date: new Date().toISOString().split('T')[0]
+                });
             } else {
                 // Add new fee
                 const newFee = {
@@ -1730,9 +2188,17 @@
                     details
                 };
                 feeData.push(newFee);
+                
+                // Add to activity
+                activityData.unshift({
+                    action: "Added Fee",
+                    item: program.title,
+                    date: new Date().toISOString().split('T')[0]
+                });
             }
 
             renderFeeData();
+            renderActivity();
             feeForm.reset();
             alert('Fee updated successfully!');
         });
@@ -1754,8 +2220,16 @@
                     news.date = document.getElementById('news-date').value;
                     news.image = document.getElementById('news-image').value;
                     
+                    // Add to activity
+                    activityData.unshift({
+                        action: "Updated News",
+                        item: news.title,
+                        date: new Date().toISOString().split('T')[0]
+                    });
+                    
                     renderNews();
                     renderAdminNews();
+                    renderActivity();
                     newsForm.reset();
                     newsForm.onsubmit = arguments.callee; // Reset to original handler
                     alert('News updated successfully!');
@@ -1765,9 +2239,20 @@
 
         function deleteNews(id) {
             if (confirm('Are you sure you want to delete this news item?')) {
+                const news = newsData.find(n => n.id === id);
                 newsData = newsData.filter(n => n.id !== id);
+                
+                // Add to activity
+                activityData.unshift({
+                    action: "Deleted News",
+                    item: news.title,
+                    date: new Date().toISOString().split('T')[0]
+                });
+                
                 renderNews();
                 renderAdminNews();
+                updateDashboard();
+                renderActivity();
                 alert('News deleted successfully!');
             }
         }
@@ -1786,8 +2271,16 @@
                     item.date = document.getElementById('gallery-date').value;
                     item.image = document.getElementById('gallery-image').value;
                     
+                    // Add to activity
+                    activityData.unshift({
+                        action: "Updated Gallery Item",
+                        item: item.title,
+                        date: new Date().toISOString().split('T')[0]
+                    });
+                    
                     renderGallery();
                     renderAdminGallery();
+                    renderActivity();
                     galleryForm.reset();
                     galleryForm.onsubmit = arguments.callee; // Reset to original handler
                     alert('Gallery item updated successfully!');
@@ -1797,9 +2290,20 @@
 
         function deleteGalleryItem(id) {
             if (confirm('Are you sure you want to delete this gallery item?')) {
+                const item = galleryData.find(g => g.id === id);
                 galleryData = galleryData.filter(g => g.id !== id);
+                
+                // Add to activity
+                activityData.unshift({
+                    action: "Deleted Gallery Item",
+                    item: item.title,
+                    date: new Date().toISOString().split('T')[0]
+                });
+                
                 renderGallery();
                 renderAdminGallery();
+                updateDashboard();
+                renderActivity();
                 alert('Gallery item deleted successfully!');
             }
         }
@@ -1818,9 +2322,17 @@
                     program.description = document.getElementById('program-description').value;
                     program.duration = document.getElementById('program-duration').value;
                     
+                    // Add to activity
+                    activityData.unshift({
+                        action: "Updated Program",
+                        item: program.title,
+                        date: new Date().toISOString().split('T')[0]
+                    });
+                    
                     renderPrograms();
                     renderAdminPrograms();
                     populateProgramsSelect();
+                    renderActivity();
                     programsForm.reset();
                     programsForm.onsubmit = arguments.callee; // Reset to original handler
                     alert('Program updated successfully!');
@@ -1830,15 +2342,26 @@
 
         function deleteProgram(id) {
             if (confirm('Are you sure you want to delete this program?')) {
+                const program = programsData.find(p => p.id === id);
                 programsData = programsData.filter(p => p.id !== id);
                 feeData = feeData.filter(f => {
                     const program = programsData.find(p => p.title === f.program);
                     return program !== undefined;
                 });
+                
+                // Add to activity
+                activityData.unshift({
+                    action: "Deleted Program",
+                    item: program.title,
+                    date: new Date().toISOString().split('T')[0]
+                });
+                
                 renderPrograms();
                 renderAdminPrograms();
                 renderFeeData();
                 populateProgramsSelect();
+                updateDashboard();
+                renderActivity();
                 alert('Program deleted successfully!');
             }
         }
@@ -1864,7 +2387,15 @@
                         fee.amount = parseInt(document.getElementById('fee-amount').value);
                         fee.details = document.getElementById('fee-details').value;
                         
+                        // Add to activity
+                        activityData.unshift({
+                            action: "Updated Fee",
+                            item: program.title,
+                            date: new Date().toISOString().split('T')[0]
+                        });
+                        
                         renderFeeData();
+                        renderActivity();
                         feeForm.reset();
                         feeForm.onsubmit = arguments.callee; // Reset to original handler
                         alert('Fee updated successfully!');
@@ -1875,8 +2406,18 @@
 
         function deleteFee(id) {
             if (confirm('Are you sure you want to delete this fee structure?')) {
+                const fee = feeData.find(f => f.id === id);
                 feeData = feeData.filter(f => f.id !== id);
+                
+                // Add to activity
+                activityData.unshift({
+                    action: "Deleted Fee",
+                    item: fee.program,
+                    date: new Date().toISOString().split('T')[0]
+                });
+                
                 renderFeeData();
+                renderActivity();
                 alert('Fee structure deleted successfully!');
             }
         }
