@@ -529,6 +529,80 @@
             color: #777;
         }
         
+        /* Login Page Styles */
+        .login-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            background-color: #f5f7fa;
+        }
+        
+        .login-form {
+            background-color: white;
+            padding: 40px;
+            border-radius: 10px;
+            box-shadow: 0 5px 25px rgba(0,0,0,0.1);
+            width: 100%;
+            max-width: 400px;
+        }
+        
+        .login-form h2 {
+            text-align: center;
+            margin-bottom: 30px;
+            color: var(--primary);
+        }
+        
+        /* File Upload Styles */
+        .file-upload {
+            position: relative;
+            display: inline-block;
+            width: 100%;
+        }
+        
+        .file-upload-input {
+            position: absolute;
+            left: 0;
+            top: 0;
+            opacity: 0;
+            width: 100%;
+            height: 100%;
+            cursor: pointer;
+        }
+        
+        .file-upload-label {
+            display: block;
+            padding: 10px 15px;
+            background-color: #f8f9fa;
+            border: 1px dashed #ddd;
+            border-radius: 5px;
+            text-align: center;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+        
+        .file-upload-label:hover {
+            background-color: #e9ecef;
+        }
+        
+        .file-name {
+            margin-top: 5px;
+            font-size: 0.9rem;
+            color: #666;
+        }
+        
+        /* Preview Image */
+        .image-preview {
+            max-width: 200px;
+            margin-top: 10px;
+            display: none;
+        }
+        
+        .image-preview img {
+            max-width: 100%;
+            border-radius: 5px;
+        }
+        
         /* Responsive Styles */
         @media (max-width: 992px) {
             .about-content {
@@ -572,423 +646,466 @@
             .hero p {
                 font-size: 1rem;
             }
+            
+            .admin-tabs {
+                flex-wrap: wrap;
+            }
+            
+            .admin-tab {
+                flex: 1;
+                min-width: 120px;
+                text-align: center;
+            }
         }
     </style>
 </head>
 <body>
-    <!-- Header -->
-    <header>
-        <div class="container header-content">
-            <div class="logo">
-                <img src="https://via.placeholder.com/60x60/2c3e50/ffffff?text=JPTT" alt="JPTT Logo">
-                <div class="logo-text">
-                    <h1>Jehal Prasad Teachers Training College</h1>
-                    <p>Pathra Englishodhanpur, Nawada, 805123</p>
-                </div>
+    <!-- Login Page (Initially shown) -->
+    <div id="login-page" class="login-container">
+        <div class="login-form">
+            <h2>JPTT College Admin Login</h2>
+            <div class="form-group">
+                <label for="username">Username</label>
+                <input type="text" id="username" class="form-control" placeholder="Enter username">
             </div>
-            <div class="mobile-menu">
-                <i class="fas fa-bars"></i>
+            <div class="form-group">
+                <label for="password">Password</label>
+                <input type="password" id="password" class="form-control" placeholder="Enter password">
             </div>
-            <nav>
-                <ul>
-                    <li><a href="#home" class="active">Home</a></li>
-                    <li><a href="#about">About</a></li>
-                    <li><a href="#news">News</a></li>
-                    <li><a href="#gallery">Gallery</a></li>
-                    <li><a href="#programs">Programs</a></li>
-                    <li><a href="#admin">Admin</a></li>
-                    <li><a href="#contact">Contact</a></li>
-                </ul>
-            </nav>
+            <button id="login-btn" class="btn-admin" style="width: 100%;">Login</button>
+            <p id="login-error" style="color: red; margin-top: 10px; display: none;">Invalid credentials. Try admin/admin</p>
         </div>
-    </header>
+    </div>
 
-    <!-- Hero Section -->
-    <section class="hero" id="home">
-        <div class="container">
-            <h2>Welcome to Jehal Prasad Teachers Training College</h2>
-            <p>Established on 2nd May 2017, we are committed to providing quality teacher education and shaping the future of education in our community.</p>
-            <a href="#about" class="btn">Learn More</a>
-        </div>
-    </section>
+    <!-- Main Website (Initially hidden) -->
+    <div id="main-website" style="display: none;">
+        <!-- Header -->
+        <header>
+            <div class="container header-content">
+                <div class="logo">
+                    <img src="https://via.placeholder.com/60x60/2c3e50/ffffff?text=JPTT" alt="JPTT Logo">
+                    <div class="logo-text">
+                        <h1>Jehal Prasad Teachers Training College</h1>
+                        <p>Pathra Englishodhanpur, Nawada, 805123</p>
+                    </div>
+                </div>
+                <div class="mobile-menu">
+                    <i class="fas fa-bars"></i>
+                </div>
+                <nav>
+                    <ul>
+                        <li><a href="#home" class="active">Home</a></li>
+                        <li><a href="#about">About</a></li>
+                        <li><a href="#news">News</a></li>
+                        <li><a href="#gallery">Gallery</a></li>
+                        <li><a href="#programs">Programs</a></li>
+                        <li><a href="#admin">Admin</a></li>
+                        <li><a href="#contact">Contact</a></li>
+                        <li><a href="#" id="logout-btn">Logout</a></li>
+                    </ul>
+                </nav>
+            </div>
+        </header>
 
-    <!-- About Section -->
-    <section id="about">
-        <div class="container">
-            <div class="section-title">
-                <h2>About JPTT College</h2>
+        <!-- Hero Section -->
+        <section class="hero" id="home">
+            <div class="container">
+                <h2>Welcome to Jehal Prasad Teachers Training College</h2>
+                <p>Established on 2nd May 2017, we are committed to providing quality teacher education and shaping the future of education in our community.</p>
+                <a href="#about" class="btn">Learn More</a>
             </div>
-            <div class="about-content">
-                <div class="about-text">
-                    <h3>Our Journey Since 2017</h3>
-                    <p>Jehal Prasad Teachers Training College was established on 2nd May 2017 with the vision to provide quality teacher education in the Nawada region. Our first academic session commenced in 2018, and since then we have been dedicated to shaping competent and compassionate educators.</p>
-                    <p>Located in Pathra Englishodhanpur, Nawada (805123), our college offers state-of-the-art facilities including well-equipped laboratories, a comprehensive library, and experienced faculty members committed to student success.</p>
-                    <p>We believe in holistic development and provide various cultural and extracurricular activities to ensure our students grow not just academically but as well-rounded individuals.</p>
-                </div>
-                <div class="about-image">
-                    <img src="https://images.unsplash.com/photo-1562774053-701939374585?ixlib=rb-4.0.3" alt="JPTT College Campus">
-                </div>
-            </div>
-        </div>
-    </section>
+        </section>
 
-    <!-- News Section -->
-    <section id="news">
-        <div class="container">
-            <div class="section-title">
-                <h2>College News & Events</h2>
-            </div>
-            <div class="news-container">
-                <!-- News items will be dynamically added here -->
-                <div class="news-card">
-                    <div class="news-image">
-                        <img src="https://images.unsplash.com/photo-1523050854058-8df90110c9f1?ixlib=rb-4.0.3" alt="Cultural Event">
-                    </div>
-                    <div class="news-content">
-                        <div class="news-date">15 June 2023</div>
-                        <h3>Annual Cultural Festival 2023</h3>
-                        <p>Our college celebrated its annual cultural festival with great enthusiasm. Students participated in various events showcasing their talents.</p>
-                    </div>
+        <!-- About Section -->
+        <section id="about">
+            <div class="container">
+                <div class="section-title">
+                    <h2>About JPTT College</h2>
                 </div>
-                
-                <div class="news-card">
-                    <div class="news-image">
-                        <img src="https://images.unsplash.com/photo-1588072432836-e100327e50ab?ixlib=rb-4.0.3" alt="Science Lab">
+                <div class="about-content">
+                    <div class="about-text">
+                        <h3>Our Journey Since 2017</h3>
+                        <p>Jehal Prasad Teachers Training College was established on 2nd May 2017 with the vision to provide quality teacher education in the Nawada region. Our first academic session commenced in 2018, and since then we have been dedicated to shaping competent and compassionate educators.</p>
+                        <p>Located in Pathra Englishodhanpur, Nawada (805123), our college offers state-of-the-art facilities including well-equipped laboratories, a comprehensive library, and experienced faculty members committed to student success.</p>
+                        <p>We believe in holistic development and provide various cultural and extracurricular activities to ensure our students grow not just academically but as well-rounded individuals.</p>
                     </div>
-                    <div class="news-content">
-                        <div class="news-date">5 May 2023</div>
-                        <h3>New Science Laboratory Inaugurated</h3>
-                        <p>The college has inaugurated a new state-of-the-art science laboratory to enhance practical learning for our students.</p>
-                    </div>
-                </div>
-                
-                <div class="news-card">
-                    <div class="news-image">
-                        <img src="https://images.unsplash.com/photo-1503676260728-1c00da094a0b?ixlib=rb-4.0.3" alt="Seminar">
-                    </div>
-                    <div class="news-content">
-                        <div class="news-date">20 April 2023</div>
-                        <h3>Educational Seminar on Modern Teaching Methods</h3>
-                        <p>An interactive seminar was organized for students to learn about innovative teaching methodologies in contemporary education.</p>
+                    <div class="about-image">
+                        <img src="https://images.unsplash.com/photo-1562774053-701939374585?ixlib=rb-4.0.3" alt="JPTT College Campus">
                     </div>
                 </div>
             </div>
-        </div>
-    </section>
+        </section>
 
-    <!-- Gallery Section -->
-    <section id="gallery">
-        <div class="container">
-            <div class="section-title">
-                <h2>Photo Gallery</h2>
-            </div>
-            <div class="gallery-container">
-                <!-- Gallery items will be dynamically added here -->
-                <div class="gallery-item">
-                    <img src="https://images.unsplash.com/photo-1523050854058-8df90110c9f1?ixlib=rb-4.0.3" alt="College Event">
-                    <div class="gallery-overlay">
-                        <h3>Annual Day Celebration</h3>
-                        <p>15 March 2023</p>
-                    </div>
+        <!-- News Section -->
+        <section id="news">
+            <div class="container">
+                <div class="section-title">
+                    <h2>College News & Events</h2>
                 </div>
-                
-                <div class="gallery-item">
-                    <img src="https://images.unsplash.com/photo-1498243691581-b145c3f54a5a?ixlib=rb-4.0.3" alt="Classroom">
-                    <div class="gallery-overlay">
-                        <h3>Interactive Classroom Session</h3>
-                        <p>10 February 2023</p>
-                    </div>
-                </div>
-                
-                <div class="gallery-item">
-                    <img src="https://images.unsplash.com/photo-1557804506-669a67965ba0?ixlib=rb-4.0.3" alt="Sports">
-                    <div class="gallery-overlay">
-                        <h3>Annual Sports Day</h3>
-                        <p>5 January 2023</p>
-                    </div>
-                </div>
-                
-                <div class="gallery-item">
-                    <img src="https://images.unsplash.com/photo-1562774053-701939374585?ixlib=rb-4.0.3" alt="Campus">
-                    <div class="gallery-overlay">
-                        <h3>College Campus</h3>
-                        <p>1 December 2022</p>
-                    </div>
+                <div class="news-container" id="news-container">
+                    <!-- News items will be dynamically added here -->
                 </div>
             </div>
-        </div>
-    </section>
+        </section>
 
-    <!-- Programs Section -->
-    <section id="programs">
-        <div class="container">
-            <div class="section-title">
-                <h2>Our Programs</h2>
-            </div>
-            <div class="programs-container">
-                <!-- Program items will be dynamically added here -->
-                <div class="program-card">
-                    <div class="program-icon">
-                        <i class="fas fa-chalkboard-teacher"></i>
-                    </div>
-                    <h3>Diploma in Elementary Education</h3>
-                    <p>A two-year diploma program designed to prepare teachers for elementary level education with comprehensive pedagogical training.</p>
+        <!-- Gallery Section -->
+        <section id="gallery">
+            <div class="container">
+                <div class="section-title">
+                    <h2>Photo Gallery</h2>
                 </div>
-                
-                <div class="program-card">
-                    <div class="program-icon">
-                        <i class="fas fa-book-open"></i>
-                    </div>
-                    <h3>Bachelor of Education (B.Ed)</h3>
-                    <p>A professional undergraduate degree that prepares students for teaching at secondary and higher secondary levels.</p>
-                </div>
-                
-                <div class="program-card">
-                    <div class="program-icon">
-                        <i class="fas fa-graduation-cap"></i>
-                    </div>
-                    <h3>Certificate Courses</h3>
-                    <p>Short-term certificate programs in specialized areas of education to enhance teaching skills and methodologies.</p>
+                <div class="gallery-container" id="gallery-container">
+                    <!-- Gallery items will be dynamically added here -->
                 </div>
             </div>
-        </div>
-    </section>
+        </section>
 
-    <!-- Admin Panel -->
-    <section id="admin">
-        <div class="container">
-            <div class="section-title">
-                <h2>Admin Panel</h2>
-            </div>
-            <div class="admin-panel">
-                <div class="admin-tabs">
-                    <div class="admin-tab active" data-tab="news">News Management</div>
-                    <div class="admin-tab" data-tab="gallery">Gallery Management</div>
-                    <div class="admin-tab" data-tab="programs">Programs Management</div>
-                    <div class="admin-tab" data-tab="fees">Fee Structure</div>
+        <!-- Programs Section -->
+        <section id="programs">
+            <div class="container">
+                <div class="section-title">
+                    <h2>Our Programs</h2>
                 </div>
-                
-                <!-- News Management -->
-                <div class="admin-content active" id="news-content">
-                    <h3>Add New News</h3>
-                    <form id="news-form">
-                        <div class="form-group">
-                            <label for="news-title">News Title</label>
-                            <input type="text" id="news-title" class="form-control" required>
-                        </div>
-                        <div class="form-group">
-                            <label for="news-date">Date</label>
-                            <input type="date" id="news-date" class="form-control" required>
-                        </div>
-                        <div class="form-group">
-                            <label for="news-content">Content</label>
-                            <textarea id="news-content" class="form-control" required></textarea>
-                        </div>
-                        <div class="form-group">
-                            <label for="news-image">Image URL</label>
-                            <input type="text" id="news-image" class="form-control" required>
-                        </div>
-                        <button type="submit" class="btn-admin">Add News</button>
-                    </form>
+                <div class="programs-container" id="programs-container">
+                    <!-- Program items will be dynamically added here -->
+                </div>
+            </div>
+        </section>
+
+        <!-- Admin Panel -->
+        <section id="admin">
+            <div class="container">
+                <div class="section-title">
+                    <h2>Admin Panel</h2>
+                </div>
+                <div class="admin-panel">
+                    <div class="admin-tabs">
+                        <div class="admin-tab active" data-tab="news">News Management</div>
+                        <div class="admin-tab" data-tab="gallery">Gallery Management</div>
+                        <div class="admin-tab" data-tab="programs">Programs Management</div>
+                        <div class="admin-tab" data-tab="fees">Fee Structure</div>
+                    </div>
                     
-                    <h3>Existing News</h3>
-                    <table class="admin-table">
-                        <thead>
-                            <tr>
-                                <th>Title</th>
-                                <th>Date</th>
-                                <th>Actions</th>
-                            </tr>
-                        </thead>
-                        <tbody id="news-table-body">
-                            <!-- News items will be dynamically added here -->
-                        </tbody>
-                    </table>
-                </div>
-                
-                <!-- Gallery Management -->
-                <div class="admin-content" id="gallery-content">
-                    <h3>Add New Gallery Item</h3>
-                    <form id="gallery-form">
-                        <div class="form-group">
-                            <label for="gallery-title">Image Title</label>
-                            <input type="text" id="gallery-title" class="form-control" required>
-                        </div>
-                        <div class="form-group">
-                            <label for="gallery-date">Date</label>
-                            <input type="date" id="gallery-date" class="form-control" required>
-                        </div>
-                        <div class="form-group">
-                            <label for="gallery-image">Image URL</label>
-                            <input type="text" id="gallery-image" class="form-control" required>
-                        </div>
-                        <button type="submit" class="btn-admin">Add to Gallery</button>
-                    </form>
+                    <!-- News Management -->
+                    <div class="admin-content active" id="news-content">
+                        <h3>Add New News</h3>
+                        <form id="news-form">
+                            <div class="form-group">
+                                <label for="news-title">News Title</label>
+                                <input type="text" id="news-title" class="form-control" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="news-date">Date</label>
+                                <input type="date" id="news-date" class="form-control" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="news-content">Content</label>
+                                <textarea id="news-content-text" class="form-control" required></textarea>
+                            </div>
+                            <div class="form-group">
+                                <label for="news-image">Image URL</label>
+                                <input type="text" id="news-image" class="form-control" required>
+                            </div>
+                            <button type="submit" class="btn-admin">Add News</button>
+                        </form>
+                        
+                        <h3>Existing News</h3>
+                        <table class="admin-table">
+                            <thead>
+                                <tr>
+                                    <th>Title</th>
+                                    <th>Date</th>
+                                    <th>Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody id="news-table-body">
+                                <!-- News items will be dynamically added here -->
+                            </tbody>
+                        </table>
+                    </div>
                     
-                    <h3>Existing Gallery Items</h3>
-                    <table class="admin-table">
-                        <thead>
-                            <tr>
-                                <th>Title</th>
-                                <th>Date</th>
-                                <th>Actions</th>
-                            </tr>
-                        </thead>
-                        <tbody id="gallery-table-body">
-                            <!-- Gallery items will be dynamically added here -->
-                        </tbody>
-                    </table>
-                </div>
-                
-                <!-- Programs Management -->
-                <div class="admin-content" id="programs-content">
-                    <h3>Add New Program</h3>
-                    <form id="programs-form">
-                        <div class="form-group">
-                            <label for="program-title">Program Title</label>
-                            <input type="text" id="program-title" class="form-control" required>
-                        </div>
-                        <div class="form-group">
-                            <label for="program-description">Description</label>
-                            <textarea id="program-description" class="form-control" required></textarea>
-                        </div>
-                        <div class="form-group">
-                            <label for="program-icon">Icon Class (Font Awesome)</label>
-                            <input type="text" id="program-icon" class="form-control" placeholder="fas fa-icon-name" required>
-                        </div>
-                        <button type="submit" class="btn-admin">Add Program</button>
-                    </form>
+                    <!-- Gallery Management -->
+                    <div class="admin-content" id="gallery-content">
+                        <h3>Add New Gallery Item</h3>
+                        <form id="gallery-form">
+                            <div class="form-group">
+                                <label for="gallery-title">Image Title</label>
+                                <input type="text" id="gallery-title" class="form-control" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="gallery-date">Date</label>
+                                <input type="date" id="gallery-date" class="form-control" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="gallery-image">Upload Image</label>
+                                <div class="file-upload">
+                                    <input type="file" id="gallery-image-upload" class="file-upload-input" accept="image/*">
+                                    <label for="gallery-image-upload" class="file-upload-label">
+                                        <i class="fas fa-cloud-upload-alt"></i> Choose Image
+                                    </label>
+                                    <div id="gallery-file-name" class="file-name">No file chosen</div>
+                                </div>
+                                <div class="image-preview" id="gallery-preview">
+                                    <img src="" alt="Preview">
+                                </div>
+                            </div>
+                            <button type="submit" class="btn-admin">Add to Gallery</button>
+                        </form>
+                        
+                        <h3>Existing Gallery Items</h3>
+                        <table class="admin-table">
+                            <thead>
+                                <tr>
+                                    <th>Title</th>
+                                    <th>Date</th>
+                                    <th>Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody id="gallery-table-body">
+                                <!-- Gallery items will be dynamically added here -->
+                            </tbody>
+                        </table>
+                    </div>
                     
-                    <h3>Existing Programs</h3>
-                    <table class="admin-table">
-                        <thead>
-                            <tr>
-                                <th>Title</th>
-                                <th>Actions</th>
-                            </tr>
-                        </thead>
-                        <tbody id="programs-table-body">
-                            <!-- Programs will be dynamically added here -->
-                        </tbody>
-                    </table>
-                </div>
-                
-                <!-- Fee Structure -->
-                <div class="admin-content" id="fees-content">
-                    <h3>Update Fee Structure</h3>
-                    <form id="fees-form">
-                        <div class="form-group">
-                            <label for="fee-program">Program</label>
-                            <select id="fee-program" class="form-control" required>
-                                <option value="">Select Program</option>
-                                <option value="d-el-ed">Diploma in Elementary Education</option>
-                                <option value="b-ed">Bachelor of Education (B.Ed)</option>
-                                <option value="certificate">Certificate Courses</option>
-                            </select>
-                        </div>
-                        <div class="form-group">
-                            <label for="fee-amount">Fee Amount (₹)</label>
-                            <input type="number" id="fee-amount" class="form-control" required>
-                        </div>
-                        <div class="form-group">
-                            <label for="fee-details">Fee Details</label>
-                            <textarea id="fee-details" class="form-control" required></textarea>
-                        </div>
-                        <button type="submit" class="btn-admin">Update Fee</button>
-                    </form>
+                    <!-- Programs Management -->
+                    <div class="admin-content" id="programs-content">
+                        <h3>Add New Program</h3>
+                        <form id="programs-form">
+                            <div class="form-group">
+                                <label for="program-title">Program Title</label>
+                                <input type="text" id="program-title" class="form-control" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="program-description">Description</label>
+                                <textarea id="program-description" class="form-control" required></textarea>
+                            </div>
+                            <div class="form-group">
+                                <label for="program-icon">Icon Class (Font Awesome)</label>
+                                <input type="text" id="program-icon" class="form-control" placeholder="fas fa-icon-name" required>
+                            </div>
+                            <button type="submit" class="btn-admin">Add Program</button>
+                        </form>
+                        
+                        <h3>Existing Programs</h3>
+                        <table class="admin-table">
+                            <thead>
+                                <tr>
+                                    <th>Title</th>
+                                    <th>Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody id="programs-table-body">
+                                <!-- Programs will be dynamically added here -->
+                            </tbody>
+                        </table>
+                    </div>
                     
-                    <h3>Current Fee Structure</h3>
-                    <table class="admin-table">
-                        <thead>
-                            <tr>
-                                <th>Program</th>
-                                <th>Fee Amount</th>
-                                <th>Details</th>
-                                <th>Actions</th>
-                            </tr>
-                        </thead>
-                        <tbody id="fees-table-body">
-                            <!-- Fee items will be dynamically added here -->
-                        </tbody>
-                    </table>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Contact Section -->
-    <section id="contact">
-        <div class="container">
-            <div class="section-title">
-                <h2>Contact Us</h2>
-            </div>
-            <div class="about-content">
-                <div class="about-text">
-                    <h3>Get in Touch</h3>
-                    <p><i class="fas fa-map-marker-alt"></i> <strong>Address:</strong> Pathra Englishodhanpur, Nawada, Bihar - 805123</p>
-                    <p><i class="fas fa-phone"></i> <strong>Phone:</strong> +91 XXXXX XXXXX</p>
-                    <p><i class="fas fa-envelope"></i> <strong>Email:</strong> info@jpttcollege.edu.in</p>
-                    <p><i class="fas fa-clock"></i> <strong>Office Hours:</strong> Monday to Saturday, 9:00 AM to 5:00 PM</p>
-                </div>
-                <div class="about-image">
-                    <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3630.536668331319!2d85.54120231498956!3d24.56118458422137!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x39f299f2b6f15f0d%3A0x5e3b9c9c9c9c9c9c!2sNawada%2C%20Bihar!5e0!3m2!1sen!2sin!4v1620000000000!5m2!1sen!2sin" width="100%" height="300" style="border:0; border-radius: 10px;" allowfullscreen="" loading="lazy"></iframe>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Footer -->
-    <footer>
-        <div class="container">
-            <div class="footer-content">
-                <div class="footer-column">
-                    <h3>JPTT College</h3>
-                    <p>Jehal Prasad Teachers Training College is committed to providing quality teacher education and shaping the future of education in our community.</p>
-                    <div class="social-links">
-                        <a href="#"><i class="fab fa-facebook-f"></i></a>
-                        <a href="#"><i class="fab fa-twitter"></i></a>
-                        <a href="#"><i class="fab fa-instagram"></i></a>
-                        <a href="#"><i class="fab fa-linkedin-in"></i></a>
+                    <!-- Fee Structure -->
+                    <div class="admin-content" id="fees-content">
+                        <h3>Update Fee Structure</h3>
+                        <form id="fees-form">
+                            <div class="form-group">
+                                <label for="fee-program">Program</label>
+                                <select id="fee-program" class="form-control" required>
+                                    <option value="">Select Program</option>
+                                    <option value="d-el-ed">Diploma in Elementary Education</option>
+                                    <option value="b-ed">Bachelor of Education (B.Ed)</option>
+                                    <option value="certificate">Certificate Courses</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label for="fee-amount">Fee Amount (₹)</label>
+                                <input type="number" id="fee-amount" class="form-control" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="fee-details">Fee Details</label>
+                                <textarea id="fee-details" class="form-control" required></textarea>
+                            </div>
+                            <button type="submit" class="btn-admin">Update Fee</button>
+                        </form>
+                        
+                        <h3>Current Fee Structure</h3>
+                        <table class="admin-table">
+                            <thead>
+                                <tr>
+                                    <th>Program</th>
+                                    <th>Fee Amount</th>
+                                    <th>Details</th>
+                                    <th>Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody id="fees-table-body">
+                                <!-- Fee items will be dynamically added here -->
+                            </tbody>
+                        </table>
                     </div>
                 </div>
-                <div class="footer-column">
-                    <h3>Quick Links</h3>
-                    <a href="#home">Home</a>
-                    <a href="#about">About Us</a>
-                    <a href="#news">News & Events</a>
-                    <a href="#gallery">Gallery</a>
-                    <a href="#programs">Programs</a>
-                    <a href="#contact">Contact</a>
-                </div>
-                <div class="footer-column">
-                    <h3>Programs</h3>
-                    <a href="#">Diploma in Elementary Education</a>
-                    <a href="#">Bachelor of Education (B.Ed)</a>
-                    <a href="#">Certificate Courses</a>
-                </div>
-                <div class="footer-column">
-                    <h3>Contact Info</h3>
-                    <p><i class="fas fa-map-marker-alt"></i> Pathra Englishodhanpur, Nawada, Bihar - 805123</p>
-                    <p><i class="fas fa-phone"></i> +91 XXXXX XXXXX</p>
-                    <p><i class="fas fa-envelope"></i> info@jpttcollege.edu.in</p>
-                </div>
             </div>
-            <div class="copyright">
-                <p>&copy; 2023 Jehal Prasad Teachers Training College. All Rights Reserved.</p>
-            </div>
-        </div>
-    </footer>
+        </section>
 
-    <!-- Modal for Image View -->
-    <div class="modal" id="image-modal">
-        <div class="modal-content">
-            <span class="close-modal">&times;</span>
-            <img id="modal-image" src="" alt="" style="width: 100%; border-radius: 5px;">
-            <div id="modal-caption" style="margin-top: 15px; text-align: center;"></div>
+        <!-- Contact Section -->
+        <section id="contact">
+            <div class="container">
+                <div class="section-title">
+                    <h2>Contact Us</h2>
+                </div>
+                <div class="about-content">
+                    <div class="about-text">
+                        <h3>Get in Touch</h3>
+                        <p><i class="fas fa-map-marker-alt"></i> <strong>Address:</strong> Pathra Englishodhanpur, Nawada, Bihar - 805123</p>
+                        <p><i class="fas fa-phone"></i> <strong>Phone:</strong> +91 XXXXX XXXXX</p>
+                        <p><i class="fas fa-envelope"></i> <strong>Email:</strong> info@jpttcollege.edu.in</p>
+                        <p><i class="fas fa-clock"></i> <strong>Office Hours:</strong> Monday to Saturday, 9:00 AM to 5:00 PM</p>
+                    </div>
+                    <div class="about-image">
+                        <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3630.536668331319!2d85.54120231498956!3d24.56118458422137!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x39f299f2b6f15f0d%3A0x5e3b9c9c9c9c9c9c!2sNawada%2C%20Bihar!5e0!3m2!1sen!2sin!4v1620000000000!5m2!1sen!2sin" width="100%" height="300" style="border:0; border-radius: 10px;" allowfullscreen="" loading="lazy"></iframe>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Footer -->
+        <footer>
+            <div class="container">
+                <div class="footer-content">
+                    <div class="footer-column">
+                        <h3>JPTT College</h3>
+                        <p>Jehal Prasad Teachers Training College is committed to providing quality teacher education and shaping the future of education in our community.</p>
+                        <div class="social-links">
+                            <a href="#"><i class="fab fa-facebook-f"></i></a>
+                            <a href="#"><i class="fab fa-twitter"></i></a>
+                            <a href="#"><i class="fab fa-instagram"></i></a>
+                            <a href="#"><i class="fab fa-linkedin-in"></i></a>
+                        </div>
+                    </div>
+                    <div class="footer-column">
+                        <h3>Quick Links</h3>
+                        <a href="#home">Home</a>
+                        <a href="#about">About Us</a>
+                        <a href="#news">News & Events</a>
+                        <a href="#gallery">Gallery</a>
+                        <a href="#programs">Programs</a>
+                        <a href="#contact">Contact</a>
+                    </div>
+                    <div class="footer-column">
+                        <h3>Programs</h3>
+                        <a href="#">Diploma in Elementary Education</a>
+                        <a href="#">Bachelor of Education (B.Ed)</a>
+                        <a href="#">Certificate Courses</a>
+                    </div>
+                    <div class="footer-column">
+                        <h3>Contact Info</h3>
+                        <p><i class="fas fa-map-marker-alt"></i> Pathra Englishodhanpur, Nawada, Bihar - 805123</p>
+                        <p><i class="fas fa-phone"></i> +91 XXXXX XXXXX</p>
+                        <p><i class="fas fa-envelope"></i> info@jpttcollege.edu.in</p>
+                    </div>
+                </div>
+                <div class="copyright">
+                    <p>&copy; 2023 Jehal Prasad Teachers Training College. All Rights Reserved.</p>
+                </div>
+            </div>
+        </footer>
+
+        <!-- Modal for Image View -->
+        <div class="modal" id="image-modal">
+            <div class="modal-content">
+                <span class="close-modal">&times;</span>
+                <img id="modal-image" src="" alt="" style="width: 100%; border-radius: 5px;">
+                <div id="modal-caption" style="margin-top: 15px; text-align: center;"></div>
+            </div>
         </div>
     </div>
 
     <script>
+        // Data storage (in a real app, this would be a database)
+        let collegeData = {
+            news: [
+                {
+                    id: 1,
+                    title: "Annual Cultural Festival 2023",
+                    date: "2023-06-15",
+                    content: "Our college celebrated its annual cultural festival with great enthusiasm. Students participated in various events showcasing their talents.",
+                    image: "https://images.unsplash.com/photo-1523050854058-8df90110c9f1?ixlib=rb-4.0.3"
+                },
+                {
+                    id: 2,
+                    title: "New Science Laboratory Inaugurated",
+                    date: "2023-05-05",
+                    content: "The college has inaugurated a new state-of-the-art science laboratory to enhance practical learning for our students.",
+                    image: "https://images.unsplash.com/photo-1588072432836-e100327e50ab?ixlib=rb-4.0.3"
+                }
+            ],
+            gallery: [
+                {
+                    id: 1,
+                    title: "Annual Day Celebration",
+                    date: "2023-03-15",
+                    image: "https://images.unsplash.com/photo-1523050854058-8df90110c9f1?ixlib=rb-4.0.3"
+                },
+                {
+                    id: 2,
+                    title: "Interactive Classroom Session",
+                    date: "2023-02-10",
+                    image: "https://images.unsplash.com/photo-1498243691581-b145c3f54a5a?ixlib=rb-4.0.3"
+                }
+            ],
+            programs: [
+                {
+                    id: 1,
+                    title: "Diploma in Elementary Education",
+                    description: "A two-year diploma program designed to prepare teachers for elementary level education with comprehensive pedagogical training.",
+                    icon: "fas fa-chalkboard-teacher"
+                },
+                {
+                    id: 2,
+                    title: "Bachelor of Education (B.Ed)",
+                    description: "A professional undergraduate degree that prepares students for teaching at secondary and higher secondary levels.",
+                    icon: "fas fa-book-open"
+                }
+            ],
+            fees: [
+                {
+                    id: 1,
+                    program: "Diploma in Elementary Education",
+                    amount: "₹25,000",
+                    details: "Per year including all charges"
+                },
+                {
+                    id: 2,
+                    program: "Bachelor of Education (B.Ed)",
+                    amount: "₹40,000",
+                    details: "Per year including examination fees"
+                }
+            ]
+        };
+
+        // Login functionality
+        document.getElementById('login-btn').addEventListener('click', function() {
+            const username = document.getElementById('username').value;
+            const password = document.getElementById('password').value;
+            const errorElement = document.getElementById('login-error');
+            
+            // Simple authentication (in a real app, this would be server-side)
+            if (username === 'admin' && password === 'admin') {
+                document.getElementById('login-page').style.display = 'none';
+                document.getElementById('main-website').style.display = 'block';
+                renderWebsiteContent();
+                renderAdminTables();
+            } else {
+                errorElement.style.display = 'block';
+            }
+        });
+
+        // Logout functionality
+        document.getElementById('logout-btn').addEventListener('click', function(e) {
+            e.preventDefault();
+            document.getElementById('login-page').style.display = 'flex';
+            document.getElementById('main-website').style.display = 'none';
+            document.getElementById('username').value = '';
+            document.getElementById('password').value = '';
+            document.getElementById('login-error').style.display = 'none';
+        });
+
         // Mobile Menu Toggle
         document.querySelector('.mobile-menu').addEventListener('click', function() {
             document.querySelector('nav ul').classList.toggle('show');
@@ -1014,19 +1131,6 @@
         const modalCaption = document.getElementById('modal-caption');
         const closeModal = document.querySelector('.close-modal');
 
-        // Open modal when gallery item is clicked
-        document.querySelectorAll('.gallery-item').forEach(item => {
-            item.addEventListener('click', function() {
-                const imgSrc = this.querySelector('img').src;
-                const title = this.querySelector('h3').textContent;
-                const date = this.querySelector('p').textContent;
-                
-                modalImg.src = imgSrc;
-                modalCaption.innerHTML = `<h3>${title}</h3><p>${date}</p>`;
-                modal.style.display = 'flex';
-            });
-        });
-
         // Close modal
         closeModal.addEventListener('click', function() {
             modal.style.display = 'none';
@@ -1039,123 +1143,26 @@
             }
         });
 
-        // Sample data for demonstration
-        const sampleNews = [
-            {
-                title: "Annual Cultural Festival 2023",
-                date: "2023-06-15",
-                content: "Our college celebrated its annual cultural festival with great enthusiasm. Students participated in various events showcasing their talents.",
-                image: "https://images.unsplash.com/photo-1523050854058-8df90110c9f1?ixlib=rb-4.0.3"
-            },
-            {
-                title: "New Science Laboratory Inaugurated",
-                date: "2023-05-05",
-                content: "The college has inaugurated a new state-of-the-art science laboratory to enhance practical learning for our students.",
-                image: "https://images.unsplash.com/photo-1588072432836-e100327e50ab?ixlib=rb-4.0.3"
+        // Image upload preview
+        document.getElementById('gallery-image-upload').addEventListener('change', function(e) {
+            const file = e.target.files[0];
+            const fileNameElement = document.getElementById('gallery-file-name');
+            const previewElement = document.getElementById('gallery-preview');
+            
+            if (file) {
+                fileNameElement.textContent = file.name;
+                
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    previewElement.style.display = 'block';
+                    previewElement.querySelector('img').src = e.target.result;
+                };
+                reader.readAsDataURL(file);
+            } else {
+                fileNameElement.textContent = 'No file chosen';
+                previewElement.style.display = 'none';
             }
-        ];
-
-        const sampleGallery = [
-            {
-                title: "Annual Day Celebration",
-                date: "2023-03-15",
-                image: "https://images.unsplash.com/photo-1523050854058-8df90110c9f1?ixlib=rb-4.0.3"
-            },
-            {
-                title: "Interactive Classroom Session",
-                date: "2023-02-10",
-                image: "https://images.unsplash.com/photo-1498243691581-b145c3f54a5a?ixlib=rb-4.0.3"
-            }
-        ];
-
-        const samplePrograms = [
-            {
-                title: "Diploma in Elementary Education",
-                description: "A two-year diploma program designed to prepare teachers for elementary level education with comprehensive pedagogical training.",
-                icon: "fas fa-chalkboard-teacher"
-            },
-            {
-                title: "Bachelor of Education (B.Ed)",
-                description: "A professional undergraduate degree that prepares students for teaching at secondary and higher secondary levels.",
-                icon: "fas fa-book-open"
-            }
-        ];
-
-        const sampleFees = [
-            {
-                program: "Diploma in Elementary Education",
-                amount: "₹25,000",
-                details: "Per year including all charges"
-            },
-            {
-                program: "Bachelor of Education (B.Ed)",
-                amount: "₹40,000",
-                details: "Per year including examination fees"
-            }
-        ];
-
-        // Initialize data tables
-        function initializeData() {
-            // Initialize News Table
-            const newsTableBody = document.getElementById('news-table-body');
-            sampleNews.forEach((news, index) => {
-                const row = document.createElement('tr');
-                row.innerHTML = `
-                    <td>${news.title}</td>
-                    <td>${formatDate(news.date)}</td>
-                    <td class="action-buttons">
-                        <button class="action-btn edit-btn" data-index="${index}">Edit</button>
-                        <button class="action-btn delete-btn" data-index="${index}">Delete</button>
-                    </td>
-                `;
-                newsTableBody.appendChild(row);
-            });
-
-            // Initialize Gallery Table
-            const galleryTableBody = document.getElementById('gallery-table-body');
-            sampleGallery.forEach((item, index) => {
-                const row = document.createElement('tr');
-                row.innerHTML = `
-                    <td>${item.title}</td>
-                    <td>${formatDate(item.date)}</td>
-                    <td class="action-buttons">
-                        <button class="action-btn edit-btn" data-index="${index}">Edit</button>
-                        <button class="action-btn delete-btn" data-index="${index}">Delete</button>
-                    </td>
-                `;
-                galleryTableBody.appendChild(row);
-            });
-
-            // Initialize Programs Table
-            const programsTableBody = document.getElementById('programs-table-body');
-            samplePrograms.forEach((program, index) => {
-                const row = document.createElement('tr');
-                row.innerHTML = `
-                    <td>${program.title}</td>
-                    <td class="action-buttons">
-                        <button class="action-btn edit-btn" data-index="${index}">Edit</button>
-                        <button class="action-btn delete-btn" data-index="${index}">Delete</button>
-                    </td>
-                `;
-                programsTableBody.appendChild(row);
-            });
-
-            // Initialize Fees Table
-            const feesTableBody = document.getElementById('fees-table-body');
-            sampleFees.forEach((fee, index) => {
-                const row = document.createElement('tr');
-                row.innerHTML = `
-                    <td>${fee.program}</td>
-                    <td>${fee.amount}</td>
-                    <td>${fee.details}</td>
-                    <td class="action-buttons">
-                        <button class="action-btn edit-btn" data-index="${index}">Edit</button>
-                        <button class="action-btn delete-btn" data-index="${index}">Delete</button>
-                    </td>
-                `;
-                feesTableBody.appendChild(row);
-            });
-        }
+        });
 
         // Format date to display
         function formatDate(dateString) {
@@ -1163,35 +1170,305 @@
             return new Date(dateString).toLocaleDateString('en-US', options);
         }
 
+        // Render website content
+        function renderWebsiteContent() {
+            renderNews();
+            renderGallery();
+            renderPrograms();
+        }
+
+        // Render news on the website
+        function renderNews() {
+            const newsContainer = document.getElementById('news-container');
+            newsContainer.innerHTML = '';
+            
+            collegeData.news.forEach(news => {
+                const newsCard = document.createElement('div');
+                newsCard.className = 'news-card';
+                newsCard.innerHTML = `
+                    <div class="news-image">
+                        <img src="${news.image}" alt="${news.title}">
+                    </div>
+                    <div class="news-content">
+                        <div class="news-date">${formatDate(news.date)}</div>
+                        <h3>${news.title}</h3>
+                        <p>${news.content}</p>
+                    </div>
+                `;
+                newsContainer.appendChild(newsCard);
+            });
+        }
+
+        // Render gallery on the website
+        function renderGallery() {
+            const galleryContainer = document.getElementById('gallery-container');
+            galleryContainer.innerHTML = '';
+            
+            collegeData.gallery.forEach(item => {
+                const galleryItem = document.createElement('div');
+                galleryItem.className = 'gallery-item';
+                galleryItem.innerHTML = `
+                    <img src="${item.image}" alt="${item.title}">
+                    <div class="gallery-overlay">
+                        <h3>${item.title}</h3>
+                        <p>${formatDate(item.date)}</p>
+                    </div>
+                `;
+                
+                // Add click event to open modal
+                galleryItem.addEventListener('click', function() {
+                    modalImg.src = item.image;
+                    modalCaption.innerHTML = `<h3>${item.title}</h3><p>${formatDate(item.date)}</p>`;
+                    modal.style.display = 'flex';
+                });
+                
+                galleryContainer.appendChild(galleryItem);
+            });
+        }
+
+        // Render programs on the website
+        function renderPrograms() {
+            const programsContainer = document.getElementById('programs-container');
+            programsContainer.innerHTML = '';
+            
+            collegeData.programs.forEach(program => {
+                const programCard = document.createElement('div');
+                programCard.className = 'program-card';
+                programCard.innerHTML = `
+                    <div class="program-icon">
+                        <i class="${program.icon}"></i>
+                    </div>
+                    <h3>${program.title}</h3>
+                    <p>${program.description}</p>
+                `;
+                programsContainer.appendChild(programCard);
+            });
+        }
+
+        // Render admin tables
+        function renderAdminTables() {
+            renderNewsTable();
+            renderGalleryTable();
+            renderProgramsTable();
+            renderFeesTable();
+        }
+
+        // Render news table in admin panel
+        function renderNewsTable() {
+            const tableBody = document.getElementById('news-table-body');
+            tableBody.innerHTML = '';
+            
+            collegeData.news.forEach((news, index) => {
+                const row = document.createElement('tr');
+                row.innerHTML = `
+                    <td>${news.title}</td>
+                    <td>${formatDate(news.date)}</td>
+                    <td class="action-buttons">
+                        <button class="action-btn edit-btn" data-index="${index}" data-type="news">Edit</button>
+                        <button class="action-btn delete-btn" data-index="${index}" data-type="news">Delete</button>
+                    </td>
+                `;
+                tableBody.appendChild(row);
+            });
+            
+            // Add event listeners to action buttons
+            addTableActionListeners();
+        }
+
+        // Render gallery table in admin panel
+        function renderGalleryTable() {
+            const tableBody = document.getElementById('gallery-table-body');
+            tableBody.innerHTML = '';
+            
+            collegeData.gallery.forEach((item, index) => {
+                const row = document.createElement('tr');
+                row.innerHTML = `
+                    <td>${item.title}</td>
+                    <td>${formatDate(item.date)}</td>
+                    <td class="action-buttons">
+                        <button class="action-btn edit-btn" data-index="${index}" data-type="gallery">Edit</button>
+                        <button class="action-btn delete-btn" data-index="${index}" data-type="gallery">Delete</button>
+                    </td>
+                `;
+                tableBody.appendChild(row);
+            });
+            
+            // Add event listeners to action buttons
+            addTableActionListeners();
+        }
+
+        // Render programs table in admin panel
+        function renderProgramsTable() {
+            const tableBody = document.getElementById('programs-table-body');
+            tableBody.innerHTML = '';
+            
+            collegeData.programs.forEach((program, index) => {
+                const row = document.createElement('tr');
+                row.innerHTML = `
+                    <td>${program.title}</td>
+                    <td class="action-buttons">
+                        <button class="action-btn edit-btn" data-index="${index}" data-type="programs">Edit</button>
+                        <button class="action-btn delete-btn" data-index="${index}" data-type="programs">Delete</button>
+                    </td>
+                `;
+                tableBody.appendChild(row);
+            });
+            
+            // Add event listeners to action buttons
+            addTableActionListeners();
+        }
+
+        // Render fees table in admin panel
+        function renderFeesTable() {
+            const tableBody = document.getElementById('fees-table-body');
+            tableBody.innerHTML = '';
+            
+            collegeData.fees.forEach((fee, index) => {
+                const row = document.createElement('tr');
+                row.innerHTML = `
+                    <td>${fee.program}</td>
+                    <td>${fee.amount}</td>
+                    <td>${fee.details}</td>
+                    <td class="action-buttons">
+                        <button class="action-btn edit-btn" data-index="${index}" data-type="fees">Edit</button>
+                        <button class="action-btn delete-btn" data-index="${index}" data-type="fees">Delete</button>
+                    </td>
+                `;
+                tableBody.appendChild(row);
+            });
+            
+            // Add event listeners to action buttons
+            addTableActionListeners();
+        }
+
+        // Add event listeners to table action buttons
+        function addTableActionListeners() {
+            document.querySelectorAll('.edit-btn').forEach(btn => {
+                btn.addEventListener('click', function() {
+                    const index = this.getAttribute('data-index');
+                    const type = this.getAttribute('data-type');
+                    editItem(type, index);
+                });
+            });
+            
+            document.querySelectorAll('.delete-btn').forEach(btn => {
+                btn.addEventListener('click', function() {
+                    const index = this.getAttribute('data-index');
+                    const type = this.getAttribute('data-type');
+                    deleteItem(type, index);
+                });
+            });
+        }
+
+        // Edit item function
+        function editItem(type, index) {
+            const item = collegeData[type][index];
+            alert(`Edit functionality for ${type} item: ${item.title || item.program}\n\nIn a real application, this would open an edit form.`);
+            // In a real app, this would populate the form with existing data for editing
+        }
+
+        // Delete item function
+        function deleteItem(type, index) {
+            if (confirm('Are you sure you want to delete this item?')) {
+                collegeData[type].splice(index, 1);
+                renderAdminTables();
+                renderWebsiteContent();
+                alert('Item deleted successfully!');
+            }
+        }
+
         // Form submission handlers
         document.getElementById('news-form').addEventListener('submit', function(e) {
             e.preventDefault();
-            alert('News added successfully! (This is a demo - in a real application, this would save to a database)');
+            
+            const newNews = {
+                id: collegeData.news.length + 1,
+                title: document.getElementById('news-title').value,
+                date: document.getElementById('news-date').value,
+                content: document.getElementById('news-content-text').value,
+                image: document.getElementById('news-image').value
+            };
+            
+            collegeData.news.push(newNews);
+            renderAdminTables();
+            renderWebsiteContent();
             this.reset();
+            alert('News added successfully!');
         });
 
         document.getElementById('gallery-form').addEventListener('submit', function(e) {
             e.preventDefault();
-            alert('Gallery item added successfully! (This is a demo - in a real application, this would save to a database)');
+            
+            const fileInput = document.getElementById('gallery-image-upload');
+            let imageUrl = '';
+            
+            if (fileInput.files.length > 0) {
+                // In a real application, you would upload the file to a server
+                // For this demo, we'll create a blob URL
+                imageUrl = URL.createObjectURL(fileInput.files[0]);
+            } else {
+                alert('Please select an image to upload.');
+                return;
+            }
+            
+            const newGalleryItem = {
+                id: collegeData.gallery.length + 1,
+                title: document.getElementById('gallery-title').value,
+                date: document.getElementById('gallery-date').value,
+                image: imageUrl
+            };
+            
+            collegeData.gallery.push(newGalleryItem);
+            renderAdminTables();
+            renderWebsiteContent();
             this.reset();
+            document.getElementById('gallery-file-name').textContent = 'No file chosen';
+            document.getElementById('gallery-preview').style.display = 'none';
+            alert('Gallery item added successfully!');
         });
 
         document.getElementById('programs-form').addEventListener('submit', function(e) {
             e.preventDefault();
-            alert('Program added successfully! (This is a demo - in a real application, this would save to a database)');
+            
+            const newProgram = {
+                id: collegeData.programs.length + 1,
+                title: document.getElementById('program-title').value,
+                description: document.getElementById('program-description').value,
+                icon: document.getElementById('program-icon').value
+            };
+            
+            collegeData.programs.push(newProgram);
+            renderAdminTables();
+            renderWebsiteContent();
             this.reset();
+            alert('Program added successfully!');
         });
 
         document.getElementById('fees-form').addEventListener('submit', function(e) {
             e.preventDefault();
-            alert('Fee structure updated successfully! (This is a demo - in a real application, this would save to a database)');
+            
+            const newFee = {
+                id: collegeData.fees.length + 1,
+                program: document.getElementById('fee-program').options[document.getElementById('fee-program').selectedIndex].text,
+                amount: '₹' + document.getElementById('fee-amount').value,
+                details: document.getElementById('fee-details').value
+            };
+            
+            // Check if fee for this program already exists
+            const existingIndex = collegeData.fees.findIndex(fee => fee.program === newFee.program);
+            if (existingIndex !== -1) {
+                collegeData.fees[existingIndex] = newFee;
+            } else {
+                collegeData.fees.push(newFee);
+            }
+            
+            renderAdminTables();
             this.reset();
+            alert('Fee structure updated successfully!');
         });
 
         // Initialize the page
         document.addEventListener('DOMContentLoaded', function() {
-            initializeData();
-            
             // Smooth scrolling for navigation links
             document.querySelectorAll('a[href^="#"]').forEach(anchor => {
                 anchor.addEventListener('click', function (e) {
